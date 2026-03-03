@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lobs AI — Personal AI Workforce</title>
+  <meta name="description" content="PAW: A multi-agent AI workforce built by a UMich grad student. Orchestrates specialized agents for coding, research, writing, and more — 24/7." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ NAV ═══════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">Lobs<span>AI</span></div>
+  <div class="nav-links">
+    <a href="#story">Story</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#projects">Projects</a>
+    <a href="#journal">Journal</a>
+    <a href="#stack">Stack</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════ HERO ══════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        PAW — Personal AI Workforce
+      </div>
+
+      <h1 class="hero-title">
+        Building the most<br/>
+        <span class="gradient-text">advanced personal<br/>AI agent system.</span>
+      </h1>
+
+      <p class="hero-tagline">
+        A multi-agent workforce that works while you sleep — orchestrating specialized agents for code, research, writing, and architecture on your behalf.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#story" class="btn-primary">Read the Story</a>
+        <a href="#architecture" class="btn-secondary">See the Architecture →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STORY ══════════════════════════════════ -->
+<section id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text reveal">
+        <p class="section-label">The Origin</p>
+        <h2>One dev.<br/><span class="gradient-text">An entire team of agents.</span></h2>
+        <p>
+          What started as a simple OpenClaw assistant has evolved into a full multi-agent orchestration platform. Built by Rafe — a UMich CSE grad student who juggles classes, GSI duties, and a summer Microsoft internship — all while operating like a one-person startup.
+        </p>
+        <p>
+          The goal was never just to have an AI assistant. It was to have a <em style="color:var(--text)">workforce</em> — specialized agents that run autonomously, pick up tasks, and deliver results while he's in lecture, at office hours, or asleep.
+        </p>
+      </div>
+
+      <div class="story-timeline reveal reveal-delay-2">
+        <div class="timeline-item">
+          <div class="tl-marker">v1</div>
+          <div class="tl-content">
+            <h4>Simple OpenClaw Assistant</h4>
+            <p>Single agent, manual prompts, basic tool use. The foundation — but the ceiling was obvious fast.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-marker">v2</div>
+          <div class="tl-content">
+            <h4>lobs-server + Python Orchestrator</h4>
+            <p>FastAPI backend with a Python-based multi-agent orchestrator. Powerful, but 38K lines of Python that needed constant tending.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-marker">v3</div>
+          <div class="tl-content">
+            <h4>PAW Plugin — TypeScript Rewrite</h4>
+            <p>Replaced the Python orchestrator with a TypeScript OpenClaw plugin. <strong style="color:var(--teal)">79% code reduction</strong> — 38K lines → 8K lines. Workflow engine, model chooser, circuit breaker, all built-in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ ARCH ═══════════════════════════════════ -->
+<section id="architecture">
+  <div class="container">
+    <p class="section-label reveal">System Design</p>
+    <h2 class="section-title reveal reveal-delay-1">How It All <span class="gradient-text">Fits Together</span></h2>
+    <p class="section-desc reveal reveal-delay-2">A layered architecture where Lobs acts as the PM, the PAW orchestrator routes work, and specialized workers execute in parallel — all with automatic model selection and fault tolerance.</p>
+
+    <div class="arch-diagram reveal reveal-delay-1">
+      <!-- Layer 1: Human + Lobs -->
+      <div class="arch-row">
+        <div class="arch-node" style="background:var(--surface2);border-color:var(--border);">
+          <div class="node-icon">👤</div>
+          <div class="node-label">Rafe</div>
+          <div class="node-sub">Human</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 8px;color:var(--faint);font-size:1.2rem;">→</div>
+        <div class="arch-node primary">
+          <div class="node-icon">🤖</div>
+          <div class="node-label">Lobs</div>
+          <div class="node-sub">PM Agent / Chat</div>
+        </div>
+      </div>
+
+      <div class="arch-connector-vert"></div>
+
+      <!-- Layer 2: PAW Orchestrator -->
+      <div class="arch-paw-box">
+        <span class="arch-paw-label">PAW ORCHESTRATOR</span>
+        <div class="paw-component">
+          <div class="pc-icon">⚙️</div>
+          <div class="pc-label">Workflow Engine</div>
+          <div class="pc-desc">Central control plane for multi-step task sequences</div>
+        </div>
+        <div class="paw-component">
+          <div class="pc-icon">🧠</div>
+          <div class="pc-label">Model Chooser</div>
+          <div class="pc-desc">Tier-based model selection with automatic fallbacks</div>
+        </div>
+        <div class="paw-component">
+          <div class="pc-icon">⚡</div>
+          <div class="pc-label">Circuit Breaker</div>
+          <div class="pc-desc">Failure detection, escalation, and recovery patterns</div>
+        </div>
+      </div>
+
+      <div class="arch-connector-vert"></div>
+
+      <!-- Layer 3: Worker Agents -->
+      <div class="arch-row">
+        <div class="arch-node">
+          <div class="node-icon">💻</div>
+          <div class="node-label">Programmer</div>
+          <div class="node-sub">Code & tests</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">✍️</div>
+          <div class="node-label">Writer</div>
+          <div class="node-sub">Docs & content</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">🔍</div>
+          <div class="node-label">Researcher</div>
+          <div class="node-sub">Analysis & synthesis</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">🔎</div>
+          <div class="node-label">Reviewer</div>
+          <div class="node-sub">QA & feedback</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">🏛️</div>
+          <div class="node-label">Architect</div>
+          <div class="node-sub">Design & strategy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Tiers -->
+    <div class="reveal reveal-delay-2" style="text-align:center;">
+      <p style="font-size:0.8rem;color:var(--faint);margin-bottom:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Model Tier Selection</p>
+      <div class="model-tiers">
+        <div class="tier-badge tier-micro">micro <span style="font-size:0.65rem;opacity:0.7">Qwen local</span></div>
+        <span class="tier-arrow" style="color:var(--faint);display:flex;align-items:center;">→</span>
+        <div class="tier-badge tier-small">small <span style="font-size:0.65rem;opacity:0.7">Sonnet</span></div>
+        <span class="tier-arrow" style="color:var(--faint);display:flex;align-items:center;">→</span>
+        <div class="tier-badge tier-medium">medium <span style="font-size:0.65rem;opacity:0.7">Sonnet+</span></div>
+        <span class="tier-arrow" style="color:var(--faint);display:flex;align-items:center;">→</span>
+        <div class="tier-badge tier-strong">strong <span style="font-size:0.65rem;opacity:0.7">Opus</span></div>
+      </div>
+      <p style="font-size:0.8rem;color:var(--faint);margin-top:10px;">Auto-selected based on task complexity. Falls back up the chain on failure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════ PROJECTS ════════════════════════════════ -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">Sub-Projects</p>
+    <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
+    <p class="section-desc reveal reveal-delay-2">Four interlocking projects that together make up the Lobs AI ecosystem.</p>
+
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="card-icon">🧩</div>
+        <div class="card-tag">openclaw-plugin-paw</div>
+        <h3>PAW Plugin</h3>
+        <p>The orchestrator brain. A TypeScript OpenClaw plugin that replaced 38,000 lines of Python with 8,000 lines of clean, typed TS. Includes the workflow engine, model chooser, circuit breaker, task DB, and agent spawning.</p>
+        <div class="card-meta">
+          <span class="meta-chip">TypeScript</span>
+          <span class="meta-chip">SQLite</span>
+          <span class="meta-chip">OpenClaw</span>
+          <span class="meta-chip">79% smaller</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="card-icon">🖥️</div>
+        <div class="card-tag">lobs-mission-control</div>
+        <h3>Mission Control</h3>
+        <p>A SwiftUI macOS dashboard for real-time monitoring of agents, tasks, workflow runs, and system health. Because watching your workforce operate shouldn't require digging through logs.</p>
+        <div class="card-meta">
+          <span class="meta-chip">SwiftUI</span>
+          <span class="meta-chip">macOS</span>
+          <span class="meta-chip">REST API</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="card-icon">📱</div>
+        <div class="card-tag">lobs-mobile</div>
+        <h3>Lobs Mobile</h3>
+        <p>iOS companion app for staying connected to your agent workforce on the go. Check task status, receive completions, and interact with Lobs from your phone.</p>
+        <div class="card-meta">
+          <span class="meta-chip">Swift</span>
+          <span class="meta-chip">iOS</span>
+          <span class="meta-chip">Push notifications</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="card-icon">🧠</div>
+        <div class="card-tag">shared-memory</div>
+        <h3>Shared Memory</h3>
+        <p>A Git-backed cross-project knowledge base. ADRs, research memos, runbooks, and agent instructions that persist across sessions and sync across the entire system.</p>
+        <div class="card-meta">
+          <span class="meta-chip">Git</span>
+          <span class="meta-chip">Markdown</span>
+          <span class="meta-chip">ADRs</span>
+          <span class="meta-chip">Runbooks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ JOURNAL ═══════════════════════════════ -->
+<section id="journal">
+  <div class="container">
+    <p class="section-label reveal">Build Log</p>
+    <h2 class="section-title reveal reveal-delay-1">Wins &amp; <span class="gradient-text">Hard-Won Lessons</span></h2>
+    <p class="section-desc reveal reveal-delay-2">Real systems break in real ways. Here's what worked and what didn't.</p>
+
+    <div class="journal-grid">
+      <div class="journal-col wins reveal reveal-delay-1">
+        <h3>🏆 Wins &amp; Milestones</h3>
+
+        <div class="journal-item">
+          <div class="ji-icon">⚙️</div>
+          <div class="ji-text">
+            <h4>Workflow Engine as Control Plane</h4>
+            <p>Multi-step tasks now run as structured workflows with state, branching, and rollback — not just one-shot prompts.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">📉</div>
+          <div class="ji-text">
+            <h4>79% Code Reduction</h4>
+            <p>Python → TypeScript rewrite. 38K lines became 8K. The system became more capable, not less.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">🎯</div>
+          <div class="ji-text">
+            <h4>Model Tier System</h4>
+            <p>Tasks automatically route to the cheapest model that can handle them, with fallback chains on failure.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">🪞</div>
+          <div class="ji-text">
+            <h4>Agent Reflection &amp; Learning</h4>
+            <p>Workers reflect on completed tasks, capture lessons, and feed back into the shared memory system.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">🔌</div>
+          <div class="ji-text">
+            <h4>Circuit Breaker Patterns</h4>
+            <p>Automatic failure detection prevents cascading issues. Workers that fail too often get quarantined and escalated.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="journal-col losses reveal reveal-delay-2">
+        <h3>💀 Losses &amp; Lessons</h3>
+
+        <div class="journal-item">
+          <div class="ji-icon">🔄</div>
+          <div class="ji-text">
+            <h4>The Restart Loop Incident</h4>
+            <p>Workers edited plugin source code, then called <code style="color:var(--teal);font-family:var(--mono);font-size:0.8em">gateway restart</code>. The restart spawned new workers. Who edited source. Infinite loop. Gateway restart is now denied for all workers.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">💬</div>
+          <div class="ji-text">
+            <h4>Heartbeat Spam</h4>
+            <p>Background exec commands in workers triggered event-driven heartbeats on completion — flooding the main session with noise. Banned all background exec patterns.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">🐛</div>
+          <div class="ji-text">
+            <h4>JSON Double-Conversion Bug</h4>
+            <p>Swift's <code style="color:var(--teal);font-family:var(--mono);font-size:0.8em">.convertFromSnakeCase</code> + manual CodingKeys caused silent field drops. Lesson: never add CodingKeys for simple snake→camel conversions.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">👻</div>
+          <div class="ji-text">
+            <h4>Orphaned Session Errors</h4>
+            <p>"No tool call found" errors from workers that made no tool calls before completing. Required stricter session validation.</p>
+          </div>
+        </div>
+
+        <div class="journal-item">
+          <div class="ji-icon">🔁</div>
+          <div class="ji-text">
+            <h4>Reflection Spam</h4>
+            <p>Agent reflection was too eager — workers would reflect after every minor action. Now gated behind strict completion criteria and rate limits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STACK ══════════════════════════════════ -->
+<section id="stack">
+  <div class="container">
+    <p class="section-label reveal">Technologies</p>
+    <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Tech Stack</span></h2>
+    <p class="section-desc reveal reveal-delay-2">No magic. Just well-chosen tools assembled with intention.</p>
+
+    <div class="stack-grid">
+      <div class="stack-item reveal">
+        <div class="si-icon">🦾</div>
+        <div class="si-name">OpenClaw</div>
+        <div class="si-desc">Agent runtime & plugin host</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-1">
+        <div class="si-icon">⚡</div>
+        <div class="si-name">TypeScript</div>
+        <div class="si-desc">PAW plugin & orchestrator</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-2">
+        <div class="si-icon">🗄️</div>
+        <div class="si-name">SQLite</div>
+        <div class="si-desc">Task & workflow database</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-3">
+        <div class="si-icon">🍎</div>
+        <div class="si-name">SwiftUI</div>
+        <div class="si-desc">macOS + iOS frontends</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-1">
+        <div class="si-icon">🐍</div>
+        <div class="si-name">Python</div>
+        <div class="si-desc">Legacy lobs-server</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-2">
+        <div class="si-icon">🔧</div>
+        <div class="si-name">GitHub Actions</div>
+        <div class="si-desc">CI/CD & automation</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-3">
+        <div class="si-icon">🧠</div>
+        <div class="si-name">Claude</div>
+        <div class="si-desc">Anthropic · strong/standard</div>
+      </div>
+      <div class="stack-item reveal">
+        <div class="si-icon">🤖</div>
+        <div class="si-name">Codex / GPT</div>
+        <div class="si-desc">OpenAI · standard tier</div>
+      </div>
+      <div class="stack-item reveal reveal-delay-1">
+        <div class="si-icon">💻</div>
+        <div class="si-name">Qwen (local)</div>
+        <div class="si-desc">LM Studio · micro tier</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ FOOTER ═════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+      <a href="#story">Story</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#projects">Projects</a>
+    </div>
+    <p>
+      Built by <strong style="color:var(--text)">Rafe</strong> · UMich CSE ·
+      <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a>
+    </p>
+    <p style="margin-top:6px;font-size:0.78rem;">
+      PAW — Personal AI Workforce. All agents, all the time.
+    </p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
