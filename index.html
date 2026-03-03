@@ -4,11 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lobs AI — Personal AI Workforce</title>
-  <meta name="description" content="PAW: A multi-agent AI workforce built by a UMich grad student. Orchestrates specialized agents for coding, research, writing, and more — 24/7." />
+  <meta name="description" content="PAW: A multi-agent AI workforce built by a UMich grad student. 6 versions, 6 specialized agents, 19 active workflows — orchestrating code, research, writing, and more 24/7." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
 
@@ -94,8 +99,8 @@
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="8" data-suffix="K">0</span>
-          <span class="hero-stat-label">lines of TypeScript</span>
+          <span class="hero-stat-num" data-target="6">0</span>
+          <span class="hero-stat-label">versions shipped</span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
@@ -104,13 +109,13 @@
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="79" data-suffix="%">0</span>
-          <span class="hero-stat-label">code reduction</span>
+          <span class="hero-stat-num" data-target="19">0</span>
+          <span class="hero-stat-label">active workflows</span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="19">0</span>
-          <span class="hero-stat-label">active workflows</span>
+          <span class="hero-stat-num">24/7</span>
+          <span class="hero-stat-label">autonomous operation</span>
         </div>
       </div>
       <div class="hero-cta">
@@ -134,55 +139,103 @@
     <div class="story-header reveal">
       <p class="section-label">The Origin</p>
       <h2>One dev.<br/><span class="gradient-text">An entire team of agents.</span></h2>
-      <p class="section-desc">What started as a simple OpenClaw assistant evolved into a full multi-agent orchestration platform — driven by real pain points at every stage.</p>
+      <p class="section-desc">What started as a structured task framework evolved into a full multi-agent orchestration platform — six versions, each forced by a hard ceiling hit in production.</p>
     </div>
     <div class="story-grid">
       <div class="story-text reveal">
         <p>Built by Rafe — a UMich CSE grad student who juggles classes, GSI duties, and a summer Microsoft internship — all while operating like a one-person startup. The goal was never just an AI assistant. It was a <em>workforce</em> — specialized agents that run autonomously, pick up tasks, and deliver results while he's in lecture or asleep.</p>
-        <p>Three iterations. Each one forced by a hard ceiling hit in production.</p>
+        <p>Six versions. Each one forced by a hard ceiling hit in production. Every limitation became the next version's motivation.</p>
       </div>
       <div class="story-versions reveal reveal-delay-2">
+
         <div class="version-card v1">
           <div class="version-header">
             <span class="version-badge">v1</span>
-            <h4>Simple OpenClaw Assistant</h4>
+            <h4>Custom Task Framework — Jan 2026</h4>
           </div>
-          <p class="version-desc">Single agent, manual prompts, basic tool use. The foundation.</p>
+          <p class="version-desc">Single agent in a single OpenClaw session with a custom task framework for managing work. Gave structure to AI work beyond raw chat prompts.</p>
           <div class="version-pain">
             <div class="pain-label">⚠️ Why it wasn't enough</div>
-            <p>Hit ceiling fast. Single agent couldn't handle complex multi-step work. No memory persistence — every session started cold. No task management meant nothing could run while Rafe was away. The moment you needed a chain of actions, you were stuck.</p>
+            <p>One agent couldn't handle complex multi-step work. No parallelism. Hit the ceiling fast — the moment you needed more than one thing done at once, you were stuck.</p>
           </div>
         </div>
+
         <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
+
         <div class="version-card v2">
           <div class="version-header">
             <span class="version-badge">v2</span>
-            <h4>lobs-server + Python Orchestrator</h4>
+            <h4>Multi-Agent System — Early Feb 2026</h4>
           </div>
-          <p class="version-desc">FastAPI backend with a Python-based multi-agent orchestrator. Actually worked — for a while.</p>
+          <p class="version-desc">Multiple specialized agents — Programmer, Writer, Researcher, Reviewer, Architect. Agent spawning and task routing. Parallel work became possible.</p>
           <div class="version-pain">
             <div class="pain-label">⚠️ Why it broke down</div>
-            <p>38,000 lines of Python meant bugs were genuinely hard to track. <code>aiohttp</code> session leaks under load. Spawn race conditions where two workers would grab the same task. No proper workflow engine — just a pile of if/else chains. The glue was heavier than the logic it connected.</p>
+            <p>No memory between sessions. Agents kept making the same mistakes. Every session started cold — lessons learned disappeared the moment the session ended.</p>
           </div>
         </div>
+
         <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
-        <div class="version-card v3 active">
+
+        <div class="version-card v3">
           <div class="version-header">
-            <span class="version-badge v3-badge">v3</span>
-            <h4>PAW Plugin — TypeScript Rewrite</h4>
+            <span class="version-badge">v3</span>
+            <h4>Reflections &amp; Learning — Mid Feb 2026</h4>
           </div>
-          <p class="version-desc">OpenClaw's plugin API was the insight. Why build a separate server when you can extend the runtime directly?</p>
+          <p class="version-desc">Agent reflection system — workers reflect on completed tasks. Shared memory that persists lessons learned across sessions. Agents got smarter over time.</p>
+          <div class="version-pain">
+            <div class="pain-label">⚠️ Why it wasn't enough</div>
+            <p>Still running as scripts and manual orchestration. No proper server or API. Couldn't scale coordination or run reliably in the background without babysitting.</p>
+          </div>
+        </div>
+
+        <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
+
+        <div class="version-card v4">
+          <div class="version-header">
+            <span class="version-badge">v4</span>
+            <h4>Web Server Era — Late Feb 2026</h4>
+          </div>
+          <p class="version-desc">lobs-server: FastAPI backend with REST API, task queue, worker management, health monitoring. Mission Control (SwiftUI macOS) and Lobs Mobile (iOS) joined the ecosystem.</p>
+          <div class="version-pain">
+            <div class="pain-label">⚠️ Why it broke down</div>
+            <p>38K lines of Python. Task execution was linear if/else chains — no branching, rollback, or complex workflows. The codebase became genuinely hard to maintain.</p>
+          </div>
+        </div>
+
+        <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
+
+        <div class="version-card v5">
+          <div class="version-header">
+            <span class="version-badge">v5</span>
+            <h4>DAG Workflow Engine — Late Feb 2026</h4>
+          </div>
+          <p class="version-desc">Node-based DAG workflow system. State machines, conditional branching, rollback, event-driven triggers, cron scheduling. 19 workflow definitions shipped.</p>
+          <div class="version-pain">
+            <div class="pain-label">⚠️ Why it needed replacing</div>
+            <p>The Python codebase was massive and fragile. Running a separate server alongside OpenClaw added complexity — a glue layer heavier than the logic it connected.</p>
+          </div>
+        </div>
+
+        <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
+
+        <div class="version-card v6 active">
+          <div class="version-header">
+            <span class="version-badge v6-badge">v6</span>
+            <h4>PAW Plugin — Mar 2026 [CURRENT]</h4>
+          </div>
+          <p class="version-desc">Full rewrite as an OpenClaw TypeScript plugin. Runs inside OpenClaw — no separate server process. Everything from v1–v5 preserved but cleaner.</p>
           <div class="version-win">
             <div class="win-label">✅ The breakthrough</div>
-            <p>79% code reduction — 38K lines → 8K lines — because most of the "glue" disappeared. The plugin runs <em>inside</em> OpenClaw. No separate process, no IPC, no session handshake overhead. Workflow engine, model chooser, circuit breaker — all first-class. The system became more capable, not less.</p>
+            <p>Eliminated the glue layer. The entire system became a single process. Circuit breaker, model chooser with 5 tiers, budget guard — all first-class. 8K lines of TypeScript replaced 38K lines of Python.</p>
             <div class="win-stat">
-              <span class="ws-before">38,000</span>
+              <span class="ws-before">38,000 lines Python</span>
               <span class="ws-arrow">→</span>
-              <span class="ws-after">8,000 lines</span>
-              <span class="ws-badge">79% smaller</span>
+              <span class="ws-after">8,000 lines TS</span>
+              <span class="ws-badge">one process</span>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -200,34 +253,34 @@
     <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 56px;">Real numbers from a system that actually runs in production, every day.</p>
     <div class="stats-grid">
       <div class="stat-card reveal">
-        <div class="stat-num counter" data-target="8000">0</div>
-        <div class="stat-unit">lines of TypeScript</div>
-        <div class="stat-detail">Down from 38,000 lines of Python. Clean, typed, maintainable.</div>
+        <div class="stat-num counter" data-target="6">0</div>
+        <div class="stat-unit">versions shipped</div>
+        <div class="stat-detail">v1 task framework → v6 PAW plugin. Six hard ceilings hit and broken through, in under 3 months.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
         <div class="stat-num counter" data-target="6">0</div>
-        <div class="stat-unit">specialized agent types</div>
-        <div class="stat-detail">PM, Programmer, Writer, Researcher, Reviewer, Architect — each purpose-built.</div>
+        <div class="stat-unit">agent types</div>
+        <div class="stat-detail">Lobs, Programmer, Writer, Researcher, Reviewer, Architect — each purpose-built with its own model tier and tool config.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
-        <div class="stat-num counter" data-target="79" data-suffix="%">0</div>
-        <div class="stat-unit">code reduction</div>
-        <div class="stat-detail">The most satisfying PR of the project. Deleted more than kept.</div>
-      </div>
-      <div class="stat-card reveal reveal-delay-3">
         <div class="stat-num counter" data-target="19">0</div>
         <div class="stat-unit">active workflow definitions</div>
-        <div class="stat-detail">Multi-step DAGs covering code, research, review, and reporting flows.</div>
+        <div class="stat-detail">Multi-step DAGs covering code, research, review, and reporting flows. State machines with branching and rollback.</div>
       </div>
-      <div class="stat-card reveal reveal-delay-1">
+      <div class="stat-card reveal reveal-delay-3">
         <div class="stat-num counter" data-target="5">0</div>
         <div class="stat-unit">model tiers</div>
-        <div class="stat-detail">From free local Qwen to Claude Opus — auto-selected by task complexity.</div>
+        <div class="stat-detail">From free local Qwen to Claude Opus — auto-selected by task complexity. Cheapest model that handles the task always wins.</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="stat-num counter" data-target="8000">0</div>
+        <div class="stat-unit">lines of TypeScript</div>
+        <div class="stat-detail">The entire PAW plugin. Clean, typed, maintainable — and runs inside OpenClaw with no separate process.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
         <div class="stat-unit">autonomous operation</div>
-        <div class="stat-detail">Workers spawn, execute, and complete while Rafe is in lecture or asleep.</div>
+        <div class="stat-detail">Workers spawn, execute, and complete while Rafe is in lecture or asleep. Zero manual intervention after task creation.</div>
       </div>
     </div>
   </div>
@@ -240,21 +293,21 @@
   <div class="container">
     <p class="section-label reveal">System Design</p>
     <h2 class="section-title reveal reveal-delay-1">How It All <span class="gradient-text">Fits Together</span></h2>
-    <p class="section-desc reveal reveal-delay-2">A layered architecture where Lobs acts as the PM, PAW routes work, and specialized workers execute in parallel — with automatic model selection and fault tolerance.</p>
+    <p class="section-desc reveal reveal-delay-2">A layered architecture where Lobs acts as the chat interface and coordinator, PAW routes work, and specialized workers execute in parallel — with automatic model selection and fault tolerance.</p>
     <div class="arch-diagram reveal reveal-delay-1">
       <div class="arch-row">
         <div class="arch-node" tabindex="0">
           <div class="node-icon">👤</div>
           <div class="node-label">Rafe</div>
           <div class="node-sub">Human</div>
-          <div class="node-tooltip">The human. Sends messages, creates tasks, reviews results.</div>
+          <div class="node-tooltip">The human. Sends messages, creates tasks, reviews results via Discord, iOS, or direct DB.</div>
         </div>
         <div class="arch-arrow" aria-hidden="true">→</div>
         <div class="arch-node primary" tabindex="0">
           <div class="node-icon">🤖</div>
           <div class="node-label">Lobs</div>
-          <div class="node-sub">PM Agent / Chat</div>
-          <div class="node-tooltip">PM agent. Triages requests, creates tasks, routes to PAW orchestrator.</div>
+          <div class="node-sub">Chat &amp; Coordinator</div>
+          <div class="node-tooltip">Primary agent. Runs 24/7. Triages requests, creates tasks, routes to PAW orchestrator. The face of the system.</div>
         </div>
       </div>
       <div class="arch-connector-vert"><div class="connector-pulse"></div></div>
@@ -357,7 +410,7 @@
       <div class="flow-step reveal reveal-delay-1">
         <div class="flow-step-num">02</div>
         <div class="flow-step-content">
-          <h4>Lobs (PM agent) triages and routes</h4>
+          <h4>Lobs triages and routes</h4>
           <p>Reads the request, determines urgency and agent type, breaks it into subtasks if needed, and writes it to the PAW task queue with the right model tier.</p>
         </div>
       </div>
@@ -426,7 +479,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Four interlocking projects that make up the Lobs AI ecosystem. Click any card to expand.</p>
+    <p class="section-desc reveal reveal-delay-2">Five interlocking projects that make up the Lobs AI ecosystem. Click any card to expand.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -438,9 +491,9 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The orchestrator brain. TypeScript plugin that replaced 38,000 lines of Python with 8,000 lines of clean, typed TS. Workflow engine, model chooser, circuit breaker, task DB, agent spawning — all in one.</p>
+        <p>The orchestrator brain. TypeScript plugin that runs inside OpenClaw — no separate server process. Workflow engine, model chooser, circuit breaker, task DB, and agent spawning all in one.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">OpenClaw</span><span class="meta-chip">79% smaller</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">OpenClaw</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -462,7 +515,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>A SwiftUI macOS dashboard for real-time monitoring of agents, tasks, workflow runs, and system health. Because watching your workforce operate shouldn't require digging through logs.</p>
+        <p>SwiftUI macOS dashboard for real-time monitoring of agents, tasks, workflow runs, and system health. Because watching your workforce operate shouldn't require digging through logs.</p>
         <div class="card-meta">
           <span class="meta-chip">SwiftUI</span><span class="meta-chip">macOS</span><span class="meta-chip">WebSocket</span><span class="meta-chip">REST API</span>
         </div>
@@ -470,7 +523,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
           <div class="expanded-divider"></div>
           <div class="expanded-grid">
             <div class="exp-item"><span class="exp-icon">📊</span><div><h5>Agent Status Monitoring</h5><p>Real-time view of all 6 agent types — idle, running, or error state. Worker spawn history and success rates at a glance.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">🛤️</span><div><h5>Pathway Visualization</h5><p>Visual DAG renderer showing active workflow steps, completed nodes, and pending branches in real time.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🛤️</span><div><h5>Workflow Visualization</h5><p>Visual DAG renderer showing active workflow steps, completed nodes, and pending branches in real time.</p></div></div>
             <div class="exp-item"><span class="exp-icon">🔌</span><div><h5>Real-time WebSocket Updates</h5><p>Push-based updates — no polling. Task state changes, worker completions, and alerts stream live to the dashboard.</p></div></div>
             <div class="exp-item"><span class="exp-icon">🔍</span><div><h5>Task Inspector</h5><p>Drill into any task: notes, agent assignment, model tier, worker run log, output, and timing — all in one view.</p></div></div>
           </div>
@@ -496,7 +549,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
             <div class="exp-item"><span class="exp-icon">🔔</span><div><h5>iOS Push Notifications</h5><p>Get notified when blockers arise, urgent tasks complete, or the system needs attention — without checking Discord.</p></div></div>
             <div class="exp-item"><span class="exp-icon">✍️</span><div><h5>Task Creation On The Go</h5><p>Create tasks from anywhere — in a lecture, walking between buildings. Orchestrator picks them up within 10 seconds.</p></div></div>
             <div class="exp-item"><span class="exp-icon">📋</span><div><h5>Task Queue View</h5><p>Browse active, completed, and blocked tasks. Filter by agent type or model tier. See what's running right now.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">💬</span><div><h5>Chat Interface</h5><p>Message Lobs directly from the app. Same PM agent, same routing — just on mobile instead of Discord.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">💬</span><div><h5>Chat Interface</h5><p>Message Lobs directly from the app. Same coordinator, same routing — just on mobile instead of Discord.</p></div></div>
           </div>
         </div>
       </div>
@@ -505,7 +558,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
         <div class="card-top">
           <div class="card-icon">🧠</div>
           <div class="card-text-head">
-            <div class="card-tag">shared-memory</div>
+            <div class="card-tag">lobs-shared-memory</div>
             <h3>Shared Memory</h3>
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
@@ -525,6 +578,30 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
         </div>
       </div>
 
+      <div class="project-card retired reveal" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">🐍</div>
+          <div class="card-text-head">
+            <div class="card-tag">lobs-server — Legacy / Retired</div>
+            <h3>lobs-server</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>The FastAPI backend that powered v4 and v5 — REST API, task queue, worker management, and health monitoring. Replaced by the PAW plugin. 38K lines of Python that taught us everything.</p>
+        <div class="card-meta">
+          <span class="meta-chip">Python</span><span class="meta-chip">FastAPI</span><span class="meta-chip">SQLite</span><span class="meta-chip retired">Retired</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">📡</span><div><h5>REST API</h5><p>Full task management API — create, read, update, delete tasks and projects. Backed Mission Control and Lobs Mobile before the plugin era.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">⚙️</span><div><h5>Python Orchestrator</h5><p>Multi-agent spawning with aiohttp. Taught us every lesson about race conditions, session leaks, and the limits of if/else workflow logic.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">📊</span><div><h5>Health Monitoring</h5><p>Worker status tracking, failure rates, and uptime metrics. The patterns here directly influenced the PAW plugin's circuit breaker design.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🧠</span><div><h5>Why It Was Retired</h5><p>38K lines of Python for what 8K lines of TypeScript now does better. The glue was heavier than the logic it connected. PAW eliminated the separate process entirely.</p></div></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -538,54 +615,63 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
   <div class="container">
     <p class="section-label reveal">Changelog</p>
     <h2 class="section-title reveal reveal-delay-1">Build <span class="gradient-text">Timeline</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Three months. One grad student. A system that actually runs.</p>
+    <p class="section-desc reveal reveal-delay-2">Six versions. Three months. One grad student. A system that actually runs.</p>
     <div class="timeline">
       <div class="tl-event reveal">
         <div class="tl-date">Jan 2026</div>
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <h4>First OpenClaw Setup</h4>
-          <p>Lobs comes online. Basic tool use, Discord integration, and the first hint that this could be something bigger than a chatbot.</p>
-          <span class="tl-chip">v1 begins</span>
+          <h4>v1 — Custom Task Framework</h4>
+          <p>Lobs comes online. A custom task framework gives structure to AI work beyond raw chat prompts. Single agent, single session — but a real foundation.</p>
+          <span class="tl-chip">v1 · task framework</span>
         </div>
       </div>
       <div class="tl-event reveal reveal-delay-1">
-        <div class="tl-date">Feb 2026</div>
+        <div class="tl-date">Early Feb</div>
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <h4>lobs-server Python Orchestrator</h4>
-          <p>FastAPI backend deployed. Multi-agent spawning works. The system can handle parallel tasks for the first time. Growing pains are immediate.</p>
-          <span class="tl-chip">v2 begins</span>
+          <h4>v2 — Multi-Agent System</h4>
+          <p>Multiple specialized agents: Programmer, Writer, Researcher, Reviewer, Architect. Agent spawning and task routing. Parallel work becomes possible for the first time.</p>
+          <span class="tl-chip">v2 · multi-agent</span>
         </div>
       </div>
       <div class="tl-event reveal reveal-delay-2">
-        <div class="tl-date">Feb 2026</div>
+        <div class="tl-date">Mid Feb</div>
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <h4>Multi-Agent Reflection System</h4>
-          <p>Workers start reflecting on completed tasks. Lessons get written to shared memory. The system starts getting smarter over time, not just faster.</p>
-          <span class="tl-chip">learning</span>
+          <h4>v3 — Reflections &amp; Learning</h4>
+          <p>Workers reflect on completed tasks. Lessons get written to shared memory. The system starts getting smarter over time, not just faster — without manual updates.</p>
+          <span class="tl-chip">v3 · learning</span>
         </div>
       </div>
       <div class="tl-event reveal">
-        <div class="tl-date">Feb 2026</div>
+        <div class="tl-date">Late Feb</div>
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <h4>Workflow Engine Shipped</h4>
-          <p>Multi-step tasks can now run as structured workflows with state, branching, and rollback. No more one-shot prompts for complex work.</p>
-          <span class="tl-chip">major milestone</span>
+          <h4>v4 — Web Server Era</h4>
+          <p>lobs-server FastAPI backend deployed. Mission Control (SwiftUI macOS) and Lobs Mobile (iOS) join the ecosystem. Real infrastructure — APIs, monitoring, mobile access.</p>
+          <span class="tl-chip">v4 · server + apps</span>
         </div>
       </div>
       <div class="tl-event reveal reveal-delay-1">
-        <div class="tl-date">Mar 2026</div>
-        <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
-        <div class="tl-body highlight-body">
-          <h4>PAW Plugin Rewrite (TypeScript)</h4>
-          <p>The big one. 38,000 lines of Python → 8,000 lines of TypeScript. Runs inside OpenClaw as a native plugin. Everything becomes cleaner, faster, and more reliable overnight.</p>
-          <span class="tl-chip tl-chip-bright">79% reduction · v3</span>
+        <div class="tl-date">Late Feb</div>
+        <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h4>v5 — DAG Workflow Engine</h4>
+          <p>Multi-step tasks now run as structured workflows with state, branching, and rollback. 19 workflow definitions covering code, research, review, reporting. Complex work becomes a pipeline, not a prompt.</p>
+          <span class="tl-chip">v5 · DAG workflows</span>
         </div>
       </div>
       <div class="tl-event reveal reveal-delay-2">
+        <div class="tl-date">Mar 2026</div>
+        <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
+        <div class="tl-body highlight-body">
+          <h4>v6 — PAW Plugin Rewrite (TypeScript)</h4>
+          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. Runs inside OpenClaw — no separate server. Everything from v1–v5 preserved but cleaner. The glue layer disappears. 38K lines → 8K lines.</p>
+          <span class="tl-chip tl-chip-bright">v6 · current · one process</span>
+        </div>
+      </div>
+      <div class="tl-event reveal">
         <div class="tl-date">Mar 2026</div>
         <div class="tl-marker-wrap"><div class="tl-dot"></div></div>
         <div class="tl-body">
@@ -610,38 +696,38 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
       <div class="journal-col wins reveal reveal-delay-1">
         <h3><span>🏆</span> Wins &amp; Milestones</h3>
         <div class="journal-item">
-          <div class="ji-icon">⚙️</div>
+          <div class="ji-icon">🤝</div>
           <div class="ji-text">
-            <h4>Workflow Engine as Control Plane</h4>
-            <p>Multi-step tasks now run as structured workflows with state, branching, and rollback — not one-shot prompts. Enabled work that previously required constant babysitting to run fully unattended.</p>
-          </div>
-        </div>
-        <div class="journal-item">
-          <div class="ji-icon">📉</div>
-          <div class="ji-text">
-            <h4>79% Code Reduction</h4>
-            <p>Python → TypeScript rewrite. 38K lines became 8K. The system became more capable, not less. Every deleted line was infrastructure glue that the plugin architecture made unnecessary.</p>
-          </div>
-        </div>
-        <div class="journal-item">
-          <div class="ji-icon">🎯</div>
-          <div class="ji-text">
-            <h4>Model Tier System</h4>
-            <p>Tasks automatically route to the cheapest model that can handle them. First week of operation: 60% of tasks handled by the free local model.</p>
+            <h4>Multi-Agent Parallelism</h4>
+            <p>Multiple specialized agents working simultaneously on different tasks — Programmer coding, Researcher investigating, Writer documenting — all at once. The ceiling on what one person can accomplish expanded dramatically.</p>
           </div>
         </div>
         <div class="journal-item">
           <div class="ji-icon">🪞</div>
           <div class="ji-text">
             <h4>Agent Reflection &amp; Learning</h4>
-            <p>Workers reflect on completed tasks, capture lessons, and feed back into shared memory. The system gets meaningfully better week-over-week without manual updates.</p>
+            <p>Workers reflect on completed tasks, capture lessons, and feed back into shared memory. The system gets meaningfully better week-over-week without manual updates. Mistakes stop repeating.</p>
+          </div>
+        </div>
+        <div class="journal-item">
+          <div class="ji-icon">⚙️</div>
+          <div class="ji-text">
+            <h4>Workflow Engine as Control Plane</h4>
+            <p>Multi-step tasks now run as structured DAG workflows with state, branching, and rollback — not one-shot prompts. Enabled work that previously required constant babysitting to run fully unattended.</p>
+          </div>
+        </div>
+        <div class="journal-item">
+          <div class="ji-icon">🎯</div>
+          <div class="ji-text">
+            <h4>Model Tier System</h4>
+            <p>Tasks automatically route to the cheapest model that can handle them. First week of operation: 60% of tasks handled by the free local model. Cost stays manageable at scale.</p>
           </div>
         </div>
         <div class="journal-item">
           <div class="ji-icon">🔌</div>
           <div class="ji-text">
-            <h4>Circuit Breaker Patterns</h4>
-            <p>Automatic failure detection prevents cascading issues. Workers that fail too often get quarantined. Saved the system from multiple potential death spirals in the v2 era.</p>
+            <h4>Plugin Architecture Win</h4>
+            <p>Eliminating the separate server process removed an entire class of problems: IPC overhead, session handshake failures, sync issues, deployment complexity. One process, zero glue.</p>
           </div>
         </div>
       </div>
@@ -677,7 +763,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
           <div class="ji-icon">🐛</div>
           <div class="ji-text">
             <h4>JSON Double-Conversion Bug <span class="incident-badge">MEDIUM</span></h4>
-            <p>Swift's <code>.convertFromSnakeCase</code> was set on the decoder. Then manual <code>CodingKeys</code> were added for the same <code>snake_case → camelCase</code> mapping. The decoder applied both. Fields silently dropped. No errors — just missing data. Took two sessions to diagnose.</p>
+            <p>Swift's <code>.convertFromSnakeCase</code> was set on the decoder. Then manual <code>CodingKeys</code> were added for the same mapping. The decoder applied both. Fields silently dropped. No errors — just missing data. Took two sessions to diagnose.</p>
             <div class="lesson-box">
               <span class="lesson-label">💡 What we learned</span>
               <p>Never add CodingKeys for simple snake→camel conversions when <code>.convertFromSnakeCase</code> is active. Now documented as permanent institutional knowledge in TOOLS.md.</p>
@@ -727,7 +813,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
       <div class="stack-item reveal reveal-delay-1"><div class="si-icon">⚡</div><div class="si-name">TypeScript</div><div class="si-desc">PAW plugin &amp; orchestrator</div></div>
       <div class="stack-item reveal reveal-delay-2"><div class="si-icon">🗄️</div><div class="si-name">SQLite</div><div class="si-desc">Task &amp; workflow database</div></div>
       <div class="stack-item reveal reveal-delay-3"><div class="si-icon">🍎</div><div class="si-name">SwiftUI</div><div class="si-desc">macOS + iOS frontends</div></div>
-      <div class="stack-item reveal reveal-delay-1"><div class="si-icon">🐍</div><div class="si-name">Python</div><div class="si-desc">Legacy lobs-server (v2)</div></div>
+      <div class="stack-item reveal reveal-delay-1"><div class="si-icon">🐍</div><div class="si-name">Python</div><div class="si-desc">Legacy lobs-server (retired)</div></div>
       <div class="stack-item reveal reveal-delay-2"><div class="si-icon">🔧</div><div class="si-name">GitHub Actions</div><div class="si-desc">CI/CD &amp; automation</div></div>
       <div class="stack-item reveal reveal-delay-3"><div class="si-icon">🧠</div><div class="si-name">Claude</div><div class="si-desc">Anthropic · strong/standard</div></div>
       <div class="stack-item reveal"><div class="si-icon">🤖</div><div class="si-name">Codex / GPT</div><div class="si-desc">OpenAI · standard tier</div></div>
@@ -765,12 +851,12 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
       </div>
     </div>
     <div class="footer-bottom">
-      <p>Built by <strong>Rafe</strong> · UMich CSE · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · UMich CSE · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
       <p>Operated by Lobs, the AI. 24/7.</p>
     </div>
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
