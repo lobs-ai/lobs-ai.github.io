@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Theme toggle ──────────────────────────────────────────
   const html = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('theme') || 'dark';
+  const saved = 'dark'; localStorage.removeItem('theme');
   html.setAttribute('data-theme', saved);
 
   themeBtn.addEventListener('click', () => {
