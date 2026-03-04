@@ -102,7 +102,7 @@
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="6">0</span>
+          <span class="hero-stat-num" data-target="7">0</span>
           <span class="hero-stat-label">versions shipped</span>
         </div>
         <div class="hero-stat-divider"></div>
@@ -221,7 +221,7 @@
 
         <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
 
-        <div class="version-card v6 active">
+        <div class="version-card v6">
           <div class="version-header">
             <span class="version-badge v6-badge">v6</span>
             <h4>PAW Plugin — Mar 2026 [CURRENT]</h4>
@@ -236,6 +236,20 @@
               <span class="ws-after">8,000 lines TS</span>
               <span class="ws-badge">one process</span>
             </div>
+          </div>
+        </div>
+
+        <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
+
+        <div class="version-card v6 active">
+          <div class="version-header">
+            <span class="version-badge v6-badge">v7</span>
+            <h4>Nexus Dashboard &amp; Custom Domain — Mar 2026 [CURRENT]</h4>
+          </div>
+          <p class="version-desc">Nexus: React + Vite web dashboard replacing the SwiftUI macOS app. Self-hosted at lobslab.com with Caddy auto-TLS + Cloudflare Tunnel. The system now has a real home on the web.</p>
+          <div class="version-win">
+            <div class="win-label">✅ The breakthrough</div>
+            <p>Cross-platform access from any device. Public site at lobslab.com, private dashboard at nexus.lobslab.com over Tailscale. Workers autonomously fix UI bugs via PAW tasks. The system builds its own interface.</p>
           </div>
         </div>
 
@@ -256,9 +270,9 @@
     <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 56px;">Real numbers from a system that actually runs in production, every day.</p>
     <div class="stats-grid">
       <div class="stat-card reveal">
-        <div class="stat-num counter" data-target="6">0</div>
+        <div class="stat-num counter" data-target="7">0</div>
         <div class="stat-unit">versions shipped</div>
-        <div class="stat-detail">v1 task framework → v6 PAW plugin. Six hard ceilings hit and broken through, in under 3 months.</div>
+        <div class="stat-detail">v1 task framework → v7 Nexus. Seven hard ceilings hit and broken through, in under 3 months.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
         <div class="stat-num counter" data-target="6">0</div>
@@ -518,7 +532,7 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>SwiftUI macOS dashboard for real-time monitoring of agents, tasks, workflow runs, and system health. Because watching your workforce operate shouldn't require digging through logs.</p>
+        <p>SwiftUI macOS dashboard — now replaced by Nexus (React + Vite). Cross-platform web dashboard at nexus.lobslab.com with real-time monitoring of agents, tasks, workflow runs, and system health.</p>
         <div class="card-meta">
           <span class="meta-chip">SwiftUI</span><span class="meta-chip">macOS</span><span class="meta-chip">WebSocket</span><span class="meta-chip">REST API</span>
         </div>
@@ -667,11 +681,20 @@ sqlite3 ~/.openclaw/plugins/paw/paw.db \
       </div>
       <div class="tl-event reveal reveal-delay-2">
         <div class="tl-date">Mar 2026</div>
-        <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
-        <div class="tl-body highlight-body">
+        <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
           <h4>v6 — PAW Plugin Rewrite (TypeScript)</h4>
           <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. Runs inside OpenClaw — no separate server. Everything from v1–v5 preserved but cleaner. The glue layer disappears. 38K lines → 8K lines.</p>
-          <span class="tl-chip tl-chip-bright">v6 · current · one process</span>
+          <span class="tl-chip">v6 · PAW plugin</span>
+        </div>
+      </div>
+      <div class="tl-event reveal reveal-delay-1">
+        <div class="tl-date">Mar 2026</div>
+        <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
+        <div class="tl-body highlight-body">
+          <h4>v7 — Nexus Dashboard &amp; Custom Domain</h4>
+          <p>React + Vite web dashboard replaces SwiftUI macOS app. Self-hosted at lobslab.com with Caddy auto-TLS and Cloudflare Tunnel. Private Nexus dashboard at nexus.lobslab.com over Tailscale. PAW workers autonomously implement UI fixes.</p>
+          <span class="tl-chip tl-chip-bright">v7 · current · self-hosted</span>
         </div>
       </div>
       <div class="tl-event reveal">
