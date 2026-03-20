@@ -229,11 +229,11 @@
           <p class="version-desc">Full rewrite as an OpenClaw TypeScript plugin. Ran inside OpenClaw with no separate server process. Everything from v1–v5 preserved but cleaner.</p>
           <div class="version-win">
             <div class="win-label">The breakthrough</div>
-            <p>The glue layer disappeared. The system became a single process. Circuit breaker, five-tier model chooser, and budget guard were first-class parts of the runtime. 8K lines of TypeScript replaced 38K lines of Python.</p>
+            <p>The glue layer disappeared. The system became a single process. Circuit breaker, five-tier model chooser, and budget guard were first-class parts of the runtime. That rewrite replaced a much larger Python stack with a leaner TypeScript core.</p>
             <div class="win-stat">
               <span class="ws-before">38,000 lines Python</span>
               <span class="ws-arrow">→</span>
-              <span class="ws-after">8,000 lines TS</span>
+              <span class="ws-after">leaner TS core</span>
               <span class="ws-badge">one process</span>
             </div>
           </div>
@@ -310,9 +310,9 @@
         <div class="stat-detail">From free local Qwen to Claude Opus, auto-selected by task complexity. The cheapest model that can handle the task wins.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-num counter" data-target="8000">0</div>
-        <div class="stat-unit">lines of TypeScript</div>
-        <div class="stat-detail">The lobs-core standalone runtime. Clean, typed, maintainable. Runs as its own process with zero external platform dependencies.</div>
+        <div class="stat-num counter" data-target="62162">0</div>
+        <div class="stat-unit">lines of lobs-core TypeScript</div>
+        <div class="stat-detail">Measured with <code>cloc</code> across owned <code>lobs-core</code> source directories only. The current standalone runtime is much larger than the original plugin rewrite.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
@@ -516,7 +516,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Five interlocking projects that make up the Lobs AI ecosystem. Click any card to expand.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 63k, lobs-nexus 15k, lobs-memory 3k, website 2.7k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -528,9 +528,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, and Discord bot, all in one.</p>
+        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, and Discord bot, all in one. Current owned source footprint: about 63k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">63k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -556,9 +556,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health at nexus.lobslab.com.</p>
+        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health at nexus.lobslab.com. Current owned frontend footprint: about 15k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">15k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -604,9 +604,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>A Git-backed cross-project knowledge base. ADRs, research memos, runbooks, and agent instructions that persist across sessions and sync across the entire system.</p>
+        <p>A Git-backed cross-project knowledge base. ADRs, research memos, runbooks, and agent instructions that persist across sessions and sync across the entire system. The supporting <code>lobs-memory</code> service and plugin code currently total about 3k lines of owned code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">Git</span><span class="meta-chip">Markdown</span><span class="meta-chip">ADRs</span><span class="meta-chip">Runbooks</span>
+          <span class="meta-chip">Git</span><span class="meta-chip">Markdown</span><span class="meta-chip">ADRs</span><span class="meta-chip">Runbooks</span><span class="meta-chip">3k LOC</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -638,7 +638,7 @@ sqlite3 ~/.lobs/lobs.db \
             <div class="exp-item"><span class="exp-icon">API</span><div><h5>REST API</h5><p>Full task management API to create, read, update, and delete tasks and projects. It backed Mission Control and Lobs Mobile before the standalone era.</p></div></div>
             <div class="exp-item"><span class="exp-icon">PY</span><div><h5>Python Orchestrator</h5><p>Multi-agent spawning with aiohttp. It taught us the cost of race conditions, session leaks, and if/else workflow logic at scale.</p></div></div>
             <div class="exp-item"><span class="exp-icon">HM</span><div><h5>Health Monitoring</h5><p>Worker status tracking, failure rates, and uptime metrics. Those patterns directly influenced lobs-core's circuit breaker design.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">RT</span><div><h5>Why It Was Retired</h5><p>38K lines of Python for work that 8K lines of TypeScript now handles more cleanly. The glue was heavier than the logic it connected. lobs-core replaced it completely.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">RT</span><div><h5>Why It Was Retired</h5><p>The Python stack grew large and hard to maintain. The glue was heavier than the logic it connected. lobs-core replaced it completely.</p></div></div>
           </div>
         </div>
       </div>
@@ -708,7 +708,7 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <h4>v6, OpenClaw Plugin Rewrite (TypeScript)</h4>
-          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. It ran inside OpenClaw with no separate server. Everything from v1-v5 stayed intact, but cleaner. The glue layer disappeared. 38K lines → 8K lines.</p>
+          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. It ran inside OpenClaw with no separate server. Everything from v1-v5 stayed intact, but cleaner. The glue layer disappeared, and the system became dramatically smaller than the Python stack it replaced.</p>
           <span class="tl-chip">v6 · OpenClaw plugin</span>
         </div>
       </div>
@@ -925,11 +925,6 @@ sqlite3 ~/.lobs/lobs.db \
     <h2 class="section-title reveal reveal-delay-1" style="text-align:center;"><span class="gradient-text">Contact</span></h2>
     <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 48px;">Interested in lobs-core, have questions about the architecture, or want to collaborate? Reach out.</p>
     <div class="stats-grid" style="max-width:800px;margin:0 auto;">
-      <a href="mailto:rsymonds@umich.edu" class="stat-card reveal" style="text-align:center;text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.3s;">
-        <div class="stat-num" style="font-size:1.5rem;">EM</div>
-        <div class="stat-unit">Email</div>
-        <div class="stat-detail" style="color:var(--accent);">rsymonds@umich.edu</div>
-      </a>
       <a href="https://github.com/lobs-ai" target="_blank" rel="noopener" class="stat-card reveal reveal-delay-1" style="text-align:center;text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.3s;">
         <div class="stat-num" style="font-size:1.5rem;">GH</div>
         <div class="stat-unit">GitHub</div>
