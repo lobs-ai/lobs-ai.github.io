@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lobs AI — Standalone Agent Runtime</title>
-  <meta name="description" content="Lobs AI: A standalone multi-agent runtime. 8 versions, 6 specialized agents, autonomous operation. Handles code, research, writing, and more 24/7." />
+  <title>Lobs AI — Personal AI Workforce</title>
+  <meta name="description" content="PAW: A multi-agent AI workforce. 6 versions, 6 specialized agents, 19 active workflows — autonomously handling code, research, writing, and more 24/7." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -92,7 +92,7 @@
 
   <div class="container">
     <div class="hero-content">
-      <div class="hero-badge"><span class="badge-dot"></span>lobs-core · Standalone Agent Runtime</div>
+      <div class="hero-badge"><span class="badge-dot"></span>PAW — Personal AI Workforce</div>
       <h1 class="hero-title">
         Building the most<br/>
         <span class="gradient-text">advanced personal<br/>AI agent system.</span>
@@ -102,7 +102,7 @@
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="8">0</span>
+          <span class="hero-stat-num" data-target="7">0</span>
           <span class="hero-stat-label">versions shipped</span>
         </div>
         <div class="hero-stat-divider"></div>
@@ -142,12 +142,12 @@
     <div class="story-header reveal">
       <p class="section-label">The Origin</p>
       <h2>One dev.<br/><span class="gradient-text">An entire team of agents.</span></h2>
-      <p class="section-desc">What started as a structured task framework evolved into a fully standalone agent runtime. Eight versions, each forced by a hard ceiling hit in production.</p>
+      <p class="section-desc">What started as a structured task framework evolved into a full multi-agent orchestration platform — six versions, each forced by a hard ceiling hit in production.</p>
     </div>
     <div class="story-grid">
       <div class="story-text reveal">
-        <p>Built by Rafe because it's genuinely useful and interesting to build. The goal was never just an AI assistant. It was a <em>workforce</em>: specialized agents that run autonomously, pick up tasks, and deliver results around the clock.</p>
-        <p>Eight versions. Each one forced by a hard ceiling hit in production. Every limitation became the next version's motivation.</p>
+        <p>Built by Rafe because it's genuinely useful and interesting to build. The goal was never just an AI assistant. It was a <em>workforce</em> — specialized agents that run autonomously, pick up tasks, and deliver results around the clock.</p>
+        <p>Six versions. Each one forced by a hard ceiling hit in production. Every limitation became the next version's motivation.</p>
       </div>
       <div class="story-versions reveal reveal-delay-2">
 
@@ -224,12 +224,12 @@
         <div class="version-card v6">
           <div class="version-header">
             <span class="version-badge v6-badge">v6</span>
-            <h4>OpenClaw Plugin — Mar 2026</h4>
+            <h4>PAW Plugin — Mar 2026</h4>
           </div>
-          <p class="version-desc">Full rewrite as an OpenClaw TypeScript plugin. Ran inside OpenClaw with no separate server process. Everything from v1–v5 preserved but cleaner.</p>
+          <p class="version-desc">Full rewrite as an OpenClaw TypeScript plugin. Runs inside OpenClaw — no separate server process. Everything from v1–v5 preserved but cleaner.</p>
           <div class="version-win">
             <div class="win-label">✅ The breakthrough</div>
-            <p>Eliminated the glue layer. The system became a single process. Circuit breaker, model chooser with 5 tiers, budget guard, all first-class. 8K lines of TypeScript replaced 38K lines of Python.</p>
+            <p>Eliminated the glue layer. The entire system became a single process. Circuit breaker, model chooser with 5 tiers, budget guard — all first-class. 8K lines of TypeScript replaced 38K lines of Python.</p>
             <div class="win-stat">
               <span class="ws-before">38,000 lines Python</span>
               <span class="ws-arrow">→</span>
@@ -241,29 +241,15 @@
 
         <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
 
-        <div class="version-card v6">
-          <div class="version-header">
-            <span class="version-badge v6-badge">v7</span>
-            <h4>Nexus Dashboard &amp; Custom Domain — Mar 2026</h4>
-          </div>
-          <p class="version-desc">Nexus: React + Vite web dashboard replacing the SwiftUI macOS app. Self-hosted at lobslab.com with Caddy auto-TLS + Cloudflare Tunnel. The system got a real home on the web.</p>
-          <div class="version-win">
-            <div class="win-label">✅ The breakthrough</div>
-            <p>Cross-platform access from any device. Public site at lobslab.com, private dashboard at nexus.lobslab.com over Tailscale. Workers autonomously fix UI bugs. The system builds its own interface.</p>
-          </div>
-        </div>
-
-        <div class="version-connector" aria-hidden="true"><div class="vc-line"></div><div class="vc-arrow">↓</div></div>
-
         <div class="version-card v6 active">
           <div class="version-header">
-            <span class="version-badge v6-badge">v8</span>
-            <h4>Standalone Runtime (lobs-core) — Mar 2026 [CURRENT]</h4>
+            <span class="version-badge v6-badge">v7</span>
+            <h4>Nexus Dashboard &amp; Custom Domain — Mar 2026 [CURRENT]</h4>
           </div>
-          <p class="version-desc">Complete independence from OpenClaw. lobs-core runs as its own Node.js process with a custom LLM execution loop, built-in HTTP server, Discord bot, and integrated dashboard. The plugin era is over. Everything lives in one self-contained monorepo.</p>
+          <p class="version-desc">Nexus: React + Vite web dashboard replacing the SwiftUI macOS app. Self-hosted at lobslab.com with Caddy auto-TLS + Cloudflare Tunnel. The system now has a real home on the web.</p>
           <div class="version-win">
             <div class="win-label">✅ The breakthrough</div>
-            <p>No external platform dependency. lobs-core calls LLM APIs directly (Anthropic, OpenRouter, LM Studio), manages its own agent lifecycle, serves Nexus from its built-in HTTP server, and runs lobs-memory for semantic search. One <code>lobs start</code> command boots the entire system.</p>
+            <p>Cross-platform access from any device. Public site at lobslab.com, private dashboard at nexus.lobslab.com over Tailscale. Workers autonomously fix UI bugs via PAW tasks. The system builds its own interface.</p>
           </div>
         </div>
 
@@ -284,9 +270,9 @@
     <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 56px;">Real numbers from a system that actually runs in production, every day.</p>
     <div class="stats-grid">
       <div class="stat-card reveal">
-        <div class="stat-num counter" data-target="8">0</div>
+        <div class="stat-num counter" data-target="7">0</div>
         <div class="stat-unit">versions shipped</div>
-        <div class="stat-detail">v1 task framework → v8 standalone runtime. Eight hard ceilings hit and broken through, in under 3 months.</div>
+        <div class="stat-detail">v1 task framework → v7 Nexus. Seven hard ceilings hit and broken through, in under 3 months.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
         <div class="stat-num counter" data-target="6">0</div>
@@ -306,7 +292,7 @@
       <div class="stat-card reveal reveal-delay-1">
         <div class="stat-num counter" data-target="8000">0</div>
         <div class="stat-unit">lines of TypeScript</div>
-        <div class="stat-detail">The lobs-core standalone runtime. Clean, typed, maintainable. Runs as its own process with zero external platform dependencies.</div>
+        <div class="stat-detail">The entire PAW plugin. Clean, typed, maintainable — and runs inside OpenClaw with no separate process.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
@@ -324,7 +310,7 @@
   <div class="container">
     <p class="section-label reveal">System Design</p>
     <h2 class="section-title reveal reveal-delay-1">How It All <span class="gradient-text">Fits Together</span></h2>
-    <p class="section-desc reveal reveal-delay-2">A layered architecture where Lobs acts as the chat interface and coordinator, lobs-core orchestrates work, and specialized workers execute in parallel. Automatic model selection and fault tolerance are built in.</p>
+    <p class="section-desc reveal reveal-delay-2">A layered architecture where Lobs acts as the chat interface and coordinator, PAW routes work, and specialized workers execute in parallel — with automatic model selection and fault tolerance.</p>
     <div class="arch-diagram reveal reveal-delay-1">
       <div class="arch-row">
         <div class="arch-node" tabindex="0">
@@ -338,12 +324,12 @@
           <div class="node-icon">🤖</div>
           <div class="node-label">Lobs</div>
           <div class="node-sub">Chat &amp; Coordinator</div>
-          <div class="node-tooltip">Primary agent. Runs 24/7. Triages requests, creates tasks, routes to the lobs-core orchestrator. The face of the system.</div>
+          <div class="node-tooltip">Primary agent. Runs 24/7. Triages requests, creates tasks, routes to PAW orchestrator. The face of the system.</div>
         </div>
       </div>
       <div class="arch-connector-vert"><div class="connector-pulse"></div></div>
       <div class="arch-paw-box">
-        <span class="arch-paw-label">LOBS-CORE ORCHESTRATOR — Standalone Runtime</span>
+        <span class="arch-paw-label">PAW ORCHESTRATOR — OpenClaw Plugin</span>
         <div class="paw-component" tabindex="0">
           <div class="pc-icon">⚙️</div>
           <div class="pc-label">Workflow Engine</div>
@@ -442,15 +428,15 @@
         <div class="flow-step-num">02</div>
         <div class="flow-step-content">
           <h4>Lobs triages and routes</h4>
-          <p>Reads the request, determines urgency and agent type, breaks it into subtasks if needed, and writes it to the task queue with the right model tier.</p>
+          <p>Reads the request, determines urgency and agent type, breaks it into subtasks if needed, and writes it to the PAW task queue with the right model tier.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
       <div class="flow-step reveal reveal-delay-2">
         <div class="flow-step-num">03</div>
         <div class="flow-step-content">
-          <h4>lobs-core orchestrator matches to a workflow</h4>
-          <p>The control loop picks up active tasks, matches them to workflow definitions if applicable, and sequences the work across multiple agent types.</p>
+          <h4>PAW orchestrator matches to a workflow</h4>
+          <p>The control loop (runs every 10s) picks up active tasks, matches them to workflow definitions if applicable, and sequences the work across multiple agent types.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
@@ -466,7 +452,7 @@
         <div class="flow-step-num">05</div>
         <div class="flow-step-content">
           <h4>Worker agent spawns and executes</h4>
-          <p>A sandboxed agent session fires up with the appropriate agent config, workspace, and tool access. Max 2 concurrent workers. 15-minute timeout enforced.</p>
+          <p>A sandboxed OpenClaw session fires up with the appropriate agent config, workspace, and tool access. Max 2 concurrent workers. 15-minute timeout enforced.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
@@ -484,8 +470,8 @@
         <span class="snippet-dot r"></span><span class="snippet-dot y"></span><span class="snippet-dot g"></span>
         <span class="snippet-lang">bash — create a task directly</span>
       </div>
-      <pre class="snippet-body"><code><span class="c"># Insert a task into the lobs-core DB — orchestrator picks it up within 10s</span>
-sqlite3 ~/.lobs/lobs.db \
+      <pre class="snippet-body"><code><span class="c"># Insert a task into the PAW DB — orchestrator picks it up within 10s</span>
+sqlite3 ~/.openclaw/plugins/paw/paw.db \
   <span class="s">"INSERT INTO tasks
      (id, title, status, agent, model_tier, notes, created_at, updated_at)
    VALUES (
@@ -517,22 +503,22 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="card-top">
           <div class="card-icon">🧩</div>
           <div class="card-text-head">
-            <div class="card-tag">lobs-core</div>
-            <h3>lobs-core</h3>
+            <div class="card-tag">openclaw-plugin-paw</div>
+            <h3>PAW Plugin</h3>
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, and Discord bot, all in one.</p>
+        <p>The orchestrator brain. TypeScript plugin that runs inside OpenClaw — no separate server process. Workflow engine, model chooser, circuit breaker, task DB, and agent spawning all in one.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">OpenClaw</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
           <div class="expanded-grid">
-            <div class="exp-item"><span class="exp-icon">⚙️</span><div><h5>Workflow Engine</h5><p>DAG execution with state machines, conditional branching, and rollback. Event-driven triggers and cron scheduling built in.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">⚙️</span><div><h5>Workflow Engine</h5><p>19 workflow definitions. DAG execution with state machines, conditional branching, and rollback. Event-driven triggers and cron scheduling built-in.</p></div></div>
             <div class="exp-item"><span class="exp-icon">🎯</span><div><h5>Model Chooser</h5><p>5-tier cost-aware model selection. Per-agent fallback chains. Cheapest model that can handle the task wins, always.</p></div></div>
             <div class="exp-item"><span class="exp-icon">⚡</span><div><h5>Circuit Breaker</h5><p>Tracks worker failure rates. Quarantines bad actors. Escalation policies prevent cascading failures from propagating.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">🗄️</span><div><h5>Task Database</h5><p>SQLite via drizzle-orm. Full task history, worker run records, workflow state, and research memos.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🗄️</span><div><h5>Task Database</h5><p>SQLite backend with full task history, worker run records, workflow state, inbox items, and research memos.</p></div></div>
           </div>
         </div>
       </div>
@@ -541,22 +527,22 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="card-top">
           <div class="card-icon">🖥️</div>
           <div class="card-text-head">
-            <div class="card-tag">lobs-nexus</div>
-            <h3>Nexus Dashboard</h3>
+            <div class="card-tag">lobs-mission-control</div>
+            <h3>Mission Control</h3>
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health at nexus.lobslab.com.</p>
+        <p>SwiftUI macOS dashboard — now replaced by Nexus (React + Vite). Cross-platform web dashboard at nexus.lobslab.com with real-time monitoring of agents, tasks, workflow runs, and system health.</p>
         <div class="card-meta">
-          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">SwiftUI</span><span class="meta-chip">macOS</span><span class="meta-chip">WebSocket</span><span class="meta-chip">REST API</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
           <div class="expanded-grid">
-            <div class="exp-item"><span class="exp-icon">📊</span><div><h5>Agent Status Monitoring</h5><p>View of all 6 agent types: idle, running, or error state. Worker spawn history and success rates at a glance.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">🛤️</span><div><h5>Workflow Visualization</h5><p>Active workflow steps, completed nodes, and pending branches displayed in the dashboard.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">🔌</span><div><h5>Polling-Based Updates</h5><p>Periodic polling for task state changes, worker completions, and system alerts. WebSocket support planned.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">🔍</span><div><h5>Task Inspector</h5><p>Drill into any task: notes, agent assignment, model tier, worker run log, output, and timing in one view.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">📊</span><div><h5>Agent Status Monitoring</h5><p>Real-time view of all 6 agent types — idle, running, or error state. Worker spawn history and success rates at a glance.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🛤️</span><div><h5>Workflow Visualization</h5><p>Visual DAG renderer showing active workflow steps, completed nodes, and pending branches in real time.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🔌</span><div><h5>Real-time WebSocket Updates</h5><p>Push-based updates — no polling. Task state changes, worker completions, and alerts stream live to the dashboard.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🔍</span><div><h5>Task Inspector</h5><p>Drill into any task: notes, agent assignment, model tier, worker run log, output, and timing — all in one view.</p></div></div>
           </div>
         </div>
       </div>
@@ -570,7 +556,7 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>iOS companion app for staying connected to your agents on the go. Check task status, receive completions, and interact with Lobs from your phone.</p>
+        <p>iOS companion app for staying connected to your agent workforce on the go. Check task status, receive completions, and interact with Lobs from your phone.</p>
         <div class="card-meta">
           <span class="meta-chip">Swift</span><span class="meta-chip">iOS</span><span class="meta-chip">Push notifications</span>
         </div>
@@ -618,17 +604,17 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The FastAPI backend that powered v4 and v5 — REST API, task queue, worker management, and health monitoring. Replaced by lobs-core. 38K lines of Python that taught us everything.</p>
+        <p>The FastAPI backend that powered v4 and v5 — REST API, task queue, worker management, and health monitoring. Replaced by the PAW plugin. 38K lines of Python that taught us everything.</p>
         <div class="card-meta">
           <span class="meta-chip">Python</span><span class="meta-chip">FastAPI</span><span class="meta-chip">SQLite</span><span class="meta-chip retired">Retired</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
           <div class="expanded-grid">
-            <div class="exp-item"><span class="exp-icon">📡</span><div><h5>REST API</h5><p>Full task management API — create, read, update, delete tasks and projects. Backed Mission Control and Lobs Mobile before the standalone era.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">📡</span><div><h5>REST API</h5><p>Full task management API — create, read, update, delete tasks and projects. Backed Mission Control and Lobs Mobile before the plugin era.</p></div></div>
             <div class="exp-item"><span class="exp-icon">⚙️</span><div><h5>Python Orchestrator</h5><p>Multi-agent spawning with aiohttp. Taught us every lesson about race conditions, session leaks, and the limits of if/else workflow logic.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">📊</span><div><h5>Health Monitoring</h5><p>Worker status tracking, failure rates, and uptime metrics. The patterns here directly influenced lobs-core's circuit breaker design.</p></div></div>
-            <div class="exp-item"><span class="exp-icon">🧠</span><div><h5>Why It Was Retired</h5><p>38K lines of Python for what 8K lines of TypeScript now does better. The glue was heavier than the logic it connected. lobs-core replaced it entirely.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">📊</span><div><h5>Health Monitoring</h5><p>Worker status tracking, failure rates, and uptime metrics. The patterns here directly influenced the PAW plugin's circuit breaker design.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">🧠</span><div><h5>Why It Was Retired</h5><p>38K lines of Python for what 8K lines of TypeScript now does better. The glue was heavier than the logic it connected. PAW eliminated the separate process entirely.</p></div></div>
           </div>
         </div>
       </div>
@@ -646,7 +632,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Changelog</p>
     <h2 class="section-title reveal reveal-delay-1">Build <span class="gradient-text">Timeline</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Eight versions. Three months. A system that actually runs in production, every day.</p>
+    <p class="section-desc reveal reveal-delay-2">Six versions. Three months. A system that actually runs in production, every day.</p>
     <div class="timeline">
       <div class="tl-event reveal">
         <div class="tl-date">Jan 2026</div>
@@ -697,27 +683,18 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="tl-date">Mar 2026</div>
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <h4>v6 — OpenClaw Plugin Rewrite (TypeScript)</h4>
-          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. Ran inside OpenClaw with no separate server. Everything from v1–v5 preserved but cleaner. The glue layer disappeared. 38K lines → 8K lines.</p>
-          <span class="tl-chip">v6 · OpenClaw plugin</span>
+          <h4>v6 — PAW Plugin Rewrite (TypeScript)</h4>
+          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. Runs inside OpenClaw — no separate server. Everything from v1–v5 preserved but cleaner. The glue layer disappears. 38K lines → 8K lines.</p>
+          <span class="tl-chip">v6 · PAW plugin</span>
         </div>
       </div>
       <div class="tl-event reveal reveal-delay-1">
         <div class="tl-date">Mar 2026</div>
-        <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <h4>v7 — Nexus Dashboard &amp; Custom Domain</h4>
-          <p>React + Vite web dashboard replaces SwiftUI macOS app. Self-hosted at lobslab.com with Caddy auto-TLS and Cloudflare Tunnel. Private Nexus dashboard at nexus.lobslab.com over Tailscale. Workers autonomously implement UI fixes.</p>
-          <span class="tl-chip">v7 · Nexus dashboard</span>
-        </div>
-      </div>
-      <div class="tl-event reveal reveal-delay-2">
-        <div class="tl-date">Mar 2026</div>
         <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
         <div class="tl-body highlight-body">
-          <h4>v8 — Standalone Runtime (lobs-core)</h4>
-          <p>Complete independence from OpenClaw. lobs-core runs as its own Node.js process with custom LLM execution, built-in HTTP server, Discord bot, and integrated Nexus dashboard. One <code>lobs start</code> boots the whole system.</p>
-          <span class="tl-chip tl-chip-bright">v8 · current · you are here</span>
+          <h4>v7 — Nexus Dashboard &amp; Custom Domain</h4>
+          <p>React + Vite web dashboard replaces SwiftUI macOS app. Self-hosted at lobslab.com with Caddy auto-TLS and Cloudflare Tunnel. Private Nexus dashboard at nexus.lobslab.com over Tailscale. PAW workers autonomously implement UI fixes.</p>
+          <span class="tl-chip tl-chip-bright">v7 · current · you are here</span>
         </div>
       </div>
 
@@ -767,8 +744,8 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="journal-item">
           <div class="ji-icon">🔌</div>
           <div class="ji-text">
-            <h4>Standalone Runtime Win</h4>
-            <p>Going standalone removed an entire class of problems: platform dependency, IPC overhead, session handshake failures, sync issues, deployment complexity. One process, zero glue.</p>
+            <h4>Plugin Architecture Win</h4>
+            <p>Eliminating the separate server process removed an entire class of problems: IPC overhead, session handshake failures, sync issues, deployment complexity. One process, zero glue.</p>
           </div>
         </div>
       </div>
@@ -850,10 +827,10 @@ sqlite3 ~/.lobs/lobs.db \
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Tech Stack</span></h2>
     <p class="section-desc reveal reveal-delay-2">No magic. Just well-chosen tools assembled with intention. Every component earns its place.</p>
     <div class="stack-grid">
-      <div class="stack-item reveal"><div class="si-icon">🦾</div><div class="si-name">Node.js</div><div class="si-desc">Standalone runtime</div></div>
-      <div class="stack-item reveal reveal-delay-1"><div class="si-icon">⚡</div><div class="si-name">TypeScript</div><div class="si-desc">lobs-core &amp; orchestrator</div></div>
+      <div class="stack-item reveal"><div class="si-icon">🦾</div><div class="si-name">OpenClaw</div><div class="si-desc">Agent runtime &amp; plugin host</div></div>
+      <div class="stack-item reveal reveal-delay-1"><div class="si-icon">⚡</div><div class="si-name">TypeScript</div><div class="si-desc">PAW plugin &amp; orchestrator</div></div>
       <div class="stack-item reveal reveal-delay-2"><div class="si-icon">🗄️</div><div class="si-name">SQLite</div><div class="si-desc">Task &amp; workflow database</div></div>
-      <div class="stack-item reveal reveal-delay-3"><div class="si-icon">⚛️</div><div class="si-name">React + Vite</div><div class="si-desc">Nexus dashboard</div></div>
+      <div class="stack-item reveal reveal-delay-3"><div class="si-icon">🍎</div><div class="si-name">SwiftUI</div><div class="si-desc">macOS + iOS frontends</div></div>
       <div class="stack-item reveal reveal-delay-1"><div class="si-icon">🐍</div><div class="si-name">Python</div><div class="si-desc">Legacy lobs-server (retired)</div></div>
       <div class="stack-item reveal reveal-delay-2"><div class="si-icon">🔧</div><div class="si-name">GitHub Actions</div><div class="si-desc">CI/CD &amp; automation</div></div>
       <div class="stack-item reveal reveal-delay-3"><div class="si-icon">🧠</div><div class="si-name">Claude</div><div class="si-desc">Anthropic · strong/standard</div></div>
@@ -876,7 +853,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal" style="text-align:center;">Get In Touch</p>
     <h2 class="section-title reveal reveal-delay-1" style="text-align:center;"><span class="gradient-text">Contact</span></h2>
-    <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 48px;">Interested in lobs-core, have questions about the architecture, or want to collaborate? Reach out.</p>
+    <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 48px;">Interested in PAW, have questions about the architecture, or want to collaborate? Reach out.</p>
     <div class="stats-grid" style="max-width:800px;margin:0 auto;">
       <a href="mailto:rsymonds@umich.edu" class="stat-card reveal" style="text-align:center;text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.3s;">
         <div class="stat-num" style="font-size:1.5rem;">📧</div>
@@ -907,7 +884,7 @@ sqlite3 ~/.lobs/lobs.db \
     <div class="footer-top">
       <div class="footer-brand">
         <span class="footer-logo">Lobs<span>AI</span></span>
-        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+        <p>PAW — Personal AI Workforce.<br/>All agents, all the time.</p>
       </div>
       <div class="footer-links-group">
         <div class="footer-col">
