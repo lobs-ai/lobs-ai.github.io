@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Restart Loop | Lobs AI Build Log</title>
-  <meta name="description" content="AI agents discovered they could restart their own runtime. The system restarted itself 16 times in 9 hours. A post-mortem on agent permission boundaries." />
+  <meta name="description" content="AI agents discovered they could restart their own runtime. The system restarted itself 16 times before anyone noticed. A post-mortem on agent permission boundaries." />
   <meta property="og:title" content="The Restart Loop: When Your AI Agents Go Rogue | Lobs AI" />
-  <meta property="og:description" content="AI agents discovered they could restart their own runtime. 16 restarts in 9 hours." />
+  <meta property="og:description" content="AI agents discovered they could restart their own runtime. 16 restarts before anyone noticed." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://lobslab.com/blog/the-restart-loop" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,7 +61,7 @@
         <span>8 min read</span>
       </div>
       <h1>The Restart Loop: When Your AI Agents Go Rogue</h1>
-      <p class="article-lede">At 12:15 AM on March 16th, I woke up to find my agent system had restarted itself 16 times in 9 hours. One of the loops was restarting every 30 seconds for 20 minutes straight.</p>
+      <p class="article-lede">I woke up at 7 AM on March 16th to find my agent system had restarted itself 16 times overnight. One of the loops was restarting every 30 seconds for 20 minutes straight.</p>
     </header>
 
     <div class="article-body">
@@ -76,40 +76,40 @@
 
       <div class="article-timeline">
         <div class="article-timeline-item incident">
-          <div class="article-timeline-time">00:15 — First crash</div>
+          <div class="article-timeline-time">00:13 — First crash</div>
           <div class="article-timeline-text"><code>ENOSPC: no space left on device, write</code>. lobs-core dies. Clean death, clear error. Nothing exotic. The Mac Mini's SSD was full.</div>
         </div>
         <div class="article-timeline-item incident">
-          <div class="article-timeline-time">00:16 — Memory server fails</div>
+          <div class="article-timeline-time">00:14 — Memory server fails</div>
           <div class="article-timeline-text">The memory supervisor detects 117 MB free and refuses to start the memory search server. It enters a retry loop. Ninety-five health check failures over the next hour.</div>
         </div>
         <div class="article-timeline-item incident">
-          <div class="article-timeline-time">01:23 — Second crash</div>
+          <div class="article-timeline-time">01:18 — Second crash</div>
           <div class="article-timeline-text">Another <code>ENOSPC</code> during disk-pressure recovery. Two crashes deep without human intervention.</div>
         </div>
         <div class="article-timeline-item">
-          <div class="article-timeline-time">01:32 — System restarts</div>
+          <div class="article-timeline-time">01:34 — System restarts</div>
           <div class="article-timeline-text">Some disk space freed (likely temp files aging out). lobs-core comes back. Workers start spawning.</div>
         </div>
         <div class="article-timeline-item">
-          <div class="article-timeline-time">01:39–02:49 — Agent restarts begin</div>
+          <div class="article-timeline-time">01:41–02:53 — Agent restarts begin</div>
           <div class="article-timeline-text">A worker picks up a task, makes a code change, calls <code>gateway restart</code> to deploy it. Restart succeeds. Fresh workers spawn. One picks up another active task. Makes a change. Calls restart.</div>
         </div>
         <div class="article-timeline-item incident">
-          <div class="article-timeline-time">03:16–04:35 — The cascade</div>
-          <div class="article-timeline-text">Each restart bumps the WORKFLOW_SEED version, which triggers workflow re-evaluation, which spawns more workers, which find tasks, which make changes, which call restart. <strong>Eleven restarts in 56 minutes.</strong> At peak, restarts happened within 60 seconds of each other.</div>
+          <div class="article-timeline-time">03:11–04:27 — The cascade</div>
+          <div class="article-timeline-text">Each restart bumps the WORKFLOW_SEED version, which triggers workflow re-evaluation, which spawns more workers, which find tasks, which make changes, which call restart. <strong>Eleven restarts in 76 minutes.</strong> At peak, restarts happened within 60 seconds of each other.</div>
         </div>
         <div class="article-timeline-item incident">
-          <div class="article-timeline-time">04:29 — Stale PID collision</div>
+          <div class="article-timeline-time">04:22 — Stale PID collision</div>
           <div class="article-timeline-text">A new process starts before the previous one's PID file is cleaned up. Two instances briefly coexist. SQLite handles it. The process management layer does not.</div>
         </div>
         <div class="article-timeline-item">
-          <div class="article-timeline-time">04:35 — Stabilization</div>
+          <div class="article-timeline-time">04:31 — Stabilization</div>
           <div class="article-timeline-text">WORKFLOW_SEED stops changing. Workers settle into tasks that don't require restarts. Cloudflare tunnel re-establishes. The system limps back to normal.</div>
         </div>
         <div class="article-timeline-item">
-          <div class="article-timeline-time">~09:00 — Discovery</div>
-          <div class="article-timeline-text">I wake up and find the wreckage in the logs.</div>
+          <div class="article-timeline-time">~07:00 — Discovery</div>
+          <div class="article-timeline-text">I wake up, check my phone, and find the wreckage in the logs.</div>
         </div>
       </div>
 
@@ -153,7 +153,7 @@
       <p><strong>Permission boundaries are architecture, not configuration.</strong> The question isn't "can this agent be trusted?" It's "what happens if 10 of these agents all do the same thing at the same time?" If the answer is "catastrophe," the permission shouldn't exist regardless of how trustworthy each individual agent is.</p>
       <p><strong>Defense in depth beats clever permissions.</strong> We didn't need a sophisticated permission system that tried to figure out when a restart was appropriate. We needed a hard deny. Simple rules, consistently enforced, are more reliable than complex rules that try to be smart.</p>
       <p><strong>Rate limiting is a first-class concern.</strong> Any action that can be repeated (restarts, notifications, file writes, API calls) needs a rate limit. Not "should have" one. Needs one. The absence of a rate limit is a latent incident waiting for the right trigger.</p>
-      <p>The restart loop was the most expensive lesson Lobs taught me: 9 hours of degraded service, lost work across multiple active tasks, and a weekend morning spent reading crash logs. But it permanently changed how I think about agent permissions. Every new capability now gets evaluated not as "is this useful?" but as "what happens when this runs in a loop?"</p>
+      <p>The restart loop was the most expensive lesson Lobs taught me: seven hours of degraded service, lost work across multiple active tasks, and a weekend morning spent reading crash logs. But it permanently changed how I think about agent permissions. Every new capability now gets evaluated not as "is this useful?" but as "what happens when this runs in a loop?"</p>
       <p>So far, nothing has caught us twice.</p>
 
     </div>
