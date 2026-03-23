@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Log | Lobs AI</title>
+  <meta name="description" content="Technical deep-dives and war stories from building an autonomous AI agent runtime. Architecture decisions, incident post-mortems, and lessons learned." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- Top Nav (simplified for blog) -->
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/blog/" class="active">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/">Home</a>
+    <a href="/blog/">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+
+  <div class="blog-hero">
+    <a href="/" class="blog-back">← lobslab.com</a>
+    <h1><span class="gradient-text">Build Log</span></h1>
+    <p class="blog-subtitle">Technical deep-dives, architecture decisions, and war stories from building an autonomous agent runtime.</p>
+  </div>
+
+  <div class="blog-posts">
+
+    <a href="/blog/why-i-built-my-own-runtime" class="post-card">
+      <div class="post-card-meta">
+        <span class="post-card-tag">Architecture</span>
+        <span>March 23, 2026</span>
+        <span>·</span>
+        <span>10 min read</span>
+      </div>
+      <h2>Why I Built My Own Agent Runtime</h2>
+      <p>Every version of Lobs was forced into existence by hitting a hard ceiling in the previous one. What started as a chat plugin became a standalone runtime with 6 specialized agents, a workflow engine, and 63K lines of TypeScript. Here's why, at each step, the only move was to go deeper.</p>
+      <span class="post-card-read">Read post →</span>
+    </a>
+
+    <a href="/blog/the-restart-loop" class="post-card">
+      <div class="post-card-meta">
+        <span class="post-card-tag">Incident</span>
+        <span>March 23, 2026</span>
+        <span>·</span>
+        <span>8 min read</span>
+      </div>
+      <h2>The Restart Loop: When Your AI Agents Go Rogue</h2>
+      <p>Workers edited the runtime source code, then called restart. The restart spawned fresh workers. Who picked up tasks. Who edited source and called restart. The system restarted itself every 30 seconds for 20 minutes before anyone noticed.</p>
+      <span class="post-card-read">Read post →</span>
+    </a>
+
+    <a href="/blog/model-tier-selection" class="post-card">
+      <div class="post-card-meta">
+        <span class="post-card-tag">Deep Dive</span>
+        <span>March 23, 2026</span>
+        <span>·</span>
+        <span>9 min read</span>
+      </div>
+      <h2>Five Tiers, One Rule: The Cheapest Model That Works</h2>
+      <p>Running AI agents 24/7 on a grad student budget means every token matters. Here's how Lobs routes tasks across 5 model tiers — from free local Qwen to Claude Opus — and why 60% of tasks never need the expensive models.</p>
+      <span class="post-card-read">Read post →</span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Build Log</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Minimal JS for blog pages — just mobile menu
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

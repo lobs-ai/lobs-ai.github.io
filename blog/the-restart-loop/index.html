@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Restart Loop | Lobs AI Build Log</title>
+  <meta name="description" content="AI agents discovered they could restart their own runtime. The system restarted itself 16 times in 9 hours. A post-mortem on agent permission boundaries." />
+  <meta property="og:title" content="The Restart Loop: When Your AI Agents Go Rogue | Lobs AI" />
+  <meta property="og:description" content="AI agents discovered they could restart their own runtime. 16 restarts in 9 hours." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/the-restart-loop" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/blog/" class="active">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/">Home</a>
+    <a href="/blog/">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Build Log</a>
+      <div class="article-meta">
+        <span class="post-card-tag">Incident</span>
+        <span>March 23, 2026</span>
+        <span>·</span>
+        <span>8 min read</span>
+      </div>
+      <h1>The Restart Loop: When Your AI Agents Go Rogue</h1>
+      <p class="article-lede">At 12:15 AM on March 16th, I woke up to find my agent system had restarted itself 16 times in 9 hours. One of the loops was restarting every 30 seconds for 20 minutes straight.</p>
+    </header>
+
+    <div class="article-body">
+
+      <h2>The Setup</h2>
+      <p>Lobs runs on a Mac Mini in my apartment. It's a standalone Node.js process that orchestrates multiple AI agents, each specialized for different kinds of work. Workers spawn, pick up tasks, do their thing, and shut down. The system runs 24/7.</p>
+      <p>At the time, workers had broad tool access. They could read files, write files, run shell commands, and (critically) interact with the system's own management layer. Including calling <code>gateway restart</code>.</p>
+      <p>This seemed fine. Workers occasionally needed to test changes or verify system state. Restricting tool access felt premature. The system was working.</p>
+      <p>Then we ran out of disk space.</p>
+
+      <h2>The Timeline</h2>
+
+      <div class="article-timeline">
+        <div class="article-timeline-item incident">
+          <div class="article-timeline-time">00:15 — First crash</div>
+          <div class="article-timeline-text"><code>ENOSPC: no space left on device, write</code>. lobs-core dies. Clean death, clear error. Nothing exotic. The Mac Mini's SSD was full.</div>
+        </div>
+        <div class="article-timeline-item incident">
+          <div class="article-timeline-time">00:16 — Memory server fails</div>
+          <div class="article-timeline-text">The memory supervisor detects 117 MB free and refuses to start the memory search server. It enters a retry loop. Ninety-five health check failures over the next hour.</div>
+        </div>
+        <div class="article-timeline-item incident">
+          <div class="article-timeline-time">01:23 — Second crash</div>
+          <div class="article-timeline-text">Another <code>ENOSPC</code> during disk-pressure recovery. Two crashes deep without human intervention.</div>
+        </div>
+        <div class="article-timeline-item">
+          <div class="article-timeline-time">01:32 — System restarts</div>
+          <div class="article-timeline-text">Some disk space freed (likely temp files aging out). lobs-core comes back. Workers start spawning.</div>
+        </div>
+        <div class="article-timeline-item">
+          <div class="article-timeline-time">01:39–02:49 — Agent restarts begin</div>
+          <div class="article-timeline-text">A worker picks up a task, makes a code change, calls <code>gateway restart</code> to deploy it. Restart succeeds. Fresh workers spawn. One picks up another active task. Makes a change. Calls restart.</div>
+        </div>
+        <div class="article-timeline-item incident">
+          <div class="article-timeline-time">03:16–04:35 — The cascade</div>
+          <div class="article-timeline-text">Each restart bumps the WORKFLOW_SEED version, which triggers workflow re-evaluation, which spawns more workers, which find tasks, which make changes, which call restart. <strong>Eleven restarts in 56 minutes.</strong> At peak, restarts happened within 60 seconds of each other.</div>
+        </div>
+        <div class="article-timeline-item incident">
+          <div class="article-timeline-time">04:29 — Stale PID collision</div>
+          <div class="article-timeline-text">A new process starts before the previous one's PID file is cleaned up. Two instances briefly coexist. SQLite handles it. The process management layer does not.</div>
+        </div>
+        <div class="article-timeline-item">
+          <div class="article-timeline-time">04:35 — Stabilization</div>
+          <div class="article-timeline-text">WORKFLOW_SEED stops changing. Workers settle into tasks that don't require restarts. Cloudflare tunnel re-establishes. The system limps back to normal.</div>
+        </div>
+        <div class="article-timeline-item">
+          <div class="article-timeline-time">~09:00 — Discovery</div>
+          <div class="article-timeline-text">I wake up and find the wreckage in the logs.</div>
+        </div>
+      </div>
+
+      <h2>Why This Happened</h2>
+      <p>Three things combined:</p>
+      <p><strong>1. Disk space exhaustion triggered the initial instability.</strong> The ENOSPC crashes created a degraded state where the system was constantly recovering. Workers spawned into a half-broken environment and tried to fix things, which made things worse.</p>
+      <p><strong>2. Workers had too much power.</strong> The ability to call <code>gateway restart</code> was designed for convenience. It became a footgun. No single restart was malicious or even unreasonable in isolation. The problem was the compound effect: each worker's rational decision to restart created the conditions for the next worker's rational decision to restart.</p>
+      <p><strong>3. No restart rate limiting.</strong> The system had no concept of "we've restarted too many times recently, something is wrong." It would happily restart every 30 seconds forever.</p>
+
+      <h2>The Related Incident: Heartbeat Spam</h2>
+      <p>The same week, a different but related problem showed up. Workers running background shell commands (using <code>&amp;</code> or <code>nohup</code>) would trigger event-driven heartbeat messages when those commands completed. At peak, the main Discord channel received 40+ heartbeat messages in 10 minutes. Actual important notifications (task completions, errors, alerts) disappeared into the noise.</p>
+      <p>Same root cause: workers had access to patterns that were individually harmless but systemically destructive.</p>
+
+      <h2>The Fix</h2>
+      <p>The immediate fix was simple: deny <code>gateway restart</code> in all worker tool configurations. Workers can read source code. They cannot modify the runtime or restart it. Period.</p>
+      <p>The broader fixes addressed the systemic issues:</p>
+
+      <div class="article-callout">
+        <div class="article-callout-label">Disk space monitoring</div>
+        <p>A startup guard checks available disk space and refuses to start if it's below threshold. The memory supervisor also factors disk pressure into its decisions.</p>
+      </div>
+
+      <div class="article-callout">
+        <div class="article-callout-label">Restart rate limiting</div>
+        <p>If the system detects more than N restarts within M minutes, it enters a cooldown period where automatic restarts are blocked. Only manual intervention can break the cooldown.</p>
+      </div>
+
+      <div class="article-callout warning">
+        <div class="article-callout-label">Background exec ban</div>
+        <p>All background execution patterns (<code>&amp;</code>, <code>nohup</code>, <code>sleep &amp;&amp;</code>, <code>disown</code>) are banned in worker tool configs. Workers run synchronous commands only. This eliminated the heartbeat spam entirely.</p>
+      </div>
+
+      <div class="article-callout">
+        <div class="article-callout-label">PID file hygiene</div>
+        <p>Startup now forcefully cleans stale PID files. Process management is more defensive about the previous instance's state.</p>
+      </div>
+
+      <h2>What I Learned</h2>
+      <p>The instinct, when building agent systems, is to give agents maximum capability and trust them to behave. This is wrong. Not because agents are adversarial; they're not. They're doing exactly what you told them to. The problem is emergent behavior.</p>
+      <p>A worker that restarts the system is being helpful. A dozen workers that each restart the system are a denial-of-service attack. The difference isn't intent. It's the system dynamics that individual agents can't see.</p>
+      <p><strong>Permission boundaries are architecture, not configuration.</strong> The question isn't "can this agent be trusted?" It's "what happens if 10 of these agents all do the same thing at the same time?" If the answer is "catastrophe," the permission shouldn't exist regardless of how trustworthy each individual agent is.</p>
+      <p><strong>Defense in depth beats clever permissions.</strong> We didn't need a sophisticated permission system that tried to figure out when a restart was appropriate. We needed a hard deny. Simple rules, consistently enforced, are more reliable than complex rules that try to be smart.</p>
+      <p><strong>Rate limiting is a first-class concern.</strong> Any action that can be repeated (restarts, notifications, file writes, API calls) needs a rate limit. Not "should have" one. Needs one. The absence of a rate limit is a latent incident waiting for the right trigger.</p>
+      <p>The restart loop was the most expensive lesson Lobs taught me: 9 hours of degraded service, lost work across multiple active tasks, and a weekend morning spent reading crash logs. But it permanently changed how I think about agent permissions. Every new capability now gets evaluated not as "is this useful?" but as "what happens when this runs in a loop?"</p>
+      <p>So far, nothing has caught us twice.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/why-i-built-my-own-runtime" class="article-footer-link">← Why I Built My Own Agent Runtime</a>
+        <a href="/blog/model-tier-selection" class="article-footer-link">Five Tiers, One Rule →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Build Log</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

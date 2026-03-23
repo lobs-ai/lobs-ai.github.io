@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why I Built My Own Agent Runtime | Lobs AI Build Log</title>
+  <meta name="description" content="Eight versions, eight ceilings. How a chat plugin became a standalone 63K-line TypeScript runtime with 6 specialized agents." />
+  <meta property="og:title" content="Why I Built My Own Agent Runtime | Lobs AI" />
+  <meta property="og:description" content="Eight versions, eight ceilings. How a chat plugin became a standalone 63K-line TypeScript runtime." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/why-i-built-my-own-runtime" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/blog/" class="active">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/">Home</a>
+    <a href="/blog/">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Build Log</a>
+      <div class="article-meta">
+        <span class="post-card-tag">Architecture</span>
+        <span>March 23, 2026</span>
+        <span>·</span>
+        <span>10 min read</span>
+      </div>
+      <h1>Why I Built My Own Agent Runtime</h1>
+      <p class="article-lede">The honest answer is: I didn't plan to. Each version existed because the previous one hit a wall. Not a soft wall. A hard architectural ceiling where the only move was to rebuild.</p>
+    </header>
+
+    <div class="article-body">
+
+      <h2>v1: The Ceiling of One</h2>
+      <p>It started inside OpenClaw, an AI coding tool I was already using. I added a custom task framework: a way to queue work, track status, hand off to a single agent. Simple. It worked. Then I needed two things to happen at the same time.</p>
+      <p>You can't parallelize a single agent. There's no "add another worker" switch when your entire orchestration layer is built around one. The architecture had to change.</p>
+
+      <h2>v2: Many Agents, No Memory</h2>
+      <p>Multi-agent made parallelism possible: Programmer, Writer, Researcher, Reviewer, Architect, each specialized, each running independently. Tasks routed to the right agent. Multiple could run simultaneously.</p>
+      <p>What it couldn't do was learn. Every session started fresh. An agent that debugged the same class of bug last Tuesday had zero recollection of it this Tuesday. The system was getting work done but not getting better. Shared memory was the obvious fix. But obvious fixes in agent systems are rarely simple.</p>
+
+      <h2>v3: The Learning Layer</h2>
+      <p>Reflection and shared memory changed the character of the system. Agents would complete a task, extract lessons from what went well or didn't, and write those to a shared memory store. The next agent to encounter a similar problem had access to that context.</p>
+      <p>Week-over-week, the system improved without manual intervention. Mistakes stopped repeating (at least the ones that had been made before). This is when Lobs started feeling less like a tool and more like a system.</p>
+      <p>But now there was a new problem: I had a multi-agent learning system with no real API surface. It was still living inside OpenClaw, which meant it was constrained by OpenClaw's model, OpenClaw's session lifecycle, and OpenClaw's execution model. Health monitoring, a task queue, proper REST endpoints: all of it meant building around the host.</p>
+
+      <h2>v4: The Web Server Era</h2>
+      <p>FastAPI backend, REST API, task queue, health monitoring. A SwiftUI macOS app and an iOS app for dashboarding. This was peak "running my own infrastructure" energy. The system could accept tasks from anywhere, report status, and orchestrate agents across proper HTTP boundaries.</p>
+      <p>It also introduced the first real operational complexity. A Python FastAPI service plus OpenClaw plus agents communicating over localhost. Three moving parts that could each fail independently. I spent more time debugging IPC than on actual features. The more I added, the more surface area existed to break.</p>
+      <p>The workflow engine is what finally broke the architecture.</p>
+
+      <h2>v5: Workflows Expose Everything</h2>
+      <p>Nineteen workflow definitions. State machines with conditional branching and rollback. Event-driven triggers. Cron scheduling. A DAG-based execution model where tasks have explicit dependencies and the engine handles ordering.</p>
+      <p>This was the most powerful version of Lobs yet, and it made every structural weakness in the underlying architecture visible. You can't have a clean workflow engine running on top of a messy execution substrate. The boundaries leak. Error handling in the workflow layer fights with error handling in the agent layer. Session state in OpenClaw fights with state in the workflow engine. The system was powerful enough to expose its own foundations as inadequate.</p>
+      <p>The Python codebase had also grown to ~38K lines. Most of it was fine. Some of it was not. A full rewrite was overdue.</p>
+
+      <h2>v6: The TypeScript Rewrite</h2>
+      <p>The rewrite accomplished two things: it consolidated ~38K lines of Python into a leaner TypeScript core, and it made Lobs a proper OpenClaw plugin rather than a separate service. Single process. No IPC. No separate service to deploy.</p>
+      <p>The improvement was immediate: simpler deployment, faster iteration, fewer failure modes. But "OpenClaw plugin" was still a constraint. Everything ran through OpenClaw's session model. A new capability that OpenClaw didn't natively support meant working around it. The gap between what I wanted and what the host allowed kept growing.</p>
+
+      <h2>v7: Visibility</h2>
+      <p>Nexus, a React + Vite dashboard, arrived in v7. Self-hosted at lobslab.com via Caddy reverse proxy and a Cloudflare Tunnel, making the dashboard was reachable anywhere without port-forwarding gymnastics.</p>
+      <p>This was less a structural change and more a maturity signal: the system had gotten complex enough that a proper UI was necessary, not optional. Watching tasks move through states, seeing worker run timelines, inspecting artifacts. These went from nice-to-have to required for operating the system reliably.</p>
+      <p>But the dashboard also made the OpenClaw dependency more visible. Nexus showed real-time state pulled from lobs-core APIs, which ran inside OpenClaw, which meant restarting OpenClaw to update the runtime also disrupted everything downstream. The host and the platform were too entangled.</p>
+
+      <h2>v8: Cut the Cord</h2>
+      <p>The current version of lobs-core has no dependency on OpenClaw or any other AI tool. It's a standalone Node.js process with its own:</p>
+      <ul>
+        <li>LLM execution loop (direct API calls to Anthropic, OpenAI, or local LM Studio)</li>
+        <li>Worker lifecycle management (spawn, supervise, timeout, retry)</li>
+        <li>Discord bot integration (primary interaction surface)</li>
+        <li>Memory supervision (starts, monitors, and recovers the memory server)</li>
+        <li>Workflow engine (this survived every rebuild)</li>
+        <li>Task database (SQLite, directly owned)</li>
+        <li>REST API (for Nexus and external integrations)</li>
+        <li>CLI (<code>lobs start</code>, <code>lobs stop</code>, <code>lobs status</code>, <code>lobs logs</code>, etc.)</li>
+      </ul>
+
+      <div class="article-diagram">
+        <div class="article-diagram-label">Current System Stats</div>
+        <div class="tier-chain">
+          <div class="tier-node">
+            <div class="tier-node-name">63K</div>
+            <div class="tier-node-desc">Lines of TypeScript</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">6</div>
+            <div class="tier-node-desc">Specialized Agents</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">5</div>
+            <div class="tier-node-desc">Model Tiers</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">111</div>
+            <div class="tier-node-desc">Worker Runs / 30d</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">33M+</div>
+            <div class="tier-node-desc">Tokens Processed</div>
+          </div>
+        </div>
+      </div>
+
+      <p>The freedom to make arbitrary architectural decisions (pick any model, implement any tool, own the full execution loop) is the thing that made all the subsequent work possible. A plugin is always constrained by its host. A standalone runtime is constrained only by what you're willing to build.</p>
+
+      <h2>What Actually Changed</h2>
+      <p>Looking back, the version history isn't really a story about adding features. It's a story about removing constraints, one at a time.</p>
+      <p>v1 removed the single-agent ceiling. v2 removed the parallelism ceiling. v3 removed the memory ceiling. v4 gave it API surface. v5 gave it a proper workflow model. v6 simplified the stack. v7 made it visible. v8 made it independent.</p>
+      <p>Every rebuild felt costly in the moment. Weeks of work to end up with roughly the same feature set, but on better foundations. In retrospect, every one of them was the right call. Bad foundations compound. The system you can build on top of a proper foundation is an order of magnitude more capable than the one you can bolt onto a bad one.</p>
+      <p>The other thing that changed: each version taught me something the previous one couldn't. You can't learn what breaks in production until you're in production. You can't learn what's worth optimizing until you've run it at real load. The cycle of rewrites, which felt wasteful, was actually the fastest path. Each version produced knowledge that made the next one better.</p>
+      <p>I didn't build my own agent runtime because I wanted to. I built it because every alternative eventually ran out of runway. It turns out that's a pretty good reason to build something.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/" class="article-footer-link">← All posts</a>
+        <a href="/blog/the-restart-loop" class="article-footer-link">The Restart Loop →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Build Log</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

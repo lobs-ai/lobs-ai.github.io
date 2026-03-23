@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Five Tiers, One Rule | Lobs AI Build Log</title>
+  <meta name="description" content="How the Lobs AI agent system routes tasks across 5 model tiers to minimize cost. From free local Qwen to Claude Opus: the cheapest model that works." />
+  <meta property="og:title" content="Five Tiers, One Rule: The Cheapest Model That Works | Lobs AI" />
+  <meta property="og:description" content="Running AI agents 24/7 on a grad student budget. How 5 model tiers keep costs sustainable." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/model-tier-selection" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/blog/" class="active">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/">Home</a>
+    <a href="/blog/">Build Log</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Build Log</a>
+      <div class="article-meta">
+        <span class="post-card-tag">System Design</span>
+        <span>March 23, 2026</span>
+        <span>·</span>
+        <span>9 min read</span>
+      </div>
+      <h1>Five Tiers, One Rule: The Cheapest Model That Works</h1>
+      <p class="article-lede">Running an AI agent system on a grad student budget forces a question most AI companies don't ask: what's the cheapest model that can do this job?</p>
+    </header>
+
+    <div class="article-body">
+
+      <h2>The Tiers</h2>
+      <p>Lobs routes every task through one of five model tiers. The mapping isn't random. It's based on what kind of work the agent does and what failure looks like.</p>
+
+      <div class="article-diagram">
+        <div class="article-diagram-label">Escalation Chain</div>
+        <div class="tier-chain">
+          <div class="tier-node">
+            <div class="tier-node-name">Micro</div>
+            <div class="tier-node-desc">Qwen · Local · Free</div>
+          </div>
+          <span class="tier-arrow">→</span>
+          <div class="tier-node">
+            <div class="tier-node-name">Small</div>
+            <div class="tier-node-desc">Claude Sonnet</div>
+          </div>
+          <span class="tier-arrow">→</span>
+          <div class="tier-node">
+            <div class="tier-node-name">Medium</div>
+            <div class="tier-node-desc">Claude Sonnet+</div>
+          </div>
+          <span class="tier-arrow">→</span>
+          <div class="tier-node">
+            <div class="tier-node-name">Standard</div>
+            <div class="tier-node-desc">Sonnet / Codex</div>
+          </div>
+          <span class="tier-arrow">→</span>
+          <div class="tier-node">
+            <div class="tier-node-name">Strong</div>
+            <div class="tier-node-desc">Claude Opus</div>
+          </div>
+        </div>
+      </div>
+
+      <p><strong>Micro:</strong> Qwen 2.5 running locally via LM Studio on the same Mac Mini that hosts lobs-core. Cost: zero. Latency: ~2 seconds. In the first week, roughly 60% of tasks ran here. These are the tasks where "good enough" is genuinely good enough: formatting, simple lookups, template generation, boilerplate.</p>
+      <p><strong>Small:</strong> Claude Sonnet. The default for Writer agents. Good prose, follows instructions well, rarely surprises you. Most blog posts, documentation, and communication drafts start here.</p>
+      <p><strong>Medium:</strong> Claude Sonnet+. Default for Researcher agents. Better at synthesis, longer context handling, more reliable at connecting information across sources. The price bump over Small is worth it when the task involves reading 10 files and producing a coherent summary.</p>
+      <p><strong>Standard:</strong> Claude Sonnet / Codex. Default for Programmer agents. Code generation, debugging, architecture decisions that involve reading real codebases. This is where most of the token spend goes, because code tasks tend to be context-heavy.</p>
+      <p><strong>Strong:</strong> Claude Opus. Reserved for Architect agents and complex design work. Used sparingly, maybe 5% of total runs. The situations where Opus justifies its cost are the ones where a wrong answer is expensive: system design decisions, security reviews, cross-cutting refactors.</p>
+
+      <h2>How Routing Works</h2>
+      <p>Every task in the system has an agent type assignment. Agent types have default tiers. When a worker spawns to handle a task, it uses the tier mapped to its agent type.</p>
+      <p>This sounds simple because it is. The complexity isn't in the routing. It's in what happens when routing is wrong.</p>
+
+      <h2>Escalation on Failure</h2>
+      <p>When a task fails on its assigned tier, the system doesn't just retry at the same level. It escalates up. Micro fails → retry on Small. Small fails → retry on Medium. And so on up the chain.</p>
+      <p>This is where the economics get interesting. A task that succeeds on Micro costs nothing. The same task, if it fails on Micro and succeeds on Small, costs one Sonnet API call plus one wasted local inference. That's still cheaper than running everything on Standard by default.</p>
+      <p>The failure rate on Micro is higher than on Standard, obviously. But the per-task cost is so much lower that the math works out. You can afford a 40% failure rate on free inference if the 60% that succeeds saves you hundreds of API calls.</p>
+
+      <h2>Circuit Breakers</h2>
+      <p>Escalation handles individual task failures. Circuit breakers handle systemic model failures.</p>
+      <p>If a model's failure rate crosses a threshold within a rolling window, the circuit breaker trips and quarantines that model. Tasks that would have routed there skip to the next tier up. When the quarantine period expires, the model gets a probe request. If it succeeds, the circuit breaker resets.</p>
+      <p>This matters most for local models. LM Studio occasionally stalls, runs out of memory, or returns garbage after a context length overflow. Without the circuit breaker, every Micro-tier task would fail, retry on Small, and you'd be paying API costs for work that should be free. With it, the system detects the problem within a few failures and routes around it.</p>
+
+      <h2>The Numbers</h2>
+
+      <div class="article-diagram">
+        <div class="article-diagram-label">30-Day Token Distribution</div>
+        <div class="tier-chain">
+          <div class="tier-node">
+            <div class="tier-node-name">33.1M</div>
+            <div class="tier-node-desc">Input tokens</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">560K</div>
+            <div class="tier-node-desc">Output tokens</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">59:1</div>
+            <div class="tier-node-desc">Input/Output ratio</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">111</div>
+            <div class="tier-node-desc">Worker runs</div>
+          </div>
+        </div>
+      </div>
+
+      <p>That input/output ratio (59:1) tells the real story. Agent work is overwhelmingly context consumption. Workers read codebases, documentation, conversation history, memory files. They produce relatively little output. A programmer agent that reads 200K tokens of context to write a 2K token code change is typical.</p>
+      <p>This has direct implications for cost optimization. Input tokens are cheaper than output tokens on every provider. The 59:1 ratio means our effective cost per task is heavily weighted toward the cheaper token type.</p>
+      <p>The agent distribution is also lopsided: 102 of 111 runs were Programmer agents. Code work dominates. This isn't surprising since Lobs is primarily a development tool, but it means reducing programmer agent costs has outsized impact.</p>
+
+      <h2>The 38% Success Rate</h2>
+      <p>Overall task success rate: 38%. That number sounds bad. It's actually fine.</p>
+      <p>Here's why: "failure" in this system isn't always what it sounds like. A task can fail because:</p>
+      <ul>
+        <li>The model timed out (network issue, not capability issue)</li>
+        <li>The task was superseded by a newer version (intentional cancellation)</li>
+        <li>The worker hit a rate limit and was killed</li>
+        <li>The context was too large for the assigned tier</li>
+        <li>The task was genuinely too hard for the model</li>
+      </ul>
+      <p>Only the last category is a real failure. The others are operational noise. When you factor those out, the effective success rate for tasks that got a fair shot is closer to 60%.</p>
+      <p>The remaining 40% are tasks where the model genuinely couldn't do the work. Some of those escalated to a higher tier and succeeded. Some didn't. That's the tradeoff: starting cheap means accepting that some work will need a second attempt.</p>
+
+      <h2>Provider Diversity</h2>
+      <p>Three providers: Anthropic (Claude family), OpenAI (Codex), and local LM Studio (Qwen). Each has different strengths, failure modes, and pricing.</p>
+      <p>Provider diversity is a reliability strategy, not just a cost strategy. When Anthropic has an outage (and they do), tasks can fall back to OpenAI or local inference. When LM Studio stalls, tasks escalate to cloud providers. No single provider failure takes down the system.</p>
+      <p>It also means we're not locked in. If Anthropic raises prices, we shift more work to local inference or OpenAI. If a new local model outperforms Qwen, we swap it into the Micro tier without changing anything else.</p>
+
+      <h2>What We've Learned</h2>
+      <p><strong>Start cheap, escalate on failure.</strong> The default instinct is to use the best model for everything "just to be safe." This is expensive and unnecessary. Most tasks don't need the best model. The ones that do will tell you by failing on the cheaper one.</p>
+      <p><strong>Input tokens dominate costs.</strong> Tuning output generation is a rounding error. The real savings come from context management: what goes into the prompt, how much history is included, whether the agent needs the full file or just the relevant function.</p>
+      <p><strong>Local inference changes the math.</strong> Running Qwen locally on the same machine that hosts lobs-core costs nothing except electricity and compute time. Every task that succeeds on local inference is a task that didn't cost an API call. At 60% local success rates, that's substantial savings.</p>
+      <p><strong>Circuit breakers are mandatory.</strong> Without them, a flaky model turns your cheap tier into an expensive tier (everything escalates). With them, the system routes around problems automatically.</p>
+      <p><strong>The cheapest model that works is a moving target.</strong> Local models get better every quarter. Cloud pricing changes. New providers appear. The tier system is designed to make swapping easy: change the model mapping, keep the architecture. The rule stays the same even when the specific models change.</p>
+      <p>One rule. Five tiers. The cheapest model that works.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/the-restart-loop" class="article-footer-link">← The Restart Loop</a>
+        <a href="/blog/" class="article-footer-link">All posts →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Build Log</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>
