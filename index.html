@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/nav.css" />
   <link rel="stylesheet" href="css/hero.css" />
   <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/pulse.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
@@ -25,6 +26,7 @@
     <a class="toc-dot active" href="#hero" data-section="hero" title="Home"><span class="toc-label">Home</span></a>
     <a class="toc-dot" href="#story" data-section="story" title="Story"><span class="toc-label">Story</span></a>
     <a class="toc-dot" href="#numbers" data-section="numbers" title="Numbers"><span class="toc-label">Numbers</span></a>
+    <a class="toc-dot" href="#pulse" data-section="pulse" title="Live Pulse"><span class="toc-label">Live Pulse</span></a>
     <a class="toc-dot" href="#architecture" data-section="architecture" title="Architecture"><span class="toc-label">Architecture</span></a>
     <a class="toc-dot" href="#how-it-works" data-section="how-it-works" title="How It Works"><span class="toc-label">How It Works</span></a>
     <a class="toc-dot" href="#projects" data-section="projects" title="Projects"><span class="toc-label">Projects</span></a>
@@ -40,6 +42,7 @@
   <a class="nav-logo" href="#hero">Lobs<span>AI</span></a>
   <div class="nav-links">
     <a href="#story">Story</a>
+    <a href="#pulse">Live Pulse</a>
     <a href="#architecture">Architecture</a>
     <a href="#projects">Projects</a>
     <a href="#timeline">Timeline</a>
@@ -63,6 +66,7 @@
   <div class="mobile-menu-links">
     <a href="#story">Story</a>
     <a href="#numbers">Numbers</a>
+    <a href="#pulse">Live Pulse</a>
     <a href="#architecture">Architecture</a>
     <a href="#how-it-works">How It Works</a>
     <a href="#projects">Projects</a>
@@ -325,8 +329,25 @@
 
 <div class="diagonal-divider" aria-hidden="true"></div>
 
+<!-- LIVE PULSE -->
+<section id="pulse" class="alt-bg">
+  <div class="container">
+    <div class="pulse-header">
+      <p class="section-label reveal">Live System</p>
+      <h2 class="section-title reveal reveal-delay-1"><span class="gradient-text">Live Pulse</span></h2>
+      <p class="section-desc reveal reveal-delay-2">Real telemetry from the production system. Updated every 15 minutes. No synthetic data — this is real.</p>
+    </div>
+
+    <div id="pulseContent">
+      <div class="pulse-loading reveal">Fetching telemetry…</div>
+    </div>
+  </div>
+</section>
+
+<div class="diagonal-divider diagonal-alt" aria-hidden="true"></div>
+
 <!-- ARCHITECTURE -->
-<section id="architecture" class="alt-bg">
+<section id="architecture">
   <div class="container">
     <p class="section-label reveal">System Design</p>
     <h2 class="section-title reveal reveal-delay-1">How It All <span class="gradient-text">Fits Together</span></h2>
@@ -955,6 +976,7 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="footer-col">
           <h5>Sections</h5>
           <a href="#story">Story</a>
+          <a href="#pulse">Live Pulse</a>
           <a href="#architecture">Architecture</a>
           <a href="#projects">Projects</a>
           <a href="#timeline">Timeline</a>
@@ -977,5 +999,6 @@ sqlite3 ~/.lobs/lobs.db \
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/pulse.js"></script>
 </body>
 </html>

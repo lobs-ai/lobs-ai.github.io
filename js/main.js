@@ -78,16 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── IntersectionObserver for reveal + counters ─────────────
-  const revealObs = new IntersectionObserver((entries) => {
+  window._revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        revealObs.unobserve(e.target);
+        window._revealObserver.unobserve(e.target);
       }
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => window._revealObserver.observe(el));
 
   // Auto-stagger cards
   document.querySelectorAll('.projects-grid, .stack-grid').forEach(grid => {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!child.classList.contains('reveal')) {
         child.classList.add('reveal');
         child.style.transitionDelay = `${i * 0.08}s`;
-        revealObs.observe(child);
+        window._revealObserver.observe(child);
       }
     });
   });

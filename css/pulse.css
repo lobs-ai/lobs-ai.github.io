@@ -1,0 +1,186 @@
+/* ============================================================
+   pulse.css — Live Pulse section (real-time system telemetry)
+   ============================================================ */
+
+/* ---------- Pulse Section Layout ---------- */
+.pulse-header { text-align: center; margin-bottom: 48px; }
+
+.pulse-status-row {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 32px;
+}
+
+.pulse-beacon {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px rgba(45,212,191,0.5);
+  animation: pulseBeacon 2s ease-in-out infinite;
+}
+.pulse-beacon.offline { background: var(--faint); box-shadow: none; animation: none; }
+.pulse-beacon.stale { background: var(--amber); box-shadow: 0 0 8px rgba(251,191,36,0.4); }
+
+@keyframes pulseBeacon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.pulse-status-text {
+  font-size: 0.82rem; font-weight: 600; color: var(--teal);
+  font-family: var(--mono); letter-spacing: 0.3px;
+}
+.pulse-status-text.offline { color: var(--faint); }
+.pulse-status-text.stale { color: var(--amber); }
+
+.pulse-updated {
+  font-size: 0.7rem; color: var(--faint); text-align: center;
+  margin-top: -20px; margin-bottom: 32px;
+  font-family: var(--mono);
+}
+
+/* ---------- Pulse Stat Grid ---------- */
+.pulse-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  margin-bottom: 32px;
+}
+
+.pulse-stat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 16px;
+  text-align: center; position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.pulse-stat:hover {
+  border-color: rgba(45,212,191,0.3);
+  transform: translateY(-3px);
+  box-shadow: var(--glow);
+}
+
+.pulse-stat-value {
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800;
+  letter-spacing: -1px; line-height: 1;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 6px;
+}
+
+.pulse-stat-label {
+  font-size: 0.75rem; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.pulse-stat-sub {
+  font-size: 0.7rem; color: var(--faint); margin-top: 4px;
+  font-family: var(--mono);
+}
+
+/* ---------- Activity Feed & Agent Grid ---------- */
+.pulse-bottom {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.pulse-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px;
+  overflow: hidden;
+}
+.pulse-panel-title {
+  font-size: 0.78rem; font-weight: 700; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.6px;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.pulse-panel-title .panel-icon {
+  font-size: 0.9rem;
+}
+
+/* Activity Feed */
+.pulse-feed { list-style: none; }
+
+.pulse-feed-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(99,179,237,0.06);
+  font-size: 0.8rem;
+}
+.pulse-feed-item:last-child { border-bottom: none; }
+
+.feed-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.feed-dot.completed { background: var(--teal); }
+.feed-dot.failed { background: var(--red); }
+.feed-dot.running { background: var(--amber); animation: pulseBeacon 1.5s ease-in-out infinite; }
+
+.feed-text { color: var(--muted); flex: 1; }
+.feed-text .feed-agent { color: var(--text); font-weight: 600; }
+
+.feed-time {
+  font-size: 0.7rem; color: var(--faint); font-family: var(--mono);
+  flex-shrink: 0;
+}
+
+/* Agent Breakdown */
+.agent-bars { display: flex; flex-direction: column; gap: 12px; }
+
+.agent-bar-row {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.agent-bar-label {
+  font-size: 0.78rem; font-weight: 600; color: var(--text);
+  min-width: 90px; font-family: var(--mono);
+}
+
+.agent-bar-track {
+  flex: 1; height: 6px; background: var(--surface2);
+  border-radius: 3px; overflow: hidden; position: relative;
+}
+
+.agent-bar-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  transition: width 0.6s ease;
+}
+
+.agent-bar-count {
+  font-size: 0.72rem; color: var(--faint); font-family: var(--mono);
+  min-width: 55px; text-align: right;
+}
+
+.agent-bar-rate {
+  font-size: 0.68rem; color: var(--teal); font-family: var(--mono);
+  min-width: 40px; text-align: right;
+}
+
+/* ---------- Tokens / Cost Badge ---------- */
+.pulse-token-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(45,212,191,0.08); border: 1px solid rgba(45,212,191,0.2);
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 0.72rem; font-weight: 600; color: var(--teal);
+  font-family: var(--mono);
+}
+
+/* ---------- Empty / Loading States ---------- */
+.pulse-loading {
+  text-align: center; padding: 48px 0; color: var(--faint);
+  font-size: 0.85rem;
+}
+
+.pulse-empty {
+  text-align: center; padding: 24px 0; color: var(--faint);
+  font-size: 0.8rem; font-style: italic;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .pulse-stats { grid-template-columns: repeat(2, 1fr); }
+  .pulse-bottom { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .pulse-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pulse-stat { padding: 14px 10px; }
+  .pulse-stat-value { font-size: 1.4rem; }
+  .pulse-panel { padding: 16px; }
+}
