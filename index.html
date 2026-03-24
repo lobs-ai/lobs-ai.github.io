@@ -529,7 +529,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 63k, lobs-nexus 15k, lobs-memory 3k, website 2.7k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 47k, lobs-nexus 15k, lobs-vim 3k, lobs-sentinel 1.2k, website 4.8k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -586,6 +586,54 @@ sqlite3 ~/.lobs/lobs.db \
 
       <div class="project-card reveal reveal-delay-2" data-expanded="false">
         <div class="card-top">
+          <div class="card-icon">VI</div>
+          <div class="card-text-head">
+            <div class="card-tag">lobs-vim</div>
+            <h3>Neovim Plugin</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 3k lines across Lua and TypeScript.</p>
+        <div class="card-meta">
+          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">LT</span><div><h5>Local Tool Execution</h5><p>The LLM reasons on the server; file edits, shell commands, and searches run locally in Neovim. No round-trip for tool execution.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">AP</span><div><h5>Exec Approval System</h5><p>Dangerous commands require explicit approval. Safe operations (reads, searches) run automatically. Configurable trust levels.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">CTX</span><div><h5>Project Context Injection</h5><p>Automatically sends project context on new sessions so the agent understands the codebase from the first message.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">WS</span><div><h5>WebSocket Streaming</h5><p>Real-time streaming of agent responses and tool calls over WebSocket. Cookie-based auth ties into lobs-core's session system.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">ST</div>
+          <div class="card-text-head">
+            <div class="card-tag">lobs-sentinel</div>
+            <h3>Sentinel Agents</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 1.2k lines of TypeScript.</p>
+        <div class="card-meta">
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">1.2k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">RV</span><div><h5>PR Reviewer</h5><p>Reviews pull requests with full context — diffs, comments, commit history. Posts code review comments and approve/request-changes decisions.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">LB</span><div><h5>Auto-Labeler</h5><p>Classifies issues and PRs by content and applies labels automatically. Keeps repos organized without manual triage.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">TR</span><div><h5>Issue Triage</h5><p>Categorizes new issues, assigns priority, and asks clarifying questions. First-responder for incoming work.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">MP</span><div><h5>Multi-Provider LLM</h5><p>Supports Anthropic and OpenAI models. Per-deployment config lets you pick the right model for the task and budget.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-expanded="false">
+        <div class="card-top">
           <div class="card-icon">iOS</div>
           <div class="card-text-head">
             <div class="card-tag">lobs-mobile</div>
@@ -617,9 +665,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>A Git-backed cross-project knowledge base. ADRs, research memos, runbooks, and agent instructions that persist across sessions and sync across the entire system. The supporting <code>lobs-memory</code> service and plugin code currently total about 3k lines of owned code by <code>cloc</code>.</p>
+        <p>A Git-backed cross-project knowledge base. ADRs, research memos, runbooks, and agent instructions that persist across sessions and sync across the entire system. The supporting <code>lobs-memory</code> search service provides hybrid BM25 + vector search over the knowledge base.</p>
         <div class="card-meta">
-          <span class="meta-chip">Git</span><span class="meta-chip">Markdown</span><span class="meta-chip">ADRs</span><span class="meta-chip">Runbooks</span><span class="meta-chip">3k LOC</span>
+          <span class="meta-chip">Git</span><span class="meta-chip">Markdown</span><span class="meta-chip">ADRs</span><span class="meta-chip">Runbooks</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
