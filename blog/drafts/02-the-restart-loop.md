@@ -46,7 +46,7 @@ Three things combined:
 
 **1. Disk space exhaustion triggered the initial instability.** The ENOSPC crashes created a degraded state where the system was constantly recovering. Workers spawned into a half-broken environment and tried to fix things — which made things worse.
 
-**2. Workers had too much power.** The ability to call `gateway restart` was designed for convenience. It became a footgun. No single restart was malicious or even unreasonable in isolation. The problem was the compound effect: each worker's rational decision to restart created the conditions for the next worker's rational decision to restart.
+**2. Workers had too much power.** The ability to call `gateway restart` was designed for convenience — and that convenience quietly made it dangerous. No single restart was malicious or even unreasonable in isolation. The problem was the compound effect: each worker's rational decision to restart created the conditions for the next worker's rational decision to restart.
 
 **3. No restart rate limiting.** The system had no concept of "we've restarted too many times recently, something is wrong." It would happily restart every 30 seconds forever.
 
