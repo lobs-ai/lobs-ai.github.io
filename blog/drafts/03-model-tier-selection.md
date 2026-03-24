@@ -84,7 +84,7 @@ It also means we're not locked in. If Anthropic raises prices, we shift more wor
 
 **Local inference changes the math.** Running Qwen locally on the same machine that hosts lobs-core costs nothing except electricity and compute time. Every task that succeeds on local inference is a task that didn't cost an API call. At 60% local success rates, that's substantial savings.
 
-**Circuit breakers are mandatory.** Without them, a flaky model turns your cheap tier into an expensive tier (everything escalates). With them, the system routes around problems automatically.
+**A flaky cheap tier is worse than no cheap tier.** If local inference stalls and you don't detect it, every task escalates to the cloud — you pay more than if you'd never had local inference at all. The circuit breaker is what makes the cost model hold.
 
 **The cheapest model that works is a moving target.** Local models get better every quarter. Cloud pricing changes. New providers appear. The tier system is designed to make swapping easy — change the model mapping, keep the architecture. The rule stays the same even when the specific models change.
 
