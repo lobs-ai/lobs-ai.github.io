@@ -1,51 +1,173 @@
 {
   "system": {
-    "status": "offline",
-    "uptime_seconds": 0,
-    "uptime_human": "0m",
+    "status": "online",
+    "uptime_seconds": 908,
+    "uptime_human": "15m",
     "version": "8.0"
   },
   "tasks": {
-    "active": 0,
-    "completed_today": 6,
-    "total_completed": 59,
-    "total": 70
+    "active": 1,
+    "completed_today": 3,
+    "total_completed": 62,
+    "total": 77
   },
   "workers": {
-    "active": 0,
-    "runs_30d": 111,
-    "succeeded_30d": 43,
-    "failed_30d": 68,
-    "success_rate_30d": 38,
-    "by_agent": [{"agent":"programmer","runs":102,"success_rate":37},
-{"agent":"architect","runs":8,"success_rate":50},
-{"agent":"writer","runs":1,"success_rate":100}]
+    "active": 1,
+    "runs_30d": 127,
+    "succeeded_30d": 49,
+    "failed_30d": 77,
+    "success_rate_30d": 39,
+    "by_agent": [
+      {
+        "agent": "writer",
+        "runs": 3,
+        "success_rate": 67
+      },
+      {
+        "agent": "programmer",
+        "runs": 116,
+        "success_rate": 37
+      },
+      {
+        "agent": "architect",
+        "runs": 8,
+        "success_rate": 50
+      }
+    ]
   },
   "tokens_30d": {
-    "input": 33118675,
-    "output": 560240,
-    "total": 33678915
+    "input": 50573985,
+    "output": 739910,
+    "total": 51313895
   },
-  "live_workers": [],
-  "recent_activity": [{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T02:25:05.563Z"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T02:24:55.508Z"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T02:24:14.863Z"},
-{"type":"completed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-23T02:16:10.601Z"},
-{"type":"completed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-23T02:00:41.569Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T01:56:22.891Z"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T01:47:45.791Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T01:40:44.280Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T01:37:59.904Z"},
-{"type":"failed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-23T01:30:55.487Z"},
-{"type":"failed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-23T01:18:53.197Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T00:53:41.687Z"},
-{"type":"completed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-23T00:47:21.611Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T00:34:30.727Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T00:25:58.679Z"},
-{"type":"completed","agent":"writer","provider":"anthropic","timestamp":"2026-03-23T00:18:29.793Z"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-23T00:20:27.582Z"},
-{"type":"completed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-22T22:04:01.940Z"},
-{"type":"completed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-21T04:54:37.556Z"},
-{"type":"failed","agent":"programmer","provider":"lmstudio","timestamp":"2026-03-21T04:53:30.172Z"}],
-  "generated_at": "2026-03-23T14:55:01.000Z"
+  "live_workers": [
+    {
+      "agent": "writer",
+      "running_for_seconds": 37,
+      "provider": "anthropic"
+    }
+  ],
+  "recent_activity": [
+    {
+      "type": "running",
+      "agent": "writer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-24T01:55:15.334Z"
+    },
+    {
+      "type": "completed",
+      "agent": "writer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-24T01:54:51.756Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T23:37:42.720Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23 23:14:16"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23 23:05:26"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T23:03:10.803Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T22:47:27.807Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23 22:27:26"
+    },
+    {
+      "type": "completed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T22:23:47.622Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23 22:17:40"
+    },
+    {
+      "type": "completed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T22:12:33.024Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23 22:03:54"
+    },
+    {
+      "type": "completed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T20:11:02.602Z"
+    },
+    {
+      "type": "completed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T19:58:28.924Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T19:43:50.454Z"
+    },
+    {
+      "type": "completed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T19:28:46.589Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T02:25:05.563Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T02:24:55.508Z"
+    },
+    {
+      "type": "failed",
+      "agent": "programmer",
+      "provider": "anthropic",
+      "timestamp": "2026-03-23T02:24:14.863Z"
+    },
+    {
+      "type": "completed",
+      "agent": "programmer",
+      "provider": "lmstudio",
+      "timestamp": "2026-03-23T02:16:10.601Z"
+    }
+  ],
+  "generated_at": "2026-03-24T01:55:52.560Z"
 }
