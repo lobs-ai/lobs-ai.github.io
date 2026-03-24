@@ -1,27 +1,27 @@
 {
   "system": {
     "status": "online",
-    "uptime_seconds": 908,
-    "uptime_human": "15m",
+    "uptime_seconds": 1723,
+    "uptime_human": "28m",
     "version": "8.0"
   },
   "tasks": {
-    "active": 1,
-    "completed_today": 3,
-    "total_completed": 62,
+    "active": 0,
+    "completed_today": 4,
+    "total_completed": 63,
     "total": 77
   },
   "workers": {
-    "active": 1,
+    "active": 0,
     "runs_30d": 127,
-    "succeeded_30d": 49,
+    "succeeded_30d": 50,
     "failed_30d": 77,
     "success_rate_30d": 39,
     "by_agent": [
       {
         "agent": "writer",
         "runs": 3,
-        "success_rate": 67
+        "success_rate": 100
       },
       {
         "agent": "programmer",
@@ -36,23 +36,17 @@
     ]
   },
   "tokens_30d": {
-    "input": 50573985,
-    "output": 739910,
-    "total": 51313895
+    "input": 50608182,
+    "output": 740823,
+    "total": 51349005
   },
-  "live_workers": [
-    {
-      "agent": "writer",
-      "running_for_seconds": 37,
-      "provider": "anthropic"
-    }
-  ],
+  "live_workers": [],
   "recent_activity": [
     {
-      "type": "running",
+      "type": "completed",
       "agent": "writer",
       "provider": "anthropic",
-      "timestamp": "2026-03-24T01:55:15.334Z"
+      "timestamp": "2026-03-24T01:56:02.174Z"
     },
     {
       "type": "completed",
@@ -169,5 +163,5 @@
       "timestamp": "2026-03-23T02:16:10.601Z"
     }
   ],
-  "generated_at": "2026-03-24T01:55:52.560Z"
+  "generated_at": "2026-03-24T02:09:27.562Z"
 }
