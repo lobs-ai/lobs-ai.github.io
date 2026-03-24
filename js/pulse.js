@@ -33,10 +33,11 @@
     const tokensTotal = formatTokens(d.tokens_30d.total);
 
     // Live workers section
-    const liveWorkersHTML = d.live_workers.length > 0 ?
+    const liveWorkers = d.live_workers || [];
+    const liveWorkersHTML = liveWorkers.length > 0 ?
       `<div class="pulse-stat" style="grid-column: span 4;">
         <div class="pulse-stat-value" style="font-size:1rem;letter-spacing:0;">
-          ${d.live_workers.map(w =>
+          ${liveWorkers.map(w =>
             `<span class="pulse-token-badge" style="margin:2px;">${w.agent} · ${formatDuration(w.running_for_seconds)} · ${w.provider}</span>`
           ).join(' ')}
         </div>
