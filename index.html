@@ -306,7 +306,7 @@
         <div class="stat-detail">From free local Qwen to Claude Opus, auto-selected by task complexity. The cheapest model that can handle the task wins.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-num counter" data-target="61700">0</div>
+        <div class="stat-num counter" data-target="73500">0</div>
         <div class="stat-unit">lines of lobs-core TypeScript</div>
         <div class="stat-detail">Total lines across owned <code>lobs-core</code> source directories. The current standalone runtime is much larger than the original plugin rewrite.</div>
       </div>
@@ -529,7 +529,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 47k, lobs-nexus 15k, lobs-vim 3k, lobs-sentinel 1.2k, website 4.8k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 56k, lobs-nexus 16k, lobs-vim 3k, lobs-voice 1.3k, lobs-sentinel 1.2k, website 4.5k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -541,9 +541,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, and Discord bot, all in one. Current owned source footprint: about 47k lines of code by <code>cloc</code> (~62k total lines).</p>
+        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, and voice pipeline — all in one. Current owned source footprint: about 56k lines of code by <code>cloc</code> (~74k total lines).</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">47k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">56k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -569,9 +569,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Current owned frontend footprint: about 15k lines of code by <code>cloc</code>.</p>
+        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Current owned frontend footprint: about 16k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">15k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">16k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -628,6 +628,30 @@ sqlite3 ~/.lobs/lobs.db \
             <div class="exp-item"><span class="exp-icon">LB</span><div><h5>Auto-Labeler</h5><p>Classifies issues and PRs by content and applies labels automatically. Keeps repos organized without manual triage.</p></div></div>
             <div class="exp-item"><span class="exp-icon">TR</span><div><h5>Issue Triage</h5><p>Categorizes new issues, assigns priority, and asks clarifying questions. First-responder for incoming work.</p></div></div>
             <div class="exp-item"><span class="exp-icon">MP</span><div><h5>Multi-Provider LLM</h5><p>Supports Anthropic and OpenAI models. Per-deployment config lets you pick the right model for the task and budget.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">VC</div>
+          <div class="card-text-head">
+            <div class="card-tag">lobs-voice</div>
+            <h3>Voice Pipeline</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 1.3k lines across Python and shell scripts.</p>
+        <div class="card-meta">
+          <span class="meta-chip">Python</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">1.3k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">STT</span><div><h5>Speech-to-Text</h5><p>Whisper.cpp with CoreML acceleration on Apple Silicon. Converts Discord voice input to text for agent processing.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">TTS</span><div><h5>Text-to-Speech</h5><p>Chatterbox TTS server generates natural speech from agent responses. Streams audio back into Discord voice channels.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">BR</span><div><h5>Voice Bridge</h5><p>The voice module in lobs-core connects Discord voice channels to the STT → Claude → TTS pipeline. Fully local, no cloud speech APIs.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">RT</span><div><h5>OpenAI Realtime</h5><p>Alternative speech-to-speech bridge using OpenAI's Realtime API for lower-latency conversational voice interaction.</p></div></div>
           </div>
         </div>
       </div>
