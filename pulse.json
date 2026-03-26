@@ -6,18 +6,18 @@
     "version": "8.0"
   },
   "tasks": {
-    "active": 4,
-    "completed_today": 1,
+    "active": 5,
+    "completed_today": 0,
     "total_completed": 81,
-    "total": 103
+    "total": 104
   },
   "workers": {
     "active": 0,
-    "runs_30d": 158,
+    "runs_30d": 159,
     "succeeded_30d": 72,
-    "failed_30d": 86,
+    "failed_30d": 87,
     "success_rate_30d": 45,
-    "by_agent": [{"agent":"programmer","runs":147,"success_rate":44},
+    "by_agent": [{"agent":"programmer","runs":148,"success_rate":43},
 {"agent":"architect","runs":8,"success_rate":50},
 {"agent":"writer","runs":3,"success_rate":100}]
   },
@@ -27,7 +27,8 @@
     "total": 76986760
   },
   "live_workers": [],
-  "recent_activity": [{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-25T00:42:57.624Z"},
+  "recent_activity": [{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-25T15:04:23.926Z"},
+{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-25T00:42:57.624Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T22:53:37.735Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T22:44:17.907Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T22:41:24.672Z"},
@@ -45,7 +46,6 @@
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:42:52.886Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:35:18.501Z"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24 14:27:14"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:24:53.356Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:15:33.579Z"}],
-  "generated_at": "2026-03-25T07:15:17.000Z"
+{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:24:53.356Z"}],
+  "generated_at": "2026-03-26T07:16:09.000Z"
 }
