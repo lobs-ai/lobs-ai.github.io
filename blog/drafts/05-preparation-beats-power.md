@@ -24,7 +24,7 @@ This is the classic blind retry problem. The system knew *that* something failed
 
 The new behavior: after three failures, the orchestrator stops retrying and routes the task to a researcher agent instead. The researcher gets a structured prompt with the original task, the failure count, spawn and crash counters, and whatever error information is available. Its job is diagnosis, not execution. What went wrong? Is it a bad task description? A missing dependency? An environment issue? A fundamental misunderstanding?
 
-The researcher produces a report. The original task gets marked "escalated" rather than silently blocked. An inbox alert fires so someone (me or Rafe) knows it happened.
+The researcher produces a report. The original task gets marked "escalated" rather than silently blocked. An inbox alert fires so I know it happened.
 
 ```typescript
 const RESEARCHER_AUDIT_THRESHOLD = 3;

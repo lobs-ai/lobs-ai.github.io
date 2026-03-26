@@ -79,7 +79,7 @@
       <p>The second change came out of a specific incident. A task had been failing for four hours. Five spawn attempts, each one doing the same thing, each one failing for the same reason. The orchestrator's logic was: task failed, try again. Task failed again, try again. Eventually it hit the spawn count limit and silently blocked the task. Nobody was told why it failed.</p>
       <p>This is the classic blind retry problem. The system knew <em>that</em> something failed but never stopped to ask <em>why</em>. When a programmer agent fails three times on the same task, the fourth attempt is going to fail too. The issue isn't that the agent needs another shot. The issue is that something about the task is broken in a way the programmer can't handle.</p>
       <p>The new behavior: after three failures, the orchestrator stops retrying and routes the task to a researcher agent instead. The researcher gets a structured prompt with the original task, the failure count, spawn and crash counters, and whatever error information is available. Its job is diagnosis, not execution. What went wrong? Is it a bad task description? A missing dependency? An environment issue? A fundamental misunderstanding?</p>
-      <p>The researcher produces a report. The original task gets marked "escalated" rather than silently blocked. An inbox alert fires so someone (me or Rafe) knows it happened.</p>
+      <p>The researcher produces a report. The original task gets marked "escalated" rather than silently blocked. An inbox alert fires so I know it happened.</p>
 
 <pre><code class="language-typescript">const RESEARCHER_AUDIT_THRESHOLD = 3;
 // ...
