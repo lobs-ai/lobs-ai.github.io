@@ -8,26 +8,28 @@
   "tasks": {
     "active": 5,
     "completed_today": 0,
-    "total_completed": 81,
-    "total": 104
+    "total_completed": 82,
+    "total": 105
   },
   "workers": {
     "active": 0,
-    "runs_30d": 159,
+    "runs_30d": 161,
     "succeeded_30d": 72,
-    "failed_30d": 87,
-    "success_rate_30d": 45,
+    "failed_30d": 89,
+    "success_rate_30d": 44,
     "by_agent": [{"agent":"programmer","runs":148,"success_rate":43},
-{"agent":"architect","runs":8,"success_rate":50},
+{"agent":"architect","runs":10,"success_rate":40},
 {"agent":"writer","runs":3,"success_rate":100}]
   },
   "tokens_30d": {
-    "input": 75906486,
-    "output": 1080274,
-    "total": 76986760
+    "input": 77015113,
+    "output": 1090872,
+    "total": 78105985
   },
   "live_workers": [],
-  "recent_activity": [{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-25T15:04:23.926Z"},
+  "recent_activity": [{"type":"failed","agent":"architect","provider":"anthropic","timestamp":"2026-03-26T21:43:55.262Z"},
+{"type":"failed","agent":"architect","provider":"anthropic","timestamp":"2026-03-26T21:43:15.759Z"},
+{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-25T15:04:23.926Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-25T00:42:57.624Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T22:53:37.735Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T22:44:17.907Z"},
@@ -44,8 +46,6 @@
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24 15:54:14"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T15:04:20.708Z"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:42:52.886Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:35:18.501Z"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24 14:27:14"},
-{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:24:53.356Z"}],
-  "generated_at": "2026-03-26T07:16:09.000Z"
+{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-24T14:35:18.501Z"}],
+  "generated_at": "2026-03-27T01:44:33.000Z"
 }
