@@ -306,9 +306,9 @@
         <div class="stat-detail">From free local Qwen to Claude Opus, auto-selected by task complexity. The cheapest model that can handle the task wins.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-num counter" data-target="75000">0</div>
-        <div class="stat-unit">lines of lobs-core TypeScript</div>
-        <div class="stat-detail">Total lines across owned <code>lobs-core</code> source directories. The current standalone runtime is much larger than the original plugin rewrite.</div>
+        <div class="stat-num counter" data-target="97000">0</div>
+        <div class="stat-unit">lines of platform TypeScript</div>
+        <div class="stat-detail">Total lines across owned source directories in lobs-core (63k), lobs-nexus (18k), lobs-sentinel (6k), lobs-memory (5k), lobs-vim (3k), and supporting services.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
@@ -529,7 +529,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 57k, lobs-nexus 16k, lobs-sentinel 2.8k, lobs-vim 2.1k, lobs-voice 1.6k, website 4.5k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 63k, lobs-nexus 18k, lobs-sentinel 6k, lobs-memory 5k, lobs-vim 3k, lobs-voice 0.9k, website 5k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -541,9 +541,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, voice pipeline, and live meeting transcription — all in one. Current owned source footprint: about 57k lines of code by <code>cloc</code> (~76k total lines).</p>
+        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, voice pipeline, and live meeting transcription — all in one. Current owned source footprint: about 63k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">57k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">63k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -569,9 +569,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Includes agent chat, live meeting transcription with AI activity feed, and brain dump task capture. Current owned frontend footprint: about 16k lines of code by <code>cloc</code>.</p>
+        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Includes agent chat, live meeting transcription with AI activity feed, and brain dump task capture. Current owned frontend footprint: about 18k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">16k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">18k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -594,9 +594,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 2.1k lines across Lua and TypeScript.</p>
+        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 3k lines across Lua and TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">2.1k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -618,9 +618,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 2.8k lines of TypeScript.</p>
+        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 6k lines of TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">2.8k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">6k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -642,9 +642,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 1.6k lines of Go.</p>
+        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 900 lines of Python and shell scripts.</p>
         <div class="card-meta">
-          <span class="meta-chip">Go</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">1.6k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Python</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">0.9k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -681,6 +681,30 @@ sqlite3 ~/.lobs/lobs.db \
         </div>
       </div>
 
+      <div class="project-card reveal" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">ME</div>
+          <div class="card-text-head">
+            <div class="card-tag">lobs-memory</div>
+            <h3>Memory Search</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Hybrid search server for agent memory. Combines BM25 keyword search with vector embeddings for semantic retrieval across all agent context, learnings, and project documentation. Runs on port 7420 under lobs-core supervision. About 5k lines of TypeScript and Python.</p>
+        <div class="card-meta">
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Python</span><span class="meta-chip">Embeddings</span><span class="meta-chip">5k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">HB</span><div><h5>Hybrid Search</h5><p>BM25 keyword matching combined with dense vector search. Best of both worlds for finding relevant context across hundreds of memory files.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">EM</span><div><h5>Embeddings</h5><p>Local embedding generation for all indexed content. No external API calls needed for search — everything runs on the same machine.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">SV</span><div><h5>Supervised Process</h5><p>Runs under lobs-core process supervision with automatic restart on failure. Health checks ensure search is always available to agents.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">IX</span><div><h5>Multi-Collection Index</h5><p>Indexes workspace files, shared memory, daily logs, project docs, and ADRs as separate searchable collections.</p></div></div>
+          </div>
+        </div>
+      </div>
+
       <div class="project-card reveal reveal-delay-3" data-expanded="false">
         <div class="card-top">
           <div class="card-icon">KB</div>
@@ -701,6 +725,30 @@ sqlite3 ~/.lobs/lobs.db \
             <div class="exp-item"><span class="exp-icon">GS</span><div><h5>Git-Backed Sync</h5><p>All memory files live in a git repo. Changes are committed and synced. Workers can read, agents can write, and everything is auditable.</p></div></div>
             <div class="exp-item"><span class="exp-icon">RM</span><div><h5>Research Memos</h5><p>Researcher agents write structured memos that persist across sessions. When a similar question returns, the answer is already there.</p></div></div>
             <div class="exp-item"><span class="exp-icon">RB</span><div><h5>Agent Runbooks</h5><p>Operational playbooks for each agent type explain edge cases, preferred tools, and failure modes. They keep evolving with the system.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">LL</div>
+          <div class="card-text-head">
+            <div class="card-tag">lobslab-apps</div>
+            <h3>LobsLab Apps</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Web apps hosted on lobslab.com subdomains. Crapuler (UMich course watchlist), Ballz (physics toy), Stellar Siege (cosmic RTS), and more. Each app runs in Docker with Caddy reverse proxy. About 16k lines of code plus course catalog data.</p>
+        <div class="card-meta">
+          <span class="meta-chip">JavaScript</span><span class="meta-chip">Docker</span><span class="meta-chip">Caddy</span><span class="meta-chip">16k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">CR</span><div><h5>Crapuler</h5><p>UMich course section watchlist. Monitors registration status and alerts when seats open. Backed by 50k lines of course catalog JSON data.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">BZ</span><div><h5>Ballz</h5><p>Physics sandbox with 10k lines of vanilla JavaScript. Bouncing balls with collision, gravity, and interactive controls.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">SS</span><div><h5>Stellar Siege</h5><p>Cosmic real-time strategy game. Conquer star systems, build fleets, and manage resources across a procedurally generated galaxy.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">DK</span><div><h5>Docker + Caddy Stack</h5><p>Each app containerized independently. Caddy handles automatic TLS and subdomain routing. Add a new app with a Dockerfile and one compose entry.</p></div></div>
           </div>
         </div>
       </div>
