@@ -8,7 +8,7 @@ Each version of Lobs existed because the previous one hit a wall. Not a soft wal
 
 ## v1: The Ceiling of One
 
-It started inside OpenClaw, an AI coding tool I was already using. I added a custom task framework — a way to queue work, track status, hand off to a single agent. Simple. It worked. Then I needed two things to happen at the same time.
+It started inside OpenClaw, a powerful AI coding tool that gave me my first real playground for building agent workflows. I added a custom task framework — a way to queue work, track status, hand off to a single agent. Simple. It worked. Then I needed two things to happen at the same time.
 
 You can't parallelize a single agent. There's no "add another worker" switch when your entire orchestration layer is built around one. The architecture had to change.
 
@@ -24,7 +24,7 @@ Reflection and shared memory changed the character of the system. Agents would c
 
 Week-over-week, the system improved without manual intervention. Mistakes stopped repeating — at least the ones that had been made before. This is when Lobs started feeling less like a tool and more like a system.
 
-But now there was a new problem: I had a multi-agent learning system with no real API surface. It was still living inside OpenClaw, which meant it was constrained by OpenClaw's model, OpenClaw's session lifecycle, and OpenClaw's execution model. When I wanted health monitoring, a task queue, and proper REST endpoints, I had to build around the host.
+But now there was a new problem: I had a multi-agent learning system with no real API surface. It was still living inside OpenClaw, which meant I was working within the session lifecycle and execution model of a host platform — as you always are when building inside one. When I wanted health monitoring, a task queue, and proper REST endpoints, I wanted to own that layer myself.
 
 ## v4: The Web Server Era
 
@@ -38,7 +38,7 @@ The workflow engine is what finally broke the architecture.
 
 Nineteen workflow definitions. State machines with conditional branching and rollback. Event-driven triggers. Cron scheduling. A DAG-based execution model where tasks have explicit dependencies and the engine handles ordering.
 
-This was the most powerful version of Lobs yet — and it made every structural weakness in the underlying architecture visible. You can't have a clean workflow engine running on top of a messy execution substrate. The boundaries leak. Error handling in the workflow layer fights with error handling in the agent layer. Session state in OpenClaw fights with state in the workflow engine. The system was powerful enough to expose its own foundations as inadequate.
+This was the most powerful version of Lobs yet — and it made every structural weakness in the underlying architecture visible. You can't have a clean workflow engine running on top of a messy execution substrate. The boundaries leak. Error handling in the workflow layer fights with error handling in the agent layer. State in the host platform and state in the workflow engine occupy the same space. The system was powerful enough to expose its own foundations as inadequate.
 
 The Python codebase had also grown to ~38K lines. Most of it was fine. Some of it was not. A full rewrite was overdue.
 
@@ -46,7 +46,7 @@ The Python codebase had also grown to ~38K lines. Most of it was fine. Some of i
 
 The rewrite accomplished two things: it consolidated ~38K lines of Python into a leaner TypeScript core, and it made Lobs a proper OpenClaw plugin rather than a separate service. Single process. No IPC. No separate service to deploy.
 
-The improvement was immediate — simpler deployment, faster iteration, fewer failure modes. But "OpenClaw plugin" was still a constraint. Everything ran through OpenClaw's session model. A new capability that OpenClaw didn't natively support required working around it. The gap between what I wanted and what the host allowed was widening.
+The improvement was immediate — simpler deployment, faster iteration, fewer failure modes. OpenClaw was an excellent host for this phase. But I wanted to understand every layer of agent execution myself — not because the platform was insufficient, but because that depth of understanding was something I needed to build deliberately.
 
 ## v7: Visibility
 
@@ -54,7 +54,7 @@ Nexus, a React + Vite dashboard, arrived in v7. Self-hosted at lobslab.com via C
 
 This was less a structural change and more a maturity signal: the system had gotten complex enough that a proper UI was necessary, not optional. Watching tasks move through states, seeing worker run timelines, inspecting artifacts — these went from nice-to-have to required for operating the system reliably.
 
-But the dashboard also made the OpenClaw dependency more visible. Nexus showed real-time state pulled from lobs-core APIs, which ran inside OpenClaw, which meant restarting OpenClaw to update the runtime also disrupted everything downstream. The host and the platform were too entangled.
+But the dashboard also made the layering more visible. Nexus showed real-time state pulled from lobs-core APIs, which ran inside OpenClaw, which meant restarting OpenClaw to update the runtime also disrupted everything downstream. The runtime and its host were coupled in ways that were becoming harder to work with.
 
 ## v8: Cut the Cord
 
@@ -71,7 +71,9 @@ The current version of lobs-core has no dependency on OpenClaw or any other AI t
 
 63K lines of TypeScript. Six specialized agents. Five model tiers. The system runs 24/7 on a Mac Mini and handles everything from code review to research to documentation to architecture planning.
 
-The freedom to make arbitrary architectural decisions — pick any model, implement any tool, own the full execution loop — is the thing that made all the subsequent work possible. A plugin is always constrained by its host. A standalone runtime is constrained only by what you're willing to build.
+The decision to build a fully custom runtime wasn't about OpenClaw being insufficient — it's a powerful tool that gave Lobs its start. It was about wanting to understand every layer of agent execution from scratch. I'm preparing to teach EECS 498: Applied Agentic Software Engineering at the University of Michigan, and I believe the only way to teach something this deep is to have built it yourself. Agent systems are the career I'm building toward, and that requires owning the full stack — not because the alternatives are bad, but because the understanding matters.
+
+The freedom to make arbitrary architectural decisions — pick any model, implement any tool, own the full execution loop — is what made all the subsequent work possible.
 
 ---
 
@@ -85,4 +87,4 @@ Every rebuild felt costly in the moment. Weeks of work to end up with roughly th
 
 The other thing that changed: each version taught me something the previous one couldn't. You can't learn what breaks in production until you're in production. You can't learn what's worth optimizing until you've run it at real load. The rewrite cadence, which felt wasteful, was actually the fastest path — because each version produced knowledge that made the next one better.
 
-I didn't build my own agent runtime because I wanted to. I built it because every alternative eventually ran out of runway. It turns out that's a pretty good reason to build something.
+I built my own agent runtime because I needed to understand it completely — not just use it. Building Lobs inside OpenClaw was the right place to start: it's a capable platform that let me move fast and learn what agent systems actually need. But to teach this well, and to build a career at this layer of the stack, I needed to have built every piece myself. The rewrites weren't failures. They were the curriculum.
