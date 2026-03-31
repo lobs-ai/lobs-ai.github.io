@@ -152,7 +152,7 @@
             <span class="version-badge">v1</span>
             <h4>Custom Task Framework, Jan 2026</h4>
           </div>
-          <p class="version-desc">Single agent in a single OpenClaw session with a custom task framework for managing work. Gave structure to AI work beyond raw chat prompts.</p>
+          <p class="version-desc">Single agent inside OpenClaw — a powerful AI coding tool — with a custom task framework for managing work. OpenClaw was the launchpad: a capable, well-designed platform that made it possible to start building immediately. Gave structure to AI work beyond raw chat prompts.</p>
           <div class="version-pain">
             <div class="pain-label">Why it wasn't enough</div>
             <p>One agent could not handle complex multi-step work. There was no parallelism. The ceiling appeared fast. As soon as more than one thing needed to happen at once, progress stalled.</p>
@@ -211,7 +211,7 @@
           <p class="version-desc">Node-based DAG workflow system. State machines, conditional branching, rollback, event-driven triggers, cron scheduling. 19 workflow definitions shipped.</p>
           <div class="version-pain">
             <div class="pain-label">Why it needed replacing</div>
-            <p>The Python codebase was massive and fragile. Running a separate server alongside OpenClaw added complexity. The glue layer was heavier than the logic it connected.</p>
+            <p>The Python codebase was massive and fragile. Running a separate server process added architectural complexity — that was a consequence of the design, not a flaw in OpenClaw. The glue layer was heavier than the logic it connected.</p>
           </div>
         </div>
 
@@ -222,7 +222,7 @@
             <span class="version-badge v6-badge">v6</span>
             <h4>OpenClaw Plugin, Mar 2026</h4>
           </div>
-          <p class="version-desc">Full rewrite as an OpenClaw TypeScript plugin. Ran inside OpenClaw with no separate server process. Everything from v1–v5 preserved but cleaner.</p>
+          <p class="version-desc">Full rewrite as an OpenClaw TypeScript plugin. Ran inside OpenClaw — a great host — with no separate server process. Everything from v1–v5 preserved but dramatically cleaner. The plugin phase was the right consolidation step.</p>
           <div class="version-win">
             <div class="win-label">The breakthrough</div>
             <p>The glue layer disappeared. The system became a single process. Circuit breaker, five-tier model chooser, and budget guard were first-class parts of the runtime. That rewrite replaced a much larger Python stack with a leaner TypeScript core.</p>
@@ -256,12 +256,12 @@
             <span class="version-badge v6-badge">v8</span>
             <h4>Standalone Runtime (lobs-core), Mar 2026 [CURRENT]</h4>
           </div>
-          <p class="version-desc">Complete independence from OpenClaw. lobs-core now runs as its own Node.js process with a custom LLM execution loop, built-in HTTP server, Discord bot, memory supervision, and an integrated dashboard. The plugin era is over. The runtime is fully custom now.</p>
+          <p class="version-desc">Lobs graduates to its own standalone runtime. lobs-core now runs as its own Node.js process with a custom LLM execution loop, built-in HTTP server, Discord bot, memory supervision, and an integrated dashboard. The custom runtime exists because Rafe is preparing to teach EECS 498: Applied Agentic Software Engineering at the University of Michigan, and because building agent systems is the career path he's pursuing. You can't teach runtime design if you haven't built one yourself. OpenClaw was the launchpad that made it all possible.</p>
           <div class="version-win">
             <div class="win-label">The breakthrough</div>
             <p>No external platform dependency remains in the runtime path. lobs-core calls provider APIs directly, manages its own workers, serves Nexus from its own HTTP server, runs lobs-memory under supervision, and starts from a native CLI. One <code>lobs start</code> command boots the system.</p>
             <div class="win-stat">
-              <span class="ws-before">inside OpenClaw</span>
+              <span class="ws-before">born in OpenClaw</span>
               <span class="ws-arrow">→</span>
               <span class="ws-after">fully custom runtime</span>
               <span class="ws-badge">no host dependency</span>
@@ -842,7 +842,7 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <h4>v6, OpenClaw Plugin Rewrite (TypeScript)</h4>
-          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin. It ran inside OpenClaw with no separate server. Everything from v1-v5 stayed intact, but cleaner. The glue layer disappeared, and the system became dramatically smaller than the Python stack it replaced.</p>
+          <p>The big one. Full rewrite as an OpenClaw TypeScript plugin — and a great move. Running inside OpenClaw as a first-class plugin eliminated the separate server entirely. Everything from v1-v5 stayed intact, but cleaner. The glue layer disappeared, and the system became dramatically smaller than the Python stack it replaced.</p>
           <span class="tl-chip">v6 · OpenClaw plugin</span>
         </div>
       </div>
@@ -860,7 +860,7 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
         <div class="tl-body highlight-body">
           <h4>v8, Standalone Runtime (lobs-core)</h4>
-          <p>Complete independence from OpenClaw. lobs-core runs as its own Node.js process with custom LLM execution, built-in HTTP server, Discord bot, integrated Nexus dashboard, and supervised memory server. One <code>lobs start</code> boots the whole system.</p>
+          <p>Lobs graduates to its own custom runtime. lobs-core runs as its own Node.js process with custom LLM execution, built-in HTTP server, Discord bot, integrated Nexus dashboard, and supervised memory server. Built from scratch to deeply understand every layer — from LLM calls to tool orchestration to memory management — and to be ready to teach it. One <code>lobs start</code> boots the whole system.</p>
           <span class="tl-chip tl-chip-bright">v8 · current · you are here</span>
         </div>
       </div>
@@ -890,7 +890,7 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <h4>Standalone Milestone, Runtime Owns the Stack</h4>
-          <p>lobs-core now starts its own HTTP server, serves Nexus directly, supervises lobs-memory, runs its own Discord bot, and validates worker output after completion. OpenClaw is no longer part of production execution.</p>
+          <p>lobs-core now starts its own HTTP server, serves Nexus directly, supervises lobs-memory, runs its own Discord bot, and validates worker output after completion. The runtime is fully custom — a deliberate choice to understand every layer, not a rejection of OpenClaw.</p>
           <span class="tl-chip">standalone milestone · fully custom</span>
         </div>
       </div>
@@ -949,7 +949,7 @@ sqlite3 ~/.lobs/lobs.db \
           <div class="ji-icon">FC</div>
           <div class="ji-text">
             <h4>Fully Custom Runtime</h4>
-            <p>The current system owns its process model, CLI, HTTP server, Discord integration, provider calls, memory supervision, and worker lifecycle. OpenClaw is gone from production execution.</p>
+            <p>The current system owns its process model, CLI, HTTP server, Discord integration, provider calls, memory supervision, and worker lifecycle. What started inside OpenClaw is now a ground-up custom runtime — built to teach, built to learn, built to last.</p>
           </div>
         </div>
       </div>
