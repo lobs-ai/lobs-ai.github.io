@@ -306,9 +306,9 @@
         <div class="stat-detail">From free local Qwen to Claude Opus, auto-selected by task complexity. The cheapest model that can handle the task wins.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-num counter" data-target="97000">0</div>
+        <div class="stat-num counter" data-target="103000">0</div>
         <div class="stat-unit">lines of platform TypeScript</div>
-        <div class="stat-detail">Total lines across owned source directories in lobs-core (63k), lobs-nexus (18k), lobs-sentinel (6k), lobs-memory (5k), lobs-vim (3k), and supporting services.</div>
+        <div class="stat-detail">Total lines across owned source directories in lobs-core (67k), lobs-nexus (19k), lobs-memory (5k), lobs-sentinel (3k), lobs-vim (3k), and supporting services.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
@@ -529,7 +529,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 63k, lobs-nexus 18k, lobs-sentinel 6k, lobs-memory 5k, lobs-vim 3k, lobs-voice 0.9k, website 5k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 67k, lobs-nexus 19k, lobs-memory 5k, lobs-sentinel 3k, lobs-vim 3k, lobs-voice 0.9k, website 5k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -541,9 +541,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, voice pipeline, and live meeting transcription — all in one. Current owned source footprint: about 63k lines of code by <code>cloc</code>.</p>
+        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, voice pipeline, and live meeting transcription — all in one. Current owned source footprint: about 67k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">63k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">67k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -556,6 +556,8 @@ sqlite3 ~/.lobs/lobs.db \
             <div class="exp-item"><span class="exp-icon">API</span><div><h5>Direct Provider Calls</h5><p>The runtime calls Anthropic, OpenRouter, LM Studio, and other OpenAI-compatible endpoints directly through its own runner.</p></div></div>
             <div class="exp-item"><span class="exp-icon">MEM</span><div><h5>Memory Supervision</h5><p>lobs-memory runs under lobs-core supervision, so semantic search is part of the runtime instead of an external bolt-on.</p></div></div>
             <div class="exp-item"><span class="exp-icon">QA</span><div><h5>Post-Success Validation</h5><p>Artifact validation and selective review triggers catch phantom completions before bad output gets marked done.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">DT</span><div><h5>Dynamic Tools</h5><p>Agents can create, edit, and delete their own tools at runtime — shell scripts, TypeScript modules, or procedural steps that persist across sessions.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">SL</span><div><h5>Self-Learning Loop</h5><p>Corrections and preferences are captured in persistent memory automatically, so the same mistake never happens twice.</p></div></div>
           </div>
         </div>
       </div>
@@ -569,9 +571,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Includes agent chat, live meeting transcription with AI activity feed, and brain dump task capture. Current owned frontend footprint: about 18k lines of code by <code>cloc</code>.</p>
+        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Includes agent chat, live meeting transcription with AI activity feed, and brain dump task capture. Current owned frontend footprint: about 19k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">18k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">19k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -618,9 +620,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 6k lines of TypeScript.</p>
+        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 3k lines of TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">6k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
