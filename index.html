@@ -208,7 +208,7 @@
             <span class="version-badge">v5</span>
             <h4>DAG Workflow Engine, Late Feb 2026</h4>
           </div>
-          <p class="version-desc">Node-based DAG workflow system. State machines, conditional branching, rollback, event-driven triggers, cron scheduling. 19 workflow definitions shipped.</p>
+          <p class="version-desc">Node-based DAG workflow system. State machines, conditional branching, rollback, event-driven triggers, cron scheduling. 20 workflow definitions shipped.</p>
           <div class="version-pain">
             <div class="pain-label">Why it needed replacing</div>
             <p>The Python codebase was massive and fragile. Running a separate server process added architectural complexity — that was a consequence of the design, not a flaw in OpenClaw. The glue layer was heavier than the logic it connected.</p>
@@ -308,7 +308,7 @@
       <div class="stat-card reveal reveal-delay-1">
         <div class="stat-num counter" data-target="103000">0</div>
         <div class="stat-unit">lines of platform TypeScript</div>
-        <div class="stat-detail">Total lines across owned source directories in lobs-core (67k), lobs-nexus (19k), lobs-memory (5k), lobs-sentinel (3k), lobs-vim (3k), and supporting services.</div>
+        <div class="stat-detail">Total lines across owned source directories in lobs-core (67k), lobs-nexus (19k), lobs-mobile (5.6k), lobs-memory (3k), lobs-vim (2.1k), lobs-sentinel (1.2k), and supporting services.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
@@ -366,8 +366,8 @@
         <div class="paw-component" tabindex="0">
           <div class="pc-icon">WF</div>
           <div class="pc-label">Workflow Engine</div>
-          <div class="pc-desc">19 workflow definitions. DAG execution, branching, rollback, cron triggers.</div>
-          <div class="node-tooltip">19 workflow definitions. DAG execution with state, branching, and rollback. Event-driven triggers and cron scheduling.</div>
+          <div class="pc-desc">20 workflow definitions. DAG execution, branching, rollback, cron triggers.</div>
+          <div class="node-tooltip">20 workflow definitions. DAG execution with state, branching, and rollback. Event-driven triggers and cron scheduling.</div>
         </div>
         <div class="paw-component" tabindex="0">
           <div class="pc-icon">MC</div>
@@ -529,7 +529,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 67k, lobs-nexus 19k, lobs-memory 5k, lobs-sentinel 3k, lobs-vim 3k, lobs-voice 0.9k, website 5k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 67k, lobs-nexus 19k, lobs-mobile 5.6k, lobs-memory 3k, lobs-vim 2.1k, lobs-sentinel 1.2k, lobs-voice 0.5k, website 4.5k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -596,9 +596,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 3k lines across Lua and TypeScript.</p>
+        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 2.1k lines across Lua and TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">2.1k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -620,9 +620,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 3k lines of TypeScript.</p>
+        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 1.2k lines of TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">1.2k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -644,9 +644,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 900 lines of Python and shell scripts.</p>
+        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 500 lines of Python and shell scripts.</p>
         <div class="card-meta">
-          <span class="meta-chip">Python</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">0.9k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Python</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">0.5k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -670,7 +670,7 @@ sqlite3 ~/.lobs/lobs.db \
         </div>
         <p>iOS companion app for staying connected to your agents on the go. Check task status, receive completions, and interact with Lobs from your phone.</p>
         <div class="card-meta">
-          <span class="meta-chip">Swift</span><span class="meta-chip">iOS</span><span class="meta-chip">Push notifications</span>
+          <span class="meta-chip">Swift</span><span class="meta-chip">iOS</span><span class="meta-chip">Push notifications</span><span class="meta-chip">5.6k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -692,9 +692,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Hybrid search server for agent memory. Combines BM25 keyword search with vector embeddings for semantic retrieval across all agent context, learnings, and project documentation. Runs on port 7420 under lobs-core supervision. About 5k lines of TypeScript and Python.</p>
+        <p>Hybrid search server for agent memory. Combines BM25 keyword search with vector embeddings for semantic retrieval across all agent context, learnings, and project documentation. Runs on port 7420 under lobs-core supervision. About 3k lines of TypeScript and Python.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">Python</span><span class="meta-chip">Embeddings</span><span class="meta-chip">5k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Python</span><span class="meta-chip">Embeddings</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -835,7 +835,7 @@ sqlite3 ~/.lobs/lobs.db \
         <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <h4>v5, DAG Workflow Engine</h4>
-          <p>Multi-step tasks now run as structured workflows with state, branching, and rollback. 19 workflow definitions covering code, research, review, reporting. Complex work becomes a pipeline, not a prompt.</p>
+          <p>Multi-step tasks now run as structured workflows with state, branching, and rollback. 20 workflow definitions covering code, research, review, reporting. Complex work becomes a pipeline, not a prompt.</p>
           <span class="tl-chip">v5 · DAG workflows</span>
         </div>
       </div>
@@ -859,11 +859,11 @@ sqlite3 ~/.lobs/lobs.db \
       </div>
       <div class="tl-event reveal reveal-delay-2">
         <div class="tl-date">Mar 2026</div>
-        <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
-        <div class="tl-body highlight-body">
+        <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
           <h4>v8, Standalone Runtime (lobs-core)</h4>
           <p>Lobs graduates to its own custom runtime. lobs-core runs as its own Node.js process with custom LLM execution, built-in HTTP server, Discord bot, integrated Nexus dashboard, and supervised memory server. Built from scratch to deeply understand every layer — from LLM calls to tool orchestration to memory management — and to be ready to teach it. One <code>lobs start</code> boots the whole system.</p>
-          <span class="tl-chip tl-chip-bright">v8 · current · you are here</span>
+          <span class="tl-chip">v8 · standalone runtime</span>
         </div>
       </div>
 
@@ -894,6 +894,26 @@ sqlite3 ~/.lobs/lobs.db \
           <h4>Standalone Milestone, Runtime Owns the Stack</h4>
           <p>lobs-core now starts its own HTTP server, serves Nexus directly, supervises lobs-memory, runs its own Discord bot, and validates worker output after completion. The runtime is fully custom — a deliberate choice to understand every layer, not a rejection of OpenClaw.</p>
           <span class="tl-chip">standalone milestone · fully custom</span>
+        </div>
+      </div>
+
+      <div class="tl-event reveal">
+        <div class="tl-date">Late Mar</div>
+        <div class="tl-marker-wrap"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h4>Voice Pipeline &amp; Live Meeting Transcription</h4>
+          <p>Lobs joins Discord voice channels. Local Whisper.cpp for STT, Chatterbox for TTS, with the voice module in lobs-core bridging it all to the agent pipeline. Live meeting transcription with speaker detection followed — real-time notes from any voice call.</p>
+          <span class="tl-chip">voice · meetings · STT/TTS</span>
+        </div>
+      </div>
+
+      <div class="tl-event reveal reveal-delay-1">
+        <div class="tl-date">Early Apr</div>
+        <div class="tl-marker-wrap"><div class="tl-dot tl-dot-bright"></div><div class="tl-line"></div></div>
+        <div class="tl-body highlight-body">
+          <h4>Dynamic Tools, Self-Learning &amp; Memory Refactor</h4>
+          <p>Agents can now create their own tools at runtime — shell scripts, TypeScript, or procedural steps that persist across sessions. A self-learning loop captures corrections into permanent memory. The memory system got a major refactor: SessionWatcher removed, compaction-triggered reflection, and 75 pre-existing test failures fixed in one push.</p>
+          <span class="tl-chip tl-chip-bright">dynamic tools · self-learning · you are here</span>
         </div>
       </div>
 
