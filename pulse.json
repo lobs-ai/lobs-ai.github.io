@@ -7,7 +7,7 @@
   },
   "tasks": {
     "active": 0,
-    "completed_today": 1,
+    "completed_today": 0,
     "total_completed": 96,
     "total": 115
   },
@@ -49,5 +49,5 @@
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-28T15:51:53.552Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-28T02:08:17.456Z"},
 {"type":"failed","agent":"architect","provider":"anthropic","timestamp":"2026-03-26T21:43:55.262Z"}],
-  "generated_at": "2026-04-06T07:16:23.000Z"
+  "generated_at": "2026-04-07T07:16:44.000Z"
 }
