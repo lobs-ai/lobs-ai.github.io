@@ -1,35 +1,37 @@
 {
   "system": {
-    "status": "offline",
-    "uptime_seconds": 0,
-    "uptime_human": "0m",
+    "status": "online",
+    "uptime_seconds": 17722,
+    "uptime_human": "4h 55m",
     "version": "8.0"
   },
   "tasks": {
-    "active": 0,
-    "completed_today": 0,
-    "total_completed": 96,
-    "total": 115
+    "active": 5,
+    "completed_today": 1,
+    "total_completed": 97,
+    "total": 121
   },
   "workers": {
     "active": 0,
-    "runs_30d": 180,
-    "succeeded_30d": 84,
-    "failed_30d": 96,
+    "runs_30d": 182,
+    "succeeded_30d": 85,
+    "failed_30d": 97,
     "success_rate_30d": 46,
-    "by_agent": [{"agent":"programmer","runs":162,"success_rate":45},
+    "by_agent": [{"agent":"programmer","runs":164,"success_rate":45},
 {"agent":"architect","runs":11,"success_rate":45},
 {"agent":"writer","runs":3,"success_rate":100},
 {"agent":"researcher","runs":2,"success_rate":100},
 {"agent":"main","runs":2,"success_rate":50}]
   },
   "tokens_30d": {
-    "input": 85971664,
-    "output": 1206378,
-    "total": 87178042
+    "input": 86483730,
+    "output": 1212720,
+    "total": 87696450
   },
   "live_workers": [],
-  "recent_activity": [{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-01T16:01:59.973Z"},
+  "recent_activity": [{"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-12T07:46:01.350Z"},
+{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-12T03:34:57.762Z"},
+{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-01T16:01:59.973Z"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-01T16:00:46.022Z"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-01T14:01:40.035Z"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-01T14:01:40.031Z"},
@@ -46,8 +48,6 @@
 {"type":"completed","agent":"main","provider":"anthropic","timestamp":"2026-03-28T16:17:51.803Z"},
 {"type":"completed","agent":"architect","provider":"anthropic","timestamp":"2026-03-28T16:04:47.298Z"},
 {"type":"failed","agent":"main","provider":"anthropic","timestamp":"2026-03-28T16:07:25.721Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-28T15:51:53.552Z"},
-{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-28T02:08:17.456Z"},
-{"type":"failed","agent":"architect","provider":"anthropic","timestamp":"2026-03-26T21:43:55.262Z"}],
-  "generated_at": "2026-04-07T07:16:44.000Z"
+{"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-03-28T15:51:53.552Z"}],
+  "generated_at": "2026-04-12T07:46:03.000Z"
 }
