@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Agent Per Course | Lobs AI Blog</title>
+  <meta name="description" content="CourseClaw gives each university course its own OpenClaw agent in a dedicated Docker container. Four hard rules that nothing can override, one container per course, and an instructor-first design." />
+  <meta property="og:title" content="One Agent Per Course | Lobs AI" />
+  <meta property="og:description" content="CourseClaw gives each university course its own OpenClaw agent in a dedicated Docker container. Four hard rules, one container per course, instructor-first design." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/courseclaw" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Blog</a>
+      <div class="article-meta">
+        <span class="post-card-tag">Architecture</span>
+        <span>April 20, 2026</span>
+        <span>·</span>
+        <span>8 min read</span>
+      </div>
+      <h1>One Agent Per Course</h1>
+      <p class="article-lede">The first design question for CourseClaw wasn't "how do we build a course AI?" It was "how do we make sure it can't go rogue?" We're building an AI TA for a course about building agent systems. The recursion is either interesting or terrifying depending on how well the guardrails hold.</p>
+    </header>
+
+    <div class="article-body">
+
+      <p>We're building CourseClaw: a course operations platform for EECS 498, Applied Agentic Software Engineering at the University of Michigan. The course is about building agent systems. The TA is an agent system. That recursion is either interesting or terrifying depending on how well the guardrails hold.</p>
+      <p>Here's how we thought through the architecture.</p>
+
+      <h2>The hard rules</h2>
+      <p>Before any architecture decisions came four rules that nothing can override.</p>
+      <p><strong>Student-originated messages never trigger writes to course material.</strong> Students can ask questions. They cannot cause the agent to open a pull request, edit a lecture, or modify anything. Only instructor-sourced signals can initiate write actions.</p>
+      <p><strong>Knowledge scope is enforced at the data-fetch boundary, not in prompts.</strong> The agent doesn't see content it's not supposed to see because that content is never fetched. Not because we're hoping a well-worded prompt will keep it in lane.</p>
+      <p><strong>Every action is audited.</strong> Every tool call, every PR opened, every message sent goes into an audit log. Not optional.</p>
+      <p><strong>Course content and agent workspace live in separate repos.</strong> The agent has its own Git workspace (<code>aase-f26-openclaw</code>) separate from the course materials repo. Cross-contamination of those namespaces is a structural impossibility, not a policy.</p>
+      <p>These constraints came first. The architecture is designed around enforcing them.</p>
+
+      <h2>One container per course</h2>
+      <p>The central decision: each course gets its own OpenClaw instance, running in a dedicated Docker container, with its own workspace mounted from a Git repo.</p>
+      <p>OpenClaw is an existing open-source agent framework. We're not building the runtime. We're building the course operations layer on top of it. CourseClaw handles the dashboard, Postgres, ingestion pipeline, signal routing, and container lifecycle. The OpenClaw container handles agent execution.</p>
+
+      <div class="article-diagram">
+        <div class="article-diagram-label">Per-course architecture</div>
+        <div class="tier-chain">
+          <div class="tier-node">
+            <div class="tier-node-name">Dashboard</div>
+            <div class="tier-node-desc">Student + instructor views</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">Signal Router</div>
+            <div class="tier-node-desc">Converts actions to OpenClaw signals</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">OpenClaw</div>
+            <div class="tier-node-desc">One Docker container per course</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">Git Workspace</div>
+            <div class="tier-node-desc">Mounted from course-specific repo</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Why one container per course rather than a shared instance? Isolation. A shared instance creates the possibility of cross-course contamination: course A's context leaking into course B, one course's high load affecting another's response times, a misconfigured tool in one course affecting the others. A per-course container means the blast radius of any problem is bounded to that course.</p>
+      <p>It also means each course gets a complete, inspectable workspace. The agent's <code>AGENTS.md</code>, <code>SOUL.md</code>, <code>USER.md</code>, <code>policies.yaml</code>: all of it lives in a course-specific Git repo that instructors can read, audit, and adjust directly. There's no shared configuration to accidentally break.</p>
+      <p>The trade-off is operational complexity. Running many courses means running many containers. For v0, targeting exactly one course, that's a problem we've explicitly deferred.</p>
+
+      <h2>Instructor-first, not student-first</h2>
+      <p>Most educational tools are designed around the student experience. CourseClaw is designed around the instructor experience, with students as a secondary surface.</p>
+      <p>The logic: instructors are the people whose signals actually change the course. A student asking "when is the lab due?" gets a direct answer from the agent. An instructor evaluating a lecture (marking it too fast, noting that students struggled with a specific topic, flagging a depth gap) sends a signal that OpenClaw processes, turns into a draft fix, and opens as a pull request against the course materials.</p>
+      <p>The instructor evaluation form is the primary write interface. It's opinionated:</p>
+      <ul>
+        <li><strong>Duration:</strong> how long the actual lecture ran</li>
+        <li><strong>Depth score:</strong> 1-5, did it go deep enough?</li>
+        <li><strong>Breadth score:</strong> 1-5, did it cover enough ground?</li>
+        <li><strong>Pace score:</strong> 1-5, did it move at the right speed?</li>
+        <li><strong>Notes:</strong> freeform</li>
+      </ul>
+      <p>These scores feed directly into the signal router, which batches them into OpenClaw as structured context for the next agent run. The agent sees <code>Lecture 7: depth=2/5, breadth=4/5, notes: students lost after mutex section</code> and knows what to look at.</p>
+      <p>Students can ask questions. They can see upcoming deliverables and phase progress. They cannot drive the agent's write behavior.</p>
+
+      <h2>The ingestion pipeline</h2>
+      <p>CourseClaw ingests a course manifest: a structured description of the course, its lectures, labs, and phase schedule. That populates Postgres. The dashboard reads from Postgres. OpenClaw reads from the mounted workspace, which stays in sync through an audit mirror.</p>
+      <p>The signal router sits between the dashboard and OpenClaw. When an instructor submits an evaluation or schedules prep work, the router converts that into an OpenClaw signal and fires it over HTTP to the running container. OpenClaw processes the signal in context of the current workspace state, what lectures exist, what evaluations have been filed, what prep work is scheduled, and decides what to do.</p>
+      <p>The audit mirror runs in the other direction. When OpenClaw writes to its workspace, those writes sync back to Postgres so the dashboard reflects current state. The dashboard never talks directly to OpenClaw; it reads from the mirror. This means the dashboard always has a coherent, queryable view of the agent's work, independent of whether the agent is currently running.</p>
+
+      <h2>Scope discipline</h2>
+      <p>v0 targets exactly one course: EECS 498 AASE, Fall 2026.</p>
+      <p>Multi-course support would require multi-tenant auth, cross-course isolation policies, per-course billing, and a lot of infrastructure we don't need yet. Building it all before knowing whether the single-course version works is the fastest way to accumulate complexity that never pays off.</p>
+      <p>The per-course container model is inherently multi-tenant. Adding a second course is a second container, a second workspace, a second Postgres schema. The architecture scales. The current scope just doesn't need to.</p>
+
+      <h2>What's hard</h2>
+      <p>The easy parts of CourseClaw are the dashboard and data model. Those are standard web app problems.</p>
+      <p><strong>Signal fidelity.</strong> The agent is only as good as the signals it receives. If instructor evaluations are vague or inconsistent, the agent's outputs will be too. The ingestion pipeline has to normalize signals well enough to act on them without losing the specificity that makes them useful.</p>
+      <p><strong>Trust calibration.</strong> How much should the agent do autonomously versus proposing and waiting for approval? Opening a PR to fix a typo is low-risk. Restructuring a lab to address a systemic depth gap is not. The <code>policies.yaml</code> in the agent workspace controls this, but calibrating it for a real course requires actually running it.</p>
+      <p><strong>Audit completeness.</strong> An audit log with missing entries is worse than no audit log. When something goes wrong, and something will, the trail needs to be complete enough to reconstruct exactly what happened.</p>
+      <p>We'll know how well we got these right when the course runs in Fall 2026. Building a course about agentic systems on top of an actual agent system is either the right way to test it, or the most direct path to a very memorable incident post-mortem.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/cortex" class="article-footer-link">← The Structured-First Executive Assistant</a>
+        <a href="/blog/" class="article-footer-link">All posts →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

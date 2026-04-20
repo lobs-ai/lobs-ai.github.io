@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Structured-First Executive Assistant | Lobs AI Blog</title>
+  <meta name="description" content="Cortex isn't a chatbot with a calendar API. Tasks, events, and projects are first-class objects. The AI reasons over that structure, proactively, on a schedule, without being asked." />
+  <meta property="og:title" content="The Structured-First Executive Assistant | Lobs AI" />
+  <meta property="og:description" content="Cortex isn't a chatbot with a calendar API. Tasks, events, and projects are first-class objects, and four separate AI roles reason over them proactively." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/cortex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Blog</a>
+      <div class="article-meta">
+        <span class="post-card-tag">System Design</span>
+        <span>April 20, 2026</span>
+        <span>·</span>
+        <span>7 min read</span>
+      </div>
+      <h1>The Structured-First Executive Assistant</h1>
+      <p class="article-lede">Most AI productivity tools are chatbots with a calendar wrapper. Cortex is built on a different premise: tasks, events, and projects are first-class objects in a database. The AI's job is to reason over that structure, not replace it.</p>
+    </header>
+
+    <div class="article-body">
+
+      <p>Most AI productivity tools are chatbots with a calendar wrapper. You type a question, it tells you what's on your calendar, you say thanks and close the tab. The AI is decorative.</p>
+      <p>Cortex is designed differently. The premise: tasks, events, projects, and deadlines are first-class objects in Postgres. The AI reasons over that structure. It doesn't replace it or hallucinate it from chat history.</p>
+
+      <h2>What it does</h2>
+      <p>Cortex is a web-based personal executive assistant. It syncs and manages my Google Calendar, handles tasks and projects natively, generates a daily plan every morning, runs proactive background checks throughout the day, and sends Discord notifications for things worth interrupting me for. It learns habits over time and adjusts accordingly.</p>
+      <p>The key word is proactive. Most of what it does happens without me asking. Background jobs run on schedule, detect notable states, and decide whether to surface something or stay quiet.</p>
+
+      <h2>Structure first, AI second</h2>
+      <p>Calendar events, tasks, projects, reminders: these live in Postgres as properly typed rows. When the AI reasons about my day, it isn't reading raw text from a notes file. It gets a structured JSON payload assembled from the database:</p>
+      <pre><code>{
+  "date": "2026-04-20",
+  "calendar": [...],
+  "free_blocks": [...],
+  "tasks": [...],
+  "projects": [...],
+  "tendencies": [...]
+}</code></pre>
+      <p>The AI's job is to say something useful about that structure. Not to guess what structure might exist.</p>
+      <p>This matters for quality. When I ask "what should I work on today?", a chatbot guesses based on the last few messages. Cortex assembles my actual state: what's due, what's overdue, where my free time is, what my calendar looks like, what I've been neglecting. It hands all of that to the model. The model's response quality is bounded by the quality of its inputs.</p>
+      <p>It also matters for reliability. A system that stores tasks and events properly can answer questions about them correctly, every time. A system that relies on the AI to remember what tasks you mentioned in chat will eventually forget or confuse them.</p>
+
+      <h2>Four AI roles</h2>
+      <p>The AI layer is split into four logical roles rather than one monolithic assistant.</p>
+      <p><strong>Planner</strong> runs once a day: daily and weekly planning, task prioritization, scheduling suggestions. Premium model, slow call, high quality output.</p>
+      <p><strong>Monitor</strong> runs every 30-60 minutes during active hours: background evaluation, detecting risk states, deciding whether to notify. Cheap model, because most runs should produce nothing. It only escalates to a real LLM call when rule-based detectors first find something worth surfacing.</p>
+      <p><strong>Memory curator</strong> runs nightly: extracts stable patterns from repeated observations. It's responsible for turning "user moved the suggested block to morning three times" into a formal tendency that affects future planning.</p>
+      <p><strong>Chat assistant</strong> runs on demand: answers questions and takes actions. It has the full tool set.</p>
+      <p>Each role gets scoped tool access. The monitor can only read and propose notifications. The planner can read and propose schedule blocks. The chat assistant can read, write, and act. Scoping tool access per role reduces the chance that a proactive wake-up accidentally does something I didn't ask for.</p>
+
+      <h2>The think → act loop</h2>
+      <p>A single request like "clean up my afternoon" might require several steps: read calendar, identify low-priority events, check task urgency, find free windows, propose a rearrangement. That's not one LLM call.</p>
+      <p>Cortex uses a think → act loop. The model gets called with its tool set. If it returns tool use blocks, those tools execute, results come back, the loop continues. When the model produces a final text response, the loop exits.</p>
+      <ul>
+        <li><strong>Turn cap:</strong> every run has a <code>maxTurns</code> limit (25 for chat, 15 for proactive wake-ups). Exceeding it aborts cleanly and logs the outcome.</li>
+        <li><strong>Time cap:</strong> wall-clock timeout enforced at the orchestration layer, not just per LLM call.</li>
+        <li><strong>Parallel tool calls:</strong> read tools execute concurrently. Writes serialize.</li>
+        <li><strong>Loop detection:</strong> if the same tool fires with the same input repeatedly, the system injects a warning into the next tool result, then hard-stops at a threshold.</li>
+        <li><strong>Transactionality:</strong> actions with real consequences, like sending a Discord message or moving a Google Calendar event, queue as proposals during the loop and only commit after it finishes successfully. Unless I've whitelisted that tool category as auto-act.</li>
+      </ul>
+      <p>The proactive wake-ups use the same loop as chat. The only differences are the trigger source and which tools are in scope.</p>
+
+      <h2>Spam vs. usefulness</h2>
+      <p>The assistant that notifies me about everything is worse than the one that says nothing. Every unnecessary notification makes the next one less likely to be read.</p>
+      <p>Cortex uses deterministic rule detectors before any LLM calls on proactive runs. Examples:</p>
+      <ul>
+        <li>Task due within 24h, unscheduled, estimated duration greater than available free time: flag deadline risk</li>
+        <li>Meeting in 2h, marked important, no prep block: flag prep reminder</li>
+        <li>Three overdue tasks, no focus block today: flag backlog problem</li>
+      </ul>
+      <p>Only when a rule fires does the system spend tokens on a real LLM call. The LLM's job on a proactive run is to produce human-readable reasoning for something that already passed a rule check. Not to invent reasons to interrupt me.</p>
+      <p>The monitor also has explicit cooldowns, importance scores, and per-channel rate limits. The morning daily plan goes to Discord once. A deadline risk that fired yesterday doesn't fire again unless the situation got worse.</p>
+
+      <h2>Learning that doesn't trust too fast</h2>
+      <p>Cortex learns habits: preferred work times, task duration accuracy, how I respond to scheduling suggestions. But inferred tendencies require evidence before they affect behavior.</p>
+      <p>The threshold: at least three similar observations over 14+ days before a pattern is promoted. A single data point doesn't change the model. Repeated ones do.</p>
+      <p>I can see and edit everything the system has learned. Every inferred tendency is visible. Any tendency can be deleted, corrected, or promoted to an explicit preference. The system is transparent about what it thinks it knows.</p>
+      <p>The design came from a real concern: a system that confidently adapts to wrong inferences will erode trust fast. Conservative learning and visible memory are both answers to the same problem: the system should earn trust over time, not assume it from the start.</p>
+
+      <h2>What it's not</h2>
+      <p>Cortex is not a raw chatbot with a calendar API strapped to it. It's not an autonomous agent that reorganizes my life without asking. In V1 it doesn't send emails, take over my browser, or make decisions that can't be reviewed.</p>
+      <p>What it is: a system that combines structured data, proactive orchestration, memory, and careful action-taking. Any single piece of it (a chatbot, a task manager, a calendar app) is a solved problem. Connecting them, making them proactive, and making the AI layer understand the structure underneath: that's the actual product.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/preparation-beats-power" class="article-footer-link">← Preparation Beats Power</a>
+        <a href="/blog/courseclaw" class="article-footer-link">One Agent Per Course →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>
