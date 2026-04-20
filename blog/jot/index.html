@@ -66,7 +66,7 @@
 
     <div class="article-body">
 
-      <p>I wanted to take notes and have AI help me organize them. Every tool I tried either stored my data on someone's cloud or required an API key and charged money per query. Jot is what I built instead: capture notes in plain English, let local models analyze them in the background, search and summarize from the command line. All private, all free.</p>
+      <p>The architecture is simple: <code>jot add "..."</code> writes to SQLite and returns immediately. A detached background worker picks up the note and sends it to a local model for enrichment. By the time I next search or summarize, the note already has tags, action items, linked notes, and an urgency flag. None of it required waiting.</p>
 
       <h2>Two problems</h2>
       <p>Cloud note-taking has a privacy problem. Every note I write lives on someone else's server. For personal logs, meeting notes, and work context, that's a real concern, not a theoretical one.</p>

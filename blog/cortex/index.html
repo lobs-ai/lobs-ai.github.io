@@ -66,8 +66,7 @@
 
     <div class="article-body">
 
-      <p>Most AI productivity tools are chatbots with a calendar wrapper. You type a question, it tells you what's on your calendar, you say thanks and close the tab. The AI is decorative.</p>
-      <p>Cortex is designed differently. The premise: tasks, events, projects, and deadlines are first-class objects in Postgres. The AI reasons over that structure. It doesn't replace it or hallucinate it from chat history.</p>
+      <p>Cortex stores calendar events, tasks, projects, and reminders as typed Postgres rows. When the AI reasons about my day, it gets a structured JSON payload assembled from those rows: what's due, what's overdue, where my free time is, what I've been neglecting. The model's job is to say something useful about that context. Not to reconstruct it from chat history.</p>
 
       <h2>What it does</h2>
       <p>Cortex is a web-based personal executive assistant. It syncs and manages my Google Calendar, handles tasks and projects natively, generates a daily plan every morning, runs proactive background checks throughout the day, and sends Discord notifications for things worth interrupting me for. It learns habits over time and adjusts accordingly.</p>

@@ -66,8 +66,7 @@
 
     <div class="article-body">
 
-      <p>I spent months building lobs-core. The LLM client, the tool executor, the memory system, the agent runner: all of it was running in production, handling real tasks every day. Then I started a new project and found myself copying the same patterns from scratch. That was the signal to extract.</p>
-      <p>Agentic is five TypeScript packages extracted from lobs-core. About 9,000 lines of code, all production-hardened before any of it became a library.</p>
+      <p>The five packages cover the full stack of what a production agent needs: configuration and key management, LLM access with resilience built in, a tool system with safety validation, persistent memory with hybrid search, and the execution loop. None of it was designed as a library. It was extracted from code that had already been running in production for months, handling real tasks every day.</p>
 
       <h2>Composable packages, not a framework</h2>
       <p>A framework asks you to buy into its opinions. These packages are standalone: use one, use all five, swap any piece. The LLM client works without the runner. The tool system works without the memory layer. You bring what you need.</p>
