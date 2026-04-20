@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a Collaborator, Not a Chatbot | Lobs AI Blog</title>
+  <meta name="description" content="Lobs Companion is a macOS app that runs entirely locally. Three memory layers, a Unix socket bridge between Tauri and Node.js, and a UI built to feel native. A collaborator that already knows your codebase." />
+  <meta property="og:title" content="Building a Collaborator, Not a Chatbot | Lobs AI" />
+  <meta property="og:description" content="Lobs Companion runs locally on macOS with three memory layers and a Tauri+Node socket bridge. The difference between a chatbot and a collaborator is persistent context." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/companion" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Blog</a>
+      <div class="article-meta">
+        <span class="post-card-tag">macOS</span>
+        <span>April 20, 2026</span>
+        <span>·</span>
+        <span>8 min read</span>
+      </div>
+      <h1>Building a Collaborator, Not a Chatbot</h1>
+      <p class="article-lede">The difference between a chatbot and a collaborator is context. A chatbot answers questions. A collaborator already knows who you are, what you're working on, and where things stand. Building that required solving three problems: local execution, permanent memory, and a UI that feels native.</p>
+    </header>
+
+    <div class="article-body">
+
+      <p>Lobs Companion is a macOS app that runs entirely on my machine. It knows my projects. It remembers what we've worked on across sessions. It edits files alongside me. It doesn't have a server.</p>
+
+      <h2>Why local</h2>
+      <p>Cloud-hosted agents have three problems: latency, privacy, and amnesia.</p>
+      <p>Latency is real. Every message round-trips to a cloud service and back. For iterative work (reading a file, making a small edit, checking the result) that adds up quickly. A local runtime answers without a network hop.</p>
+      <p>Privacy is obvious but easy to understate. Every message I send to a cloud agent gets logged, potentially used for training, and stored on someone else's infrastructure. For work on private codebases, that's not abstract.</p>
+      <p>Amnesia is the one nobody talks about. Every cloud chat session starts fresh. The assistant has no idea what I worked on yesterday, what my codebase looks like, or what I prefer. I spend tokens re-explaining context every session. Companion fixes this.</p>
+
+      <h2>Three memory layers</h2>
+      <p><strong>Session memory</strong> is the full transcript of the current conversation. Active, ephemeral, disappears when the window closes.</p>
+      <p><strong>Project memory</strong> is per-repository. When Companion starts in a project, it reads <code>AGENTS.md</code>, <code>README.md</code>, and git state to build a picture of the codebase. That picture persists across sessions tied to that repo.</p>
+      <p><strong>Permanent memory</strong> is cross-session. After each session ends, the AI extracts key facts, learnings, and preferences and writes them to persistent storage. The next time I open Companion, it already knows what we figured out last time.</p>
+      <p>The combination means I never re-explain the same thing twice. Project context loads on startup. The session builds on top of it. When it ends, the useful parts get promoted to permanent memory. After a few weeks of sessions, it starts acting less like a tool I'm configuring and more like a collaborator I've worked with for a while.</p>
+
+      <h2>The socket bridge</h2>
+      <p>Companion is a Tauri (Rust) app with a React frontend and a Node.js agent runtime. The frontend and runtime don't communicate over HTTP. They use a Unix domain socket at <code>~/.lobs-companion/run/agent.sock</code>, speaking newline-delimited JSON-RPC 2.0.</p>
+      <p>Why a socket instead of stdin/stdout? Clean bidirectionality. When the runtime writes structured messages and logs to the same stdout, separating them reliably is hard. The socket gives a clean dedicated channel. The <code>run/</code> directory gets <code>chmod 0700</code>. No other process on the machine can connect.</p>
+      <p>The message types are simple: <code>user_message</code>, <code>token</code> (streamed), <code>tool_call</code>, <code>tool_result</code>, <code>confirm_tool</code> (for anything needing approval), <code>cancel</code>, <code>shutdown</code>. The frontend renders each one as it arrives. Tool calls that require confirmation block in the UI until I accept or reject them.</p>
+
+      <h2>The UI</h2>
+      <p>Three panels: context (what the agent knows about the current project), conversation (the chat), tool output (what tools are doing in real time). Keyboard-navigable throughout. I shouldn't need the mouse.</p>
+      <p>The design is dark glass morphism: <code>#0A0A0F</code> background, frosted glass panels with 20px blur, <code>#6366F1</code> indigo accent. SF Pro for text, SF Mono for code, SF Symbols for icons. Panel transitions use spring physics (damping 0.8, response 0.3), not linear easing.</p>
+      <p>It sounds like aesthetic detail but it matters. An AI collaborator I open every day should feel like a native macOS app. Glass and spring physics are what native macOS apps feel like. Linear easing and flat backgrounds are what web apps ported to Electron feel like. The difference registers within thirty seconds of use.</p>
+
+      <h2>Bidirectional editing</h2>
+      <p>Both I and the agent can edit files in the open project. Changes either of us makes are on disk immediately. There's no "export to editor" step. I edit in my editor, the agent edits via the tool system, both sides see the same files.</p>
+      <p>The mtime staleness check from <code>@agentic/tools</code> matters here. If I edit a file while the agent has it cached from a previous read, its next edit attempt fails with a staleness error and forces a re-read. This is the same safety mechanism Claude Code uses, and it's the reason that class of conflict doesn't cause silent corruption.</p>
+
+      <h2>The packages underneath</h2>
+      <p>Companion's agent runtime reuses five packages from <code>@agentic/*</code> (config, llm, memory, runner, tools) plus two new ones specific to Companion: <code>@companion/permissions</code> (confirmation guards for writes, deletes, and shell exec) and <code>@companion/app-runtime</code> (CLI and daemon mode with the socket bridge).</p>
+      <p>The <code>@agentic/*</code> extraction happened specifically because of Companion. I needed the same patterns in a new project and didn't want to copy code. The packages exist because building the same production-hardened infrastructure twice is the wrong answer.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/agentic" class="article-footer-link">← Extracting a Toolkit from Production Code</a>
+        <a href="/blog/jot" class="article-footer-link">Private Notes, Local AI →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

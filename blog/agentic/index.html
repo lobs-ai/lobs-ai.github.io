@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extracting a Toolkit from Production Code | Lobs AI Blog</title>
+  <meta name="description" content="Agentic is five TypeScript packages extracted from lobs-core: LLM client, tool executor, memory, runner, and config. About 9,000 lines of code, all battle-tested before becoming a library." />
+  <meta property="og:title" content="Extracting a Toolkit from Production Code | Lobs AI" />
+  <meta property="og:description" content="Five TypeScript packages extracted from lobs-core. Every safety pattern exists because something went wrong without it." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/agentic" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Blog</a>
+      <div class="article-meta">
+        <span class="post-card-tag">Open Source</span>
+        <span>April 20, 2026</span>
+        <span>·</span>
+        <span>7 min read</span>
+      </div>
+      <h1>Extracting a Toolkit from Production Code</h1>
+      <p class="article-lede">I spent months building lobs-core. Then I started a new project and found myself copying the same patterns from scratch. That was the signal to extract. Agentic is five TypeScript packages pulled from production code: about 9,000 lines, all battle-tested before becoming a library.</p>
+    </header>
+
+    <div class="article-body">
+
+      <p>I spent months building lobs-core. The LLM client, the tool executor, the memory system, the agent runner: all of it was running in production, handling real tasks every day. Then I started a new project and found myself copying the same patterns from scratch. That was the signal to extract.</p>
+      <p>Agentic is five TypeScript packages extracted from lobs-core. About 9,000 lines of code, all production-hardened before any of it became a library.</p>
+
+      <h2>Composable packages, not a framework</h2>
+      <p>A framework asks you to buy into its opinions. These packages are standalone: use one, use all five, swap any piece. The LLM client works without the runner. The tool system works without the memory layer. You bring what you need.</p>
+
+      <div class="article-diagram">
+        <div class="article-diagram-label">Five packages</div>
+        <div class="tier-chain">
+          <div class="tier-node">
+            <div class="tier-node-name">config</div>
+            <div class="tier-node-desc">Model tiers, key resolution</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">llm</div>
+            <div class="tier-node-desc">Multi-provider LLM client</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">tools</div>
+            <div class="tier-node-desc">9 built-in tools, pluggable registry</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">memory</div>
+            <div class="tier-node-desc">SQLite + hybrid search</div>
+          </div>
+          <div class="tier-node">
+            <div class="tier-node-name">runner</div>
+            <div class="tier-node-desc">Think/act/observe loop</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>The LLM client</h2>
+      <p>The provider abstraction is the piece I needed in every project. <code>@agentic/llm</code> takes a model string with a <code>provider/model-id</code> prefix (<code>anthropic/claude-sonnet-4-20250514</code>, <code>openai/gpt-4.1</code>, <code>lmstudio/qwen3-9b</code>) and routes to the right provider without changing call sites.</p>
+      <p>Built in: retry with exponential backoff, fallback chains (try Anthropic, fall back to OpenRouter if it fails), key rotation across multiple keys for the same provider, and sticky session keys so Anthropic prompt cache hits keep hitting on the same session.</p>
+      <p>Swapping from Anthropic to OpenRouter is a config change, not a code change.</p>
+
+      <h2>The tool system</h2>
+      <p><code>@agentic/tools</code> ships nine built-in tools: <code>read</code>, <code>write</code>, <code>edit</code>, <code>exec</code>, <code>grep</code>, <code>glob</code>, <code>ls</code>, <code>code-search</code>, <code>find-files</code>. Each tool has an Anthropic-compatible input schema so it passes directly into <code>tools: [...]</code> on the API call. You register tools by name, call <code>executeTool(name, params, cwd)</code>, and the registry dispatches.</p>
+      <p>The safety validation is where production experience shows.</p>
+      <p><strong>Staleness detection on edits.</strong> Every <code>edit</code> call caches the file's <code>mtime</code> when it was last read. If the mtime changed between the read and the edit, the call fails. The agent has to re-read before it can edit. This prevents editing a file whose content changed underneath you, a class of bug that's subtle and hard to debug.</p>
+      <p><strong>Binary file detection.</strong> <code>read</code> checks for null bytes before returning content. Binary files get rejected with a clear error instead of spewing garbage into the context window.</p>
+      <p><strong>Blocked device paths.</strong> A hardcoded list of device paths (<code>/dev/</code>, <code>/proc/</code>, <code>/sys/</code>) can never be read or written. Not configurable, not bypassable.</p>
+      <p><strong>Quote normalization on edits.</strong> <code>edit</code> normalizes curly quotes to straight quotes when matching <code>old_string</code>. Copy-pasted strings with typographic quotes fail silently without this. I discovered it was necessary the hard way.</p>
+
+      <h2>The runner</h2>
+      <p><code>@agentic/runner</code> implements the think/act/observe loop: call the LLM, execute any tool use blocks, feed results back, repeat until the model stops calling tools. The hook system (<code>before_tool_call</code>, <code>after_tool_call</code>, <code>before_llm_call</code>, <code>after_llm_call</code>, <code>on_error</code>) lets you add audit logging, permission gating, or cost tracking without touching the runner logic itself.</p>
+      <p>Loop detection is built in. If the same tool fires with the same input three times in a row, the runner injects a warning into the next tool result. At a configurable hard limit, it aborts the run. Running without loop detection in a production agent is how you rack up unexpected bills.</p>
+
+      <h2>What production-hardened means</h2>
+      <p>Every pattern in these packages corresponds to something that went wrong in lobs-core without it. The mtime staleness check exists because an agent edited a file it had read ten turns earlier that had since changed. The loop detection exists because an agent got stuck in a retry cycle and burned a full context window before anyone noticed. The key rotation exists because a single key hit its rate limit mid-run.</p>
+      <p>The packages are small. The accumulated knowledge behind them is not.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/courseclaw" class="article-footer-link">← One Agent Per Course</a>
+        <a href="/blog/companion" class="article-footer-link">Building a Collaborator, Not a Chatbot →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

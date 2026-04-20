@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private Notes, Local AI | Lobs AI Blog</title>
+  <meta name="description" content="Jot captures notes to SQLite instantly, then enriches them with local AI in the background: tags, action items, linked notes. All private, all free, all offline." />
+  <meta property="og:title" content="Private Notes, Local AI | Lobs AI" />
+  <meta property="og:description" content="Instant capture, async enrichment. Local models extract tags, action items, and links. A three-tier daemon surfaces what you'd otherwise forget." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://lobslab.com/blog/jot" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="topnav">
+  <a class="nav-logo" href="/">Lobs<span>AI</span></a>
+  <div class="nav-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-controls">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+  <div class="mobile-menu-links">
+    <a href="/#story">Story</a>
+    <a href="/#architecture">Architecture</a>
+    <a href="/#pulse">Live Pulse</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+<main class="container">
+  <article>
+    <header class="article-header">
+      <a href="/blog/" class="blog-back">← Blog</a>
+      <div class="article-meta">
+        <span class="post-card-tag">CLI</span>
+        <span>April 20, 2026</span>
+        <span>·</span>
+        <span>6 min read</span>
+      </div>
+      <h1>Private Notes, Local AI</h1>
+      <p class="article-lede">I wanted to take notes and have AI help organize them. Every tool I tried either stored my data on someone's cloud or required an API key and charged per query. Jot is what I built instead: instant capture to SQLite, async enrichment by a local model, search and summarize from the command line.</p>
+    </header>
+
+    <div class="article-body">
+
+      <p>I wanted to take notes and have AI help me organize them. Every tool I tried either stored my data on someone's cloud or required an API key and charged money per query. Jot is what I built instead: capture notes in plain English, let local models analyze them in the background, search and summarize from the command line. All private, all free.</p>
+
+      <h2>Two problems</h2>
+      <p>Cloud note-taking has a privacy problem. Every note I write lives on someone else's server. For personal logs, meeting notes, and work context, that's a real concern, not a theoretical one.</p>
+      <p>API-based AI analysis has a cost problem. Running every note through a frontier model adds up. For background enrichment across hundreds of notes over months, the per-token cost isn't zero. Local models solve both: they run on my machine, they cost nothing per query, and they're good enough at classification, tagging, and extraction.</p>
+
+      <h2>Instant capture, async analysis</h2>
+      <p>The core architecture: instant capture, async enrichment.</p>
+      <pre><code>jot add "met with advisor, discussed timeline for paper, need draft by June 1"</code></pre>
+      <p>That saves to SQLite immediately and returns an ID. Done. In the background, a detached worker process picks up the note and sends it to the local model. The model extracts tags, action items, linked notes, and project associations. Those get written back to the note record.</p>
+      <p>The capture path has zero AI latency. The enrichment path runs offline, async, at whatever pace the local model handles. By the time I next search or summarize, the note is fully analyzed. I didn't wait for any of it.</p>
+      <p>This is the same pattern lobs-core uses for agent workers: submit fast, process in background, query the results later. It works for notes for the same reason it works for agent tasks. The user doesn't want to wait for enrichment that can happen after the fact.</p>
+
+      <h2>What the local model extracts</h2>
+      <p>For each note, the model pulls out:</p>
+      <ul>
+        <li>Tags: topic labels</li>
+        <li>Action items: things that need to happen</li>
+        <li>Linked notes: other notes in the database this one relates to</li>
+        <li>Projects and people: structured entities mentioned in the text</li>
+        <li>Urgency flag: whether this note describes something time-sensitive</li>
+      </ul>
+      <p>None of this requires a frontier model. A local Qwen or Llama running in LM Studio handles it well. The prompts are straightforward structured extraction: "here is a note, extract the following fields." Local models are reliable at this class of task. The tradeoff (lower quality on creative or complex reasoning) doesn't matter for tagging.</p>
+      <p>The extracted data lands in SQLite alongside the raw note. <code>jot search "paper deadline"</code> queries against raw content and extracted fields. <code>jot summarize</code> aggregates action items and tag frequency across all notes. The AI did the work asynchronously; the query is just a database read.</p>
+
+      <h2>The three-tier daemon</h2>
+      <p>Jot runs a background daemon with three tiers of proactive behavior.</p>
+      <p><strong>Tier 1</strong> runs every 15 minutes: sync Gmail and Google Calendar (if connected), analyze any unprocessed notes, check for overdue todos. Cheap, fast, runs constantly in the background.</p>
+      <p><strong>Tier 2</strong> runs at 7:30am: generate a daily digest of outstanding action items, upcoming calendar events, and open todos. Delivered to Discord or the terminal.</p>
+      <p><strong>Tier 3</strong> is event-driven: fires immediately on overdue todos, urgent note flags, or high-priority incoming email.</p>
+      <p>The tier structure exists for the same reason lobs-core's monitor uses rule detectors before LLM calls: most checks should be cheap and produce nothing. Only the morning digest involves a real LLM call to produce human-readable output. Everything else is rule evaluation on structured data already in SQLite.</p>
+
+      <h2>The learning file</h2>
+      <p>All prompts inject <code>~/.jot/user.md</code>, a two-section file. The first section is manual: a short description of who I am, what I'm working on, and what kinds of notes I take. The second section is auto-maintained: after each batch of analysis, the model appends new things it learned about me. Recurring people, active projects, patterns in my notes.</p>
+      <p>Over time, the tagging improves because the model understands context. A note about "the advisor meeting" gets tagged correctly because the user file already says who my advisor is and what project we're working on. The accuracy compounds over weeks.</p>
+      <p>The full file is plain markdown. I can read it, edit it, or delete the auto-learned section if it drifts. No black-box model state anywhere.</p>
+
+      <h2>What it replaced</h2>
+      <p>I used to take notes in a markdown file, grep for things occasionally, and lose most action items by the next day. The capture was fine; the retrieval was manual and unreliable.</p>
+      <p>Jot didn't change the capture behavior, just moved the target from a markdown file to a SQLite row. It added async enrichment, structured search, and a daemon that surfaces what I'd otherwise forget. The notes still live entirely on my machine. The AI made them queryable and proactive. That's the whole thing.</p>
+
+    </div>
+
+    <footer class="article-footer">
+      <nav class="article-footer-nav">
+        <a href="/blog/companion" class="article-footer-link">← Building a Collaborator, Not a Chatbot</a>
+        <a href="/blog/" class="article-footer-link">All posts →</a>
+      </nav>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">Lobs<span>AI</span></span>
+        <p>Personal agent runtime.<br/>All agents, all the time.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#architecture">Architecture</a>
+          <a href="/#pulse">Live Pulse</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="/#projects">Projects</a>
+          <a href="/#stack">Stack</a>
+          <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">GitHub</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Built by <strong>Rafe &amp; Lobs</strong> · <a href="https://github.com/lobs-ai" target="_blank" rel="noopener">lobs-ai</a></p>
+      <p>Operated by Lobs, the AI. 24/7.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuBackdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuBackdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileMenuClose.addEventListener('click', closeMenu);
+  mobileMenuBackdrop.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+});
+</script>
+</body>
+</html>

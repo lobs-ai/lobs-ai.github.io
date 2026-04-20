@@ -529,7 +529,7 @@ sqlite3 ~/.lobs/lobs.db \
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 67k, lobs-nexus 19k, lobs-mobile 5.6k, lobs-memory 3k, lobs-vim 2.1k, lobs-sentinel 1.2k, lobs-voice 0.5k, website 4.5k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 67k, companion 20k, lobs-nexus 19k, agentic 9k, lobs-mobile 5.6k, jot 5k, lobs-memory 3k, lobs-vim 2.1k, lobs-sentinel 1.2k, lobs-voice 0.5k, website 4.5k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -775,6 +775,81 @@ sqlite3 ~/.lobs/lobs.db \
             <div class="exp-item"><span class="exp-icon">TU</span><div><h5>Tool Use &amp; Memory Systems</h5><p>Building agents that use tools effectively and maintain persistent memory across sessions.</p></div></div>
             <div class="exp-item"><span class="exp-icon">MA</span><div><h5>Multi-Agent Orchestration</h5><p>Coordinating multiple agents to work in parallel on complex, multi-step tasks.</p></div></div>
             <div class="exp-item"><span class="exp-icon">DP</span><div><h5>Deployment &amp; Runtime</h5><p>Taking agents from prototype to production using OpenClaw as the runtime platform.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">AG</div>
+          <div class="card-text-head">
+            <div class="card-tag">agentic</div>
+            <h3>Agentic Toolkit</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Five composable TypeScript packages extracted from lobs-core: multi-provider LLM client, tool executor with safety validation, hybrid memory search, agent runner loop, and config management. About 9k lines, all battle-tested in production before becoming a library.</p>
+        <div class="card-meta">
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">ESM</span><span class="meta-chip">9k LOC</span><span class="meta-chip">Open Source</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">LLM</span><div><h5>Multi-Provider Client</h5><p>Provider-prefixed model strings route to Anthropic, OpenAI, OpenRouter, or LM Studio. Built-in retry, fallback chains, key rotation, and sticky session keys for prompt cache hits.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">TL</span><div><h5>9 Built-in Tools</h5><p>read, write, edit, exec, grep, glob, ls, code-search, find-files. Each has an Anthropic-compatible input schema. Pluggable registry — add tools by name without touching the runner.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">SF</span><div><h5>Safety Validation</h5><p>mtime-based staleness detection on edits, binary file rejection, blocked device paths, and quote normalization. Every check exists because something went wrong without it.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">MEM</span><div><h5>Hybrid Memory</h5><p>SQLite + file-backed memory with vector and keyword search. LLM-powered fact extraction and session continuity across runs.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">RL</span><div><h5>Runner Loop</h5><p>Think/act/observe loop with hook system for observability, loop detection, and context compaction. Same pattern used in lobs-core and Companion.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">CP</div>
+          <div class="card-text-head">
+            <div class="card-tag">companion</div>
+            <h3>Lobs Companion</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Local-first macOS AI collaborator built with Tauri + React + Node.js. Permanently remembers your projects, preferences, and past sessions through three memory layers. Edits files alongside you in real time. No server, no cloud, no latency. About 20k lines of TypeScript.</p>
+        <div class="card-meta">
+          <span class="meta-chip">Tauri</span><span class="meta-chip">React</span><span class="meta-chip">TypeScript</span><span class="meta-chip">macOS</span><span class="meta-chip">20k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">MEM</span><div><h5>Three Memory Layers</h5><p>Session memory (active transcript), project memory (per-repo context from AGENTS.md and git state), and permanent memory (facts extracted at session end). Context accumulates over time without re-explaining.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">SK</span><div><h5>Unix Socket Bridge</h5><p>Tauri and the Node.js runtime talk over a Unix domain socket at ~/.lobs-companion/run/agent.sock via newline-delimited JSON-RPC 2.0. Clean bidirectional channel, no HTTP overhead.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">UI</span><div><h5>Native macOS UI</h5><p>Dark glass morphism design, SF Pro typography, SF Symbols, spring physics on panel transitions. Three panels: project context, conversation, and live tool output. Keyboard-first navigation.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">ED</span><div><h5>Bidirectional Editing</h5><p>Both I and the agent edit files on disk in real time. mtime staleness detection prevents silent conflicts when both sides touch the same file.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">PR</span><div><h5>Permission Guards</h5><p>Tool calls that write, delete, or exec shell commands surface a confirmation in the UI. Reads and searches run automatically. Configurable trust levels per tool category.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2" data-expanded="false">
+        <div class="card-top">
+          <div class="card-icon">JT</div>
+          <div class="card-text-head">
+            <div class="card-tag">jot</div>
+            <h3>Jot</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Local AI note-taking CLI. Capture notes in plain English and they save to SQLite instantly. A background worker sends each note to a local model (LM Studio or Ollama) for async enrichment: tags, action items, linked notes, urgency flags. All offline, all private. About 5k lines of TypeScript.</p>
+        <div class="card-meta">
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">LM Studio</span><span class="meta-chip">Ollama</span><span class="meta-chip">5k LOC</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">AC</span><div><h5>Instant Capture, Async Analysis</h5><p>Notes land in SQLite immediately. A detached background worker handles enrichment — tags, action items, linked notes — without blocking capture. Zero AI latency on add.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">LM</span><div><h5>Local Models Only</h5><p>LM Studio or Ollama handle all AI analysis. No API keys, no per-query cost, no data leaving the machine. Local models are reliable for structured extraction tasks.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">DM</span><div><h5>Three-Tier Daemon</h5><p>Tier 1 (every 15 min): analyze notes, check todos. Tier 2 (7:30am daily): morning digest to Discord or terminal. Tier 3 (event-driven): overdue todos and urgent note flags.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">LN</span><div><h5>Learning File</h5><p>All prompts inject ~/.jot/user.md — a two-section file with a manual profile and an auto-maintained section the model appends to over time. Tagging accuracy improves as context accumulates.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">SR</span><div><h5>Structured Search</h5><p>Full-text search across raw note content and extracted fields. Summarize action items and tag frequency across the full database with a single command.</p></div></div>
           </div>
         </div>
       </div>
