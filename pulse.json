@@ -6,27 +6,27 @@
     "version": "8.0"
   },
   "tasks": {
-    "active": 1,
+    "active": 0,
     "completed_today": 0,
-    "total_completed": 164,
-    "total": 210
+    "total_completed": 165,
+    "total": 212
   },
   "workers": {
     "active": 0,
-    "runs_30d": 248,
-    "succeeded_30d": 98,
-    "failed_30d": 150,
+    "runs_30d": 241,
+    "succeeded_30d": 96,
+    "failed_30d": 145,
     "success_rate_30d": 39,
-    "by_agent": [{"agent":"programmer","runs":149,"success_rate":59},
+    "by_agent": [{"agent":"programmer","runs":142,"success_rate":61},
 {"agent":"researcher","runs":91,"success_rate":4},
 {"agent":"writer","runs":3,"success_rate":100},
 {"agent":"architect","runs":3,"success_rate":33},
 {"agent":"main","runs":2,"success_rate":50}]
   },
   "tokens_30d": {
-    "input": 88321785,
-    "output": 1150693,
-    "total": 89472478
+    "input": 87467969,
+    "output": 1134219,
+    "total": 88602188
   },
   "live_workers": [],
   "recent_activity": [{"type":"completed","agent":"programmer","provider":"minimax","timestamp":"2026-04-15T06:11:55.415Z"},
@@ -49,5 +49,5 @@
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-14T02:32:17.783Z"},
 {"type":"completed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-14T02:01:17.309Z"},
 {"type":"failed","agent":"programmer","provider":"anthropic","timestamp":"2026-04-13T03:13:21.327Z"}],
-  "generated_at": "2026-04-19T07:15:09.000Z"
+  "generated_at": "2026-04-20T07:15:17.000Z"
 }
