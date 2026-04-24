@@ -685,6 +685,30 @@ sqlite3 ~/.lobs/lobs.db \
 
       <div class="project-card reveal" data-expanded="false">
         <div class="card-top">
+          <div class="card-icon">SQ</div>
+          <div class="card-text-head">
+            <div class="card-tag">squad</div>
+            <h3>Squad</h3>
+          </div>
+          <div class="card-expand-btn" aria-label="Expand">+</div>
+        </div>
+        <p>Open-source multi-agent orchestration platform. Gateway-centric, connector-based, Docker-first. Built to replace brittle script-based orchestration with a proper abstraction layer for running coordinated multi-agent workflows in production.</p>
+        <div class="card-meta">
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">Gateway</span><span class="meta-chip">Current</span>
+        </div>
+        <div class="card-expanded-content">
+          <div class="expanded-divider"></div>
+          <div class="expanded-grid">
+            <div class="exp-item"><span class="exp-icon">GC</span><div><h5>Gateway Architecture</h5><p>Central gateway handles agent registration, message routing, and session management. All agents communicate through the gateway — no direct peer connections.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">CN</span><div><h5>Connector Model</h5><p>Pluggable connectors for Discord, Slack, web, CLI. Add new platforms without touching core logic.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">DK</span><div><h5>Docker-First</h5><p>Each agent runs in its own container. Isolation, reproducibility, and easy deployment with docker-compose.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">WO</span><div><h5>Workflow Orchestration</h5><p>DAG-based workflow definition with state management, retries, and rollback support.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-expanded="false">
+        <div class="card-top">
           <div class="card-icon">ME</div>
           <div class="card-text-head">
             <div class="card-tag">lobs-memory</div>
@@ -740,9 +764,9 @@ sqlite3 ~/.lobs/lobs.db \
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Web apps hosted on lobslab.com subdomains. Crapuler (UMich course watchlist), Ballz (physics toy), Stellar Siege (cosmic RTS), and more. Each app runs in Docker with Caddy reverse proxy. About 16k lines of code plus course catalog data.</p>
+        <p>Web apps and mobile projects hosted on lobslab.com. Crapuler (UMich course watchlist), Ballz (physics toy), Stellar Siege (cosmic RTS), Grandmas Stories (family story recording), Over the Horizon (iOS AR). Each app runs in Docker with Caddy reverse proxy.</p>
         <div class="card-meta">
-          <span class="meta-chip">JavaScript</span><span class="meta-chip">Docker</span><span class="meta-chip">Caddy</span><span class="meta-chip">16k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">JavaScript</span><span class="meta-chip">Swift</span><span class="meta-chip">Docker</span><span class="meta-chip">Caddy</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -750,6 +774,8 @@ sqlite3 ~/.lobs/lobs.db \
             <div class="exp-item"><span class="exp-icon">CR</span><div><h5>Crapuler</h5><p>UMich course section watchlist. Monitors registration status and alerts when seats open. Backed by 50k lines of course catalog JSON data.</p></div></div>
             <div class="exp-item"><span class="exp-icon">BZ</span><div><h5>Ballz</h5><p>Physics sandbox with 10k lines of vanilla JavaScript. Bouncing balls with collision, gravity, and interactive controls.</p></div></div>
             <div class="exp-item"><span class="exp-icon">SS</span><div><h5>Stellar Siege</h5><p>Cosmic real-time strategy game. Conquer star systems, build fleets, and manage resources across a procedurally generated galaxy.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">GS</span><div><h5>Grandma's Stories</h5><p>iOS app for recording and sharing family stories. Voice recording, tagging, and a beautiful timeline for replaying memories.</p></div></div>
+            <div class="exp-item"><span class="exp-icon">OT</span><div><h5>Over the Horizon</h5><p>iOS AR app that overlays location names on the live camera feed. Point your camera at a landmark and see its name floating in 3D space above it.</p></div></div>
             <div class="exp-item"><span class="exp-icon">DK</span><div><h5>Docker + Caddy Stack</h5><p>Each app containerized independently. Caddy handles automatic TLS and subdomain routing. Add a new app with a Dockerfile and one compose entry.</p></div></div>
           </div>
         </div>
