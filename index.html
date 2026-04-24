@@ -28,7 +28,7 @@
     <a class="toc-dot" href="#numbers" data-section="numbers" title="Numbers"><span class="toc-label">Numbers</span></a>
     <a class="toc-dot" href="#pulse" data-section="pulse" title="Live Pulse"><span class="toc-label">Live Pulse</span></a>
     <a class="toc-dot" href="#architecture" data-section="architecture" title="Architecture"><span class="toc-label">Architecture</span></a>
-    <a class="toc-dot" href="#how-it-works" data-section="how-it-works" title="How It Works"><span class="toc-label">How It Works</span></a>
+    <a class="toc-dot" href="#squad-features" data-section="squad-features" title="Squad Features"><span class="toc-label">Squad Features</span></a>
     <a class="toc-dot" href="#projects" data-section="projects" title="Projects"><span class="toc-label">Projects</span></a>
     <a class="toc-dot" href="#timeline" data-section="timeline" title="Timeline"><span class="toc-label">Timeline</span></a>
     <a class="toc-dot" href="#journal" data-section="journal" title="Blog"><span class="toc-label">Blog</span></a>
@@ -88,38 +88,38 @@
 
   <div class="container">
     <div class="hero-content">
-      <div class="hero-badge"><span class="badge-dot"></span>lobs-core · Standalone Agent Runtime</div>
+      <div class="hero-badge"><span class="badge-dot"></span>Squad · Multi-Agent Orchestration</div>
       <h1 class="hero-title">
-        Building the most<br/>
-        <span class="gradient-text">advanced personal<br/>AI agent system.</span>
+        The open-source platform<br/>
+        for <span class="gradient-text">multi-agent<br/>orchestration.</span>
       </h1>
       <p class="hero-tagline">
-        <span id="typing-text"></span><span class="typing-cursor">|</span>
+        Gateway-centric. Connector-based. Docker-first. Subagents, tasks, and ask-user as native protocol primitives — not markdown hacks.
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="8">0</span>
-          <span class="hero-stat-label">versions shipped</span>
+          <span class="hero-stat-num" data-target="1">0</span>
+          <span class="hero-stat-label">open-source platform</span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="6">0</span>
-          <span class="hero-stat-label">specialized agents</span>
+          <span class="hero-stat-num" data-target="24">0</span>
+          <span class="hero-stat-label">LLM providers</span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <span class="hero-stat-num" data-target="20">0</span>
-          <span class="hero-stat-label">active workflows</span>
+          <span class="hero-stat-num">∞</span>
+          <span class="hero-stat-label">subagent parallelism</span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <span class="hero-stat-num">24/7</span>
-          <span class="hero-stat-label">autonomous operation</span>
+          <span class="hero-stat-num">3</span>
+          <span class="hero-stat-label">native primitives</span>
         </div>
       </div>
       <div class="hero-cta">
-        <a href="#story" class="btn-primary">Read the Story</a>
-        <a href="#architecture" class="btn-secondary">See the Architecture →</a>
+        <a href="https://github.com/lobs-ai/squad" class="btn-primary">View on GitHub →</a>
+        <a href="#squad-features" class="btn-secondary">See How It Works →</a>
       </div>
     </div>
   </div>
@@ -286,19 +286,19 @@
     <p class="section-desc reveal reveal-delay-2" style="text-align:center;margin:0 auto 56px;">Real numbers from a system that actually runs in production, every day.</p>
     <div class="stats-grid">
       <div class="stat-card reveal">
-        <div class="stat-num counter" data-target="8">0</div>
-        <div class="stat-unit">versions shipped</div>
-        <div class="stat-detail">v1 task framework → v8 standalone runtime. Eight hard ceilings hit and broken through in under three months.</div>
+        <div class="stat-num">∞</div>
+        <div class="stat-unit">subagent parallelism</div>
+        <div class="stat-detail">Native protocol, not markdown. Subagents, tasks, and ask-user are first-class — spawned in parallel without brittle tool hacks.</div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-num counter" data-target="6">0</div>
-        <div class="stat-unit">agent types</div>
-        <div class="stat-detail">Lobs, Programmer, Writer, Researcher, Reviewer, and Architect. Each has its own model tier and tool configuration.</div>
+        <div class="stat-num">24</div>
+        <div class="stat-unit">LLM providers</div>
+        <div class="stat-detail">Squad routes to OpenAI, Anthropic, Google, xAI, Mistral, Groq, and 19 more — unified via a connector-based adapter layer.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num counter" data-target="20">0</div>
-        <div class="stat-unit">active workflow definitions</div>
-        <div class="stat-detail">Multi-step DAGs covering code, research, review, and reporting flows. State machines with branching and rollback.</div>
+        <div class="stat-unit">workflows defined</div>
+        <div class="stat-detail">DAG-based workflows with branching, rollback, and cron scheduling. Express complex multi-step coordination declaratively.</div>
       </div>
       <div class="stat-card reveal reveal-delay-3">
         <div class="stat-num counter" data-target="5">0</div>
@@ -442,58 +442,58 @@
 
 <div class="diagonal-divider diagonal-alt" aria-hidden="true"></div>
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works">
+<!-- SQUAD FEATURES -->
+<section id="squad-features">
   <div class="container">
-    <p class="section-label reveal">End-to-End Flow</p>
-    <h2 class="section-title reveal reveal-delay-1">How It <span class="gradient-text">Actually Works</span></h2>
+    <p class="section-label reveal">How It Works</p>
+    <h2 class="section-title reveal reveal-delay-1">Squad Under the <span class="gradient-text">Hood</span></h2>
     <p class="section-desc reveal reveal-delay-2">From a message to a completed deliverable: six steps, zero manual intervention after the first.</p>
     <div class="flow-steps">
       <div class="flow-step reveal">
         <div class="flow-step-num">01</div>
         <div class="flow-step-content">
-          <h4>Rafe sends a message or creates a task</h4>
-          <p>Via Discord DM, the iOS app, or directly in the task database. Natural language and structured input both work.</p>
+          <h4>Message arrives via a connector</h4>
+          <p>Discord, Slack, web, CLI — any supported platform. Connectors normalize incoming messages into Squad's internal protocol.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
       <div class="flow-step reveal reveal-delay-1">
         <div class="flow-step-num">02</div>
         <div class="flow-step-content">
-          <h4>Lobs triages and routes</h4>
-          <p>Reads the request, determines urgency and agent type, breaks it into subtasks if needed, and writes it to the task queue with the right model tier.</p>
+          <h4>Gateway routes to the right agent</h4>
+          <p>All agents register with the gateway. The gateway handles routing, session management, and ensuring no message gets lost.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
       <div class="flow-step reveal reveal-delay-2">
         <div class="flow-step-num">03</div>
         <div class="flow-step-content">
-          <h4>lobs-core orchestrator matches to a workflow</h4>
-          <p>The control loop picks up active tasks, matches them to workflow definitions if applicable, and sequences the work across multiple agent types.</p>
+          <h4>Task primitives execute in parallel</h4>
+          <p>Tasks, subagents, and ask-user are native protocol types — not markdown hacks. Parallel execution without race conditions.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
       <div class="flow-step reveal reveal-delay-1">
         <div class="flow-step-num">04</div>
         <div class="flow-step-content">
-          <h4>Model chooser selects the right tier</h4>
-          <p>Based on task complexity, agent type, and cost budget. If a model fails, the circuit breaker triggers an automatic fallback up the tier chain.</p>
+          <h4>LLM adapter routes to your provider</h4>
+          <p>OpenAI, Anthropic, Google, xAI, Mistral, Groq, and 19 more. One unified interface — swap providers with a config change.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
       <div class="flow-step reveal reveal-delay-2">
         <div class="flow-step-num">05</div>
         <div class="flow-step-content">
-          <h4>Worker agent spawns and executes</h4>
-          <p>A sandboxed agent session fires up with the appropriate agent config, workspace, and tool access. Max 2 concurrent workers. 15-minute timeout enforced.</p>
+          <h4>Plugins extend capability</h4>
+          <p>The plugin API exposes hooks for every lifecycle event. Memory, tools, post-processing — write once, run in any agent.</p>
         </div>
       </div>
       <div class="flow-connector" aria-hidden="true"><div class="fc-line"></div></div>
       <div class="flow-step reveal">
         <div class="flow-step-num">06</div>
         <div class="flow-step-content">
-          <h4>Results captured, task completed, learning stored</h4>
-          <p>Worker output lands in the task DB. Lessons learned feed into shared memory. Rafe gets a quiet notification only when it matters.</p>
+          <h4>Results route back through the gateway</h4>
+          <p>Responses serialize through the same connector they came in on. Done.</p>
         </div>
       </div>
     </div>
@@ -501,21 +501,22 @@
     <div class="code-snippet reveal reveal-delay-2">
       <div class="snippet-header">
         <span class="snippet-dot r"></span><span class="snippet-dot y"></span><span class="snippet-dot g"></span>
-        <span class="snippet-lang">bash, create a task directly</span>
+        <span class="snippet-lang">squad.config.ts</span>
       </div>
-      <pre class="snippet-body"><code><span class="c"># Insert a task into the lobs-core DB. The orchestrator picks it up within 10s</span>
-sqlite3 ~/.lobs/lobs.db \
-  <span class="s">"INSERT INTO tasks
-     (id, title, status, agent, model_tier, notes, created_at, updated_at)
-   VALUES (
-     lower(hex(randomblob(16))),
-     <span class="ss">'Refactor auth module to use JWT'</span>,
-     <span class="ss">'active'</span>, <span class="ss">'programmer'</span>, <span class="ss">'standard'</span>,
-     <span class="ss">'Follow existing patterns in /src/auth. Add tests.'</span>,
-     datetime(<span class="ss">'now'</span>), datetime(<span class="ss">'now'</span>)
-   );"</span>
+      <pre class="snippet-body"><code><span class="k">import</span> { defineConfig } <span class="k">from</span> <span class="ss">'@squad/core'</span>
 
-<span class="c"># Worker spawns, codes, commits, reports back. Zero babysitting.</span></code></pre>
+export <span class="k">default</span> <span class="fn">defineConfig</span>({
+  agents: {
+    orchestrator: <span class="ss">'discord'</span>,
+    workers: [<span class="ss">'programmer'</span>, <span class="ss">'reviewer'</span>],
+  },
+  connectors: [
+    <span class="fn">discord</span>({ token: process.env.<span class="ss">DISCORD_TOKEN</span> }),
+    <span class="fn">slack</span>({ token: process.env.<span class="ss">SLACK_TOKEN</span> }),
+  ],
+  llm: <span class="fn">openai</span>({ model: <span class="ss">'gpt-4o'</span> }),
+  plugins: [<span class="fn">memory</span>(), <span class="fn">websearch</span>()],
+})</code></pre>
     </div>
   </div>
 </section>

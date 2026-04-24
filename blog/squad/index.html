@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squad: Open-Source Multi-Agent Orchestration · LobsLab</title>
+  <meta name="description" content="Squad is a gateway-centric, connector-based, Docker-first platform for running coordinated multi-agent workflows in production.">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Squad: Open-Source Multi-Agent Orchestration">
+  <meta property="og:description" content="Gateway-centric, connector-based, Docker-first. Subagents, tasks, and ask-user as native protocol primitives — not markdown hacks.">
+  <meta property="og:type" content="article">
+</head>
+<body>
+  <nav class="blog-nav">
+    <a href="/" class="blog-nav-logo">lobslab</a>
+    <a href="/blog">← All Posts</a>
+  </nav>
+
+  <main class="blog-post">
+    <header class="post-header">
+      <div class="post-meta">
+        <span class="post-tag">Platform</span>
+        <span class="post-date">April 24, 2026</span>
+        <span class="post-read">6 min read</span>
+      </div>
+      <h1 class="post-title">Squad: Open-Source Multi-Agent Orchestration</h1>
+      <p class="post-subtitle">Gateway-centric. Connector-based. Docker-first. Subagents, tasks, and ask-user as native protocol primitives — not markdown hacks.</p>
+    </header>
+
+    <div class="post-body">
+      <p>I built lobs-core over eight versions. Each time, the bottleneck wasn't the agent itself — it was coordination. Running one agent is easy. Running a team of agents that need to talk to each other, share state, spawn subagents, and route requests across platforms? That's where every framework falls apart.</p>
+
+      <p>Squad is what I built to solve that properly.</p>
+
+      <h2>The Problem with Script-Based Orchestration</h2>
+
+      <p>Most agent coordination today happens one of two ways: either a single monolithic agent that tries to do everything, or a mess of scripts that trigger other scripts with bash pipes and prayer.</p>
+
+      <p>The first approach hits ceiling after ceiling as you add capability. The second approach is <em>technically</em> functional but breaks the moment you need anything more than a linear pipeline. What happens when a subagent fails? When you need parallel execution? When you need to route a question back to the user mid-workflow?</p>
+
+      <p>Most frameworks patch around these with markdown instructions and hope the LLM follows them. Squad treats coordination as a first-class concern with native protocol support.</p>
+
+      <h2>The Gateway: Center of Everything</h2>
+
+      <p>Squad's architecture has one core principle: <strong>the gateway is the center of everything</strong>.</p>
+
+      <pre><code>Connector (Discord, Slack, API...) → Gateway → Agent Runtime (Ollama, OpenAI...)</code></pre>
+
+      <p>All agents register with the gateway. All communication flows through the gateway. This means:</p>
+
+      <ul>
+        <li><strong>Session management is centralized</strong> — no lost messages, no orphaned sessions</li>
+        <li><strong>Routing is smart</strong> — the gateway knows which agents are available and what they're doing</li>
+        <li><strong>Connectors are stateless</strong> — they just normalize messages and forward them, no agent logic lives there</li>
+        <li><strong>You can run a Discord bot and a Slack bot with the same agent</strong> — same brain, different faces</li>
+      </ul>
+
+      <h2>Connectors: One Agent, Many Faces</h2>
+
+      <p>Connectors are adapters for each platform. Discord, Slack, HTTP, CLI — they all look the same from the gateway's perspective. The connector converts the platform's protocol into Squad's internal message format, and vice versa on the way back.</p>
+
+      <p>This means you can:</p>
+
+      <ul>
+        <li>Swap Discord for Slack by swapping the connector — zero changes to agents</li>
+        <li>Deploy connectors anywhere — same machine or different servers</li>
+        <li>Build new connectors in any language — the protocol is open</li>
+      </ul>
+
+      <h2>Native Primitives</h2>
+
+      <p>The three core coordination primitives in Squad are:</p>
+
+      <p><strong>Tasks</strong> — Work items with state, ownership, and lifecycle. A task can fail, be retried, or spawn sub-tasks. The gateway tracks task state so nothing gets lost.</p>
+
+      <p><strong>Subagents</strong> — Spawning a subagent isn't a markdown instruction, it's a protocol message. The gateway handles spawning, routing, and result collection. You get parallelism without race conditions.</p>
+
+      <p><strong>Ask-user</strong> — Per-channel, blocking. The gateway pauses the workflow and asks the user a specific question before continuing. Not a tool, not a markdown instruction — a first-class protocol primitive.</p>
+
+      <h2>Pluggable Runtimes</h2>
+
+      <p>Squad doesn't care what model you use. The runtime interface is clean and swappable. Currently supported:</p>
+
+      <ul>
+        <li>OpenAI (GPT-4o, GPT-4o-mini, o1, o3, o4-mini)</li>
+        <li>Anthropic (Claude 3.5, 3.7, 4.0)</li>
+        <li>Google (Gemini 2.0, 2.5, Flash, Pro)</li>
+        <li>xAI (Grok 3, 2, 1.5)</li>
+        <li>Mistral (Large, Medium, Small)</li>
+        <li>Groq (Llama, Mixtral)</li>
+        <li>AWS Bedrock, Azure OpenAI, OpenRouter, Cloudflare Workers AI, Cohere, Replicate, and 14 more</li>
+      </ul>
+
+      <p>Swap providers with a config change. Test the same workflow against different models without rewriting anything.</p>
+
+      <h2>Plugin API</h2>
+
+      <p>The plugin system exposes hooks for every lifecycle event. Write once, run in any agent. Plugins handle:</p>
+
+      <ul>
+        <li>Pre/post message processing</li>
+        <li>Memory layer management</li>
+        <li>Custom tools and tool routing</li>
+        <li>Metrics and observability</li>
+      </ul>
+
+      <h2>Docker-First</h2>
+
+      <p>Every agent runs in its own container. Isolation, reproducibility, and one command to deploy. The Docker Compose setup gets you a full Squad environment in under a minute:</p>
+
+      <pre><code>git clone https://github.com/lobs-ai/squad.git
+cd squad
+docker compose up</code></pre>
+
+      <h2>Status</h2>
+
+      <p>Gateway core and basic connectors are working. The agent runtime, workflow engine, and full plugin system are in progress. See <a href="https://github.com/lobs-ai/squad/blob/main/SPEC.md">SPEC.md</a> for the complete design specification.</p>
+
+      <h2>What's Next</h2>
+
+      <p>The workflow engine is the biggest remaining piece — DAG-based workflow definitions with branching, rollback, and cron scheduling. Then the observability layer: structured logs, traces, and a UI to see what's happening across your agents in real time.</p>
+
+      <p>If you want to follow along or contribute, the repo is at <a href="https://github.com/lobs-ai/squad">github.com/lobs-ai/squad</a>.</p>
+    </div>
+  </main>
+
+  <footer class="blog-footer">
+    <p>Built by <a href="https://lobslab.com">LobsLab</a> · <a href="https://github.com/lobs-ai/squad">GitHub</a></p>
+  </footer>
+</body>
+</html>
