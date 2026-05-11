@@ -308,7 +308,7 @@
       <div class="stat-card reveal reveal-delay-1">
         <div class="stat-num counter" data-target="147000">0</div>
         <div class="stat-unit">lines of platform TypeScript</div>
-        <div class="stat-detail">Total lines across owned source directories in lobs-core (80k), lobs-nexus (20k), lobs-sentinel (7k), companion (7k), lobs-memory (8k), lobs-mobile (6k), agentic (8k), lobs-vim (3k), jot (4k), and supporting services.</div>
+        <div class="stat-detail">Total lines across owned source directories in lobs-core (106k), lobs-nexus (22k), lobs-sentinel (2k), companion (20k), lobs-memory (4k), lobs-mobile (5k), agentic (9k), lobs-vim (3k), jot (5k), lobs-voice (1k), website (5k), and supporting services.</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-num">24/7</div>
@@ -530,7 +530,7 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
   <div class="container">
     <p class="section-label reveal">Sub-Projects</p>
     <h2 class="section-title reveal reveal-delay-1">The <span class="gradient-text">Building Blocks</span></h2>
-    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 67k, companion 20k, lobs-nexus 19k, agentic 9k, lobs-mobile 5.6k, jot 5k, lobs-memory 3k, lobs-vim 2.1k, lobs-sentinel 1.2k, lobs-voice 0.5k, website 4.5k.</p>
+    <p class="section-desc reveal reveal-delay-2">Interlocking projects that make up the Lobs AI ecosystem. Current owned-code footprint by <code>cloc</code>: lobs-core 106k, companion 20k, lobs-nexus 22k, agentic 9k, lobs-mobile 5k, jot 5k, lobs-memory 4k, lobs-vim 3k, lobs-sentinel 2k, lobs-voice 1k, website 5k.</p>
     <div class="projects-grid">
 
       <div class="project-card reveal" data-expanded="false">
@@ -542,9 +542,9 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, voice pipeline, and live meeting transcription — all in one. Current owned source footprint: about 67k lines of code by <code>cloc</code>.</p>
+        <p>The standalone agent runtime. TypeScript monorepo that runs as its own Node.js process. Orchestrator, agent runner, context engine, workflow system, HTTP server, Discord bot, voice pipeline, and live meeting transcription — all in one. Current owned source footprint: about 106k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">67k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">SQLite</span><span class="meta-chip">Node.js</span><span class="meta-chip">106k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -572,9 +572,9 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Includes agent chat, live meeting transcription with AI activity feed, and brain dump task capture. Current owned frontend footprint: about 19k lines of code by <code>cloc</code>.</p>
+        <p>React + Vite web dashboard served directly by lobs-core. Real-time monitoring of agents, tasks, workflow runs, and system health. Includes agent chat, live meeting transcription with AI activity feed, and brain dump task capture. Current owned frontend footprint: about 22k lines of code by <code>cloc</code>.</p>
         <div class="card-meta">
-          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">19k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">React</span><span class="meta-chip">Vite</span><span class="meta-chip">Tailwind</span><span class="meta-chip">22k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -597,9 +597,9 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 2.1k lines across Lua and TypeScript.</p>
+        <p>AI coding agent for Neovim. Reasoning runs on lobs-core, tools execute locally in your editor. File editing, shell commands, search — all with an approval system for dangerous operations. About 500 lines across Lua and TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">2.1k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Lua</span><span class="meta-chip">TypeScript</span><span class="meta-chip">Neovim</span><span class="meta-chip">3k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -621,9 +621,9 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 1.2k lines of TypeScript.</p>
+        <p>Persistent single-purpose AI agents for GitHub. Each sentinel runs in Docker, watches repos, and performs one job: reviewing PRs, triaging issues, or auto-labeling. Multi-provider LLM support (Anthropic + OpenAI). About 2k lines of TypeScript.</p>
         <div class="card-meta">
-          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">1.2k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">TypeScript</span><span class="meta-chip">Docker</span><span class="meta-chip">GitHub API</span><span class="meta-chip">2k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -645,9 +645,9 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
           </div>
           <div class="card-expand-btn" aria-label="Expand">+</div>
         </div>
-        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 500 lines of Python and shell scripts.</p>
+        <p>Local STT + TTS sidecar services for Discord voice integration. Whisper.cpp handles speech-to-text, Chatterbox handles text-to-speech. The voice module in lobs-core bridges Discord voice channels to the agent pipeline. About 1k lines of Python and shell scripts.</p>
         <div class="card-meta">
-          <span class="meta-chip">Python</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">0.5k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Python</span><span class="meta-chip">Whisper.cpp</span><span class="meta-chip">Chatterbox TTS</span><span class="meta-chip">1k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
@@ -671,7 +671,7 @@ export <span class="k">default</span> <span class="fn">defineConfig</span>({
         </div>
         <p>iOS companion app for staying connected to your agents on the go. Check task status, receive completions, and interact with Lobs from your phone.</p>
         <div class="card-meta">
-          <span class="meta-chip">Swift</span><span class="meta-chip">iOS</span><span class="meta-chip">Push notifications</span><span class="meta-chip">5.6k LOC</span><span class="meta-chip">Current</span>
+          <span class="meta-chip">Swift</span><span class="meta-chip">iOS</span><span class="meta-chip">Push notifications</span><span class="meta-chip">5k LOC</span><span class="meta-chip">Current</span>
         </div>
         <div class="card-expanded-content">
           <div class="expanded-divider"></div>
